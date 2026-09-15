@@ -1,55 +1,14 @@
 "use client";
 
-import { useScroll } from "@react-three/drei";
-import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
 
 export default function HtmlOverlays() {
-  const scroll = useScroll();
-  
-  // Refs for fading HTML sections based on scroll
-  const heroRef = useRef<HTMLDivElement>(null);
-  const techRef = useRef<HTMLDivElement>(null);
-  const methodologyRef = useRef<HTMLDivElement>(null);
-  const evidenceRef = useRef<HTMLDivElement>(null);
-  const servicesRef = useRef<HTMLDivElement>(null);
-
-  useFrame(() => {
-    const t = scroll.offset;
-    
-    // Fade Hero Out
-    if (heroRef.current) {
-      heroRef.current.style.opacity = `${1 - t * 10}`; // fades out quickly
-      heroRef.current.style.transform = `translateY(${t * 200}px)`;
-    }
-    
-    // Fade Tech In/Out (Robot Section)
-    if (techRef.current) {
-      const opacity = Math.sin((t - 0.2) * Math.PI * 3);
-      techRef.current.style.opacity = `${Math.max(0, opacity)}`;
-    }
-    
-    // Fade Evidence In
-    if (evidenceRef.current) {
-       const opacity = Math.sin((t - 0.5) * Math.PI * 3);
-       evidenceRef.current.style.opacity = `${Math.max(0, opacity)}`;
-    }
-    // Fade Services In
-    if (servicesRef.current) {
-       const opacity = Math.sin((t - 0.7) * Math.PI * 3);
-       servicesRef.current.style.opacity = `${Math.max(0, opacity)}`;
-    }
-  });
-
   return (
-    <div className="w-full text-foreground relative h-full">
+    <div className="w-full text-foreground relative z-10 flex flex-col">
       
-      {/* PAGE 0: HERO */}
-      <section 
-        ref={heroRef}
-        className="absolute top-0 left-0 w-full h-screen flex flex-col justify-center px-6 lg:px-20 z-10 pointer-events-none"
-      >
-        <div className="max-w-7xl mx-auto w-full">
+      {/* PAGE 0: HERO (100vh) */}
+      <section className="w-full h-[150vh] flex flex-col justify-start pt-32 px-6 lg:px-20 pointer-events-none">
+        <div className="max-w-7xl mx-auto w-full sticky top-32">
           <h1 className="text-6xl md:text-8xl font-display font-bold tracking-tighter leading-[0.9] text-balance">
             PRECISION.<br/>
             TECHNOLOGY.<br/>
@@ -69,12 +28,12 @@ export default function HtmlOverlays() {
         </div>
       </section>
 
+      {/* SPACE FILLER FOR DUCT ENTRY (150vh) */}
+      <div className="h-[150vh]"></div>
+
       {/* PAGE 3: TECHNOLOGY (Over robot) */}
-      <section
-        ref={techRef}
-        className="absolute top-[300vh] left-0 w-full h-screen flex flex-col justify-center px-6 lg:px-20 z-10 pointer-events-none"
-      >
-        <div className="max-w-7xl mx-auto w-full grid grid-cols-2">
+      <section className="w-full h-[200vh] flex flex-col justify-start px-6 lg:px-20 pointer-events-none">
+        <div className="max-w-7xl mx-auto w-full grid grid-cols-2 sticky top-1/3">
           <div className="col-span-1 flex flex-col gap-8">
             <span className="font-mono text-brand-cyan text-sm tracking-[0.3em]">01 / THE ROBOT</span>
             <h2 className="text-5xl font-display font-bold tracking-tighter leading-tight">
@@ -92,12 +51,9 @@ export default function HtmlOverlays() {
       </section>
       
       {/* PAGE 5: DIGITAL EVIDENCE */}
-      <section
-        ref={evidenceRef}
-        className="absolute top-[500vh] left-0 w-full h-screen flex flex-col justify-center px-6 lg:px-20 z-10 pointer-events-none"
-      >
-        <div className="max-w-7xl mx-auto w-full flex justify-end">
-          <div className="w-1/2 glass-dark p-12 flex flex-col gap-6 pointer-events-auto">
+      <section className="w-full h-[200vh] flex flex-col justify-start px-6 lg:px-20 pointer-events-none">
+        <div className="max-w-7xl mx-auto w-full flex justify-end sticky top-1/3">
+          <div className="w-full md:w-1/2 glass-dark p-12 flex flex-col gap-6 pointer-events-auto shadow-2xl border border-white/10 rounded-lg">
              <span className="font-mono text-brand-cyan text-sm tracking-[0.3em]">02 / EVIDENCE</span>
              <h2 className="text-4xl font-display font-bold tracking-tighter">DIGITAL PROOF</h2>
              <p className="text-muted">
@@ -118,11 +74,8 @@ export default function HtmlOverlays() {
       </section>
 
       {/* PAGE 7: SERVICES & COMPLIANCE */}
-      <section
-        ref={servicesRef}
-        className="absolute top-[700vh] left-0 w-full h-screen flex flex-col justify-center px-6 lg:px-20 z-10 pointer-events-none"
-      >
-        <div className="max-w-7xl mx-auto w-full grid grid-cols-2 gap-16 pointer-events-auto">
+      <section className="w-full min-h-screen flex flex-col justify-center px-6 lg:px-20 bg-background pointer-events-auto py-32 z-20 shadow-[0_-50px_100px_rgba(0,0,0,0.5)] relative">
+        <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-16">
           {/* Services Explorer */}
           <div className="flex flex-col gap-8">
             <span className="font-mono text-brand-cyan text-sm tracking-[0.3em]">03 / EXPERTISE</span>
@@ -140,7 +93,7 @@ export default function HtmlOverlays() {
           </div>
           
           {/* Compliance & WA Map */}
-          <div className="flex flex-col justify-between p-12 bg-surface rounded-lg border border-border">
+          <div className="flex flex-col justify-between p-12 bg-surface rounded-lg border border-border shadow-2xl">
             <div className="flex flex-col gap-4">
               <span className="font-mono text-brand-blue text-sm tracking-[0.3em]">04 / ASSURANCE</span>
               <h2 className="text-4xl font-display font-bold tracking-tighter text-foreground">

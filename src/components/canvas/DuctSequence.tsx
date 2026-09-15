@@ -1,20 +1,19 @@
 "use client";
 
-import { useScroll } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
 import * as THREE from "three";
 import RobotPlaceholder from "./RobotPlaceholder";
 import DuctEnvironment from "./DuctEnvironment";
+import { useScrollStore } from "@/store/scrollStore";
 
 export default function DuctSequence() {
-  const scroll = useScroll();
   const greaseMesh = useRef<THREE.Mesh>(null);
   
   useFrame(() => {
-    // Scroll offset controls the Dirty -> Clean cross section
+    // Scroll progress controls the Dirty -> Clean cross section
     // Between page 2 and 4, we melt away the grease
-    const t = scroll.offset;
+    const t = useScrollStore.getState().progress;
     if (greaseMesh.current) {
       if (t > 0.2 && t < 0.4) {
         // Map 0.2-0.4 to opacity 1 -> 0

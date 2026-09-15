@@ -1,12 +1,11 @@
 "use client";
 
-import { useScroll } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
 import { useRef } from "react";
 import * as THREE from "three";
+import { useScrollStore } from "@/store/scrollStore";
 
 export default function CinematicCamera() {
-  const scroll = useScroll();
   const { camera } = useThree();
   const cameraGroup = useRef<THREE.Group>(null);
   
@@ -26,8 +25,8 @@ export default function CinematicCamera() {
   useFrame((state, delta) => {
     if (!cameraGroup.current) return;
     
-    // scroll.offset goes from 0 to 1 over the entire scroll height
-    const t = scroll.offset;
+    // progress goes from 0 to 1 over the entire native scroll height
+    const t = useScrollStore.getState().progress;
     
     // Get position on curve
     const position = curve.getPointAt(t);

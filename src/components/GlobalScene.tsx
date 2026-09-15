@@ -1,10 +1,9 @@
 "use client";
 
 import { Canvas } from "@react-three/fiber";
-import { ScrollControls, Scroll, Environment, Preload } from "@react-three/drei";
+import { Environment, Preload } from "@react-three/drei";
 import CinematicCamera from "./canvas/CinematicCamera";
 import DuctSequence from "./canvas/DuctSequence";
-import HtmlOverlays from "./HtmlOverlays";
 import { Suspense } from "react";
 
 export default function GlobalScene() {
@@ -19,19 +18,12 @@ export default function GlobalScene() {
         <directionalLight position={[10, 20, 10]} intensity={2} castShadow />
 
         <Suspense fallback={null}>
-          <ScrollControls pages={8} damping={0.2}>
-            {/* The Master Camera that drives the experience */}
-            <CinematicCamera />
+          {/* The Master Camera that drives the experience */}
+          <CinematicCamera />
+          
+          {/* 3D Environments */}
+          <DuctSequence />
             
-            {/* 3D Environments */}
-            <DuctSequence />
-            
-            {/* HTML Layer synced to Scroll */}
-            <Scroll html style={{ width: "100%" }}>
-              <HtmlOverlays />
-            </Scroll>
-            
-          </ScrollControls>
           <Environment preset="city" />
           <Preload all />
         </Suspense>
