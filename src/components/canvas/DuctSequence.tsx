@@ -1,41 +1,86 @@
 "use client";
 
 import { useFrame } from "@react-three/fiber";
-import { useRef, useEffect } from "react";
+import { useRef, useMemo } from "react";
 import * as THREE from "three";
 import RobotPlaceholder from "./RobotPlaceholder";
 import DuctEnvironment from "./DuctEnvironment";
 import { useScrollStore } from "@/store/scrollStore";
-import { RectAreaLightUniformsLib } from 'three/examples/jsm/lights/RectAreaLightUniformsLib.js';
+import { Text } from "@react-three/drei";
 
 export default function DuctSequence() {
   const greaseMesh = useRef<THREE.Mesh>(null);
-  const cleanEnvGroup = useRef<THREE.Group>(null);
+  const verifyText = useRef<THREE.Group>(null);
   
-  useEffect(() => {
-    // Initialize RectAreaLight logic
-    RectAreaLightUniformsLib.init();
-  }, []);
+  // High-performance particle steam effect using InstancedMesh
+  const particleCount = 100;
+  const dummy = useMemo(() => new THREE.Object3D(), []);
+  const particlesRef = useRef<THREE.InstancedMesh>(null);
   
-  useFrame(() => {
+  useFrame((state, delta) => {
     const t = useScrollStore.getState().progress;
     
-    // Physical Grease Retreat
-    // Instead of fading opacity, we shrink it along the Z axis to reveal clean metal behind it
+    // 1. Grease Retreat (Scrubbed with Scroll 0.4 to 0.7)
     if (greaseMesh.current) {
-      if (t < 0.2) {
+      if (t < 0.4) {
         greaseMesh.current.scale.z = 1;
-        greaseMesh.current.position.z = -15;
-      } else if (t >= 0.2 && t < 0.45) {
-        // Map 0.2-0.45 to scale Z 1 -> 0.01
-        const progress = (t - 0.2) * 4; 
-        const newZScale = Math.max(0.01, 1 - progress);
+        greaseMesh.current.position.z = -15; // Starting position
+      } else if (t >= 0.4 && t < 0.7) {
+        const progress = (t - 0.4) * (1 / 0.3); // Map 0.4-0.7 to 0-1
+        const newZScale = Math.max(0.001, 1 - progress);
         greaseMesh.current.scale.z = newZScale;
-        // Shift position so it retreats backwards rather than scaling from center
+        // Shift position backwards so the front edge physically retreats
         greaseMesh.current.position.z = -15 - ((1 - newZScale) * 10);
       } else {
         greaseMesh.current.scale.z = 0.001;
       }
+    }
+    
+    // 2. Verified Text Reveal (0.7 to 0.8)
+    if (verifyText.current) {
+      if (t > 0.7 && t < 0.8) {
+        const progress = (t - 0.7) * 10;
+        verifyText.current.scale.setScalar(Math.min(1, progress));
+        verifyText.current.visible = true;
+      } else if (t >= 0.8) {
+        verifyText.current.scale.setScalar(1);
+        verifyText.current.visible = true;
+      } else {
+        verifyText.current.visible = false;
+      }
+    }
+
+    // 3. Steam Particles (Active around 0.4 to 0.7)
+    if (particlesRef.current) {
+      const isCleaning = t >= 0.35 && t <= 0.75;
+      
+      for (let i = 0; i < particleCount; i++) {
+        particlesRef.current.getMatrixAt(i, dummy.matrix);
+        dummy.matrix.decompose(dummy.position, dummy.quaternion, dummy.scale);
+        
+        if (isCleaning) {
+          // Move particles backwards (simulating steam exhaust)
+          dummy.position.z += delta * 2;
+          dummy.position.y += delta * 0.5; // Rise slightly
+          
+          // Reset if they go too far
+          if (dummy.position.z > -10) {
+            dummy.position.set(
+              (Math.random() - 0.5) * 6,
+              (Math.random() - 0.5) * 4,
+              -25 - Math.random() * 5
+            );
+          }
+          dummy.scale.setScalar(Math.min(3, dummy.scale.x + delta));
+        } else {
+          // Shrink and disappear when not cleaning
+          dummy.scale.setScalar(Math.max(0.001, dummy.scale.x - delta * 5));
+        }
+        
+        dummy.updateMatrix();
+        particlesRef.current.setMatrixAt(i, dummy.matrix);
+      }
+      particlesRef.current.instanceMatrix.needsUpdate = true;
     }
   });
 
@@ -51,46 +96,58 @@ export default function DuctSequence() {
         rotation={[-Math.PI / 2, 0, 0]} 
       />
       
-      {/* 1. The Duct Environment spanning Z = 0 to -40 */}
-      <DuctEnvironment position={[0, 0, 0]} scale={[2, 2, 8]} />
+      {/* Deep Duct Lighting */}
+      <rectAreaLight 
+        width={6} 
+        height={2} 
+        color="#ffffff" 
+        intensity={8} 
+        position={[0, 2, -25]} 
+        rotation={[-Math.PI / 2, 0, 0]} 
+      />
+      
+      {/* 1. Extraction Canopy & Duct Environment */}
+      <DuctEnvironment position={[0, 0, 0]} />
       
       {/* 2. The Physical Grease Layer */}
       <mesh ref={greaseMesh} position={[0, 0, -15]}>
-        {/* Slightly smaller than duct to sit on walls */}
+        {/* Slightly smaller than duct to sit tightly on walls */}
         <boxGeometry args={[7.8, 5.8, 20]} />
         <meshStandardMaterial 
-          color="#0a0a0a" // Matte black/brown grease
-          roughness={0.9} 
-          metalness={0.1}
+          color="#080808" // Matte black grease
+          roughness={0.95} 
+          metalness={0.0}
           side={THREE.DoubleSide}
         />
       </mesh>
 
-      {/* 3. The Robot waiting at Z = -30 */}
-      <group position={[3, -2.5, -30]} rotation={[0, -Math.PI / 4, 0]} scale={[2, 2, 2]}>
+      {/* 3. The Cleaning Robot at Z = -25 */}
+      <group position={[2.5, -2.8, -25]} rotation={[0, -Math.PI / 6, 0]}>
         <RobotPlaceholder />
-        
-        {/* Precise Spotlights pointing from Robot Head */}
-        <spotLight position={[0, 1, -2]} angle={0.2} penumbra={0.1} intensity={50} color="#00E5FF" distance={20} />
+        {/* Intense Inspection Light from Robot */}
+        <spotLight position={[0, 1.5, 0.5]} angle={0.4} penumbra={0.2} intensity={60} color="#ffffff" distance={15} castShadow />
       </group>
       
-      {/* 4. The Clean Architectural Environment at Z = -60 */}
-      <group ref={cleanEnvGroup} position={[-10, 0, -60]}>
-        {/* Sleek, deep space with polished floor */}
-        <mesh receiveShadow position={[0, -5, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-          <planeGeometry args={[200, 200]} />
-          <meshPhysicalMaterial 
-            color="#020202" 
-            roughness={0.05} 
-            metalness={0.9} 
-            clearcoat={1.0}
-            clearcoatRoughness={0.05}
-          />
-        </mesh>
-
-        <rectAreaLight width={50} height={10} color="#ffffff" intensity={2} position={[0, 20, 0]} rotation={[-Math.PI/2, 0, 0]} />
-        <spotLight position={[0, 30, 0]} angle={0.8} penumbra={0.5} intensity={20} color="#ffffff" castShadow />
+      {/* 4. Steam Particles (Instanced for performance) */}
+      <instancedMesh ref={particlesRef} args={[undefined, undefined, particleCount]} position={[0, 0, 0]}>
+        <planeGeometry args={[1, 1]} />
+        <meshBasicMaterial color="#ffffff" transparent opacity={0.05} depthWrite={false} side={THREE.DoubleSide} />
+      </instancedMesh>
+      
+      {/* 5. Clean Metal Surface Reveal (Verification) */}
+      <group ref={verifyText} position={[-2, 0, -18]} rotation={[0, Math.PI / 6, 0]} visible={false}>
+        <Text
+          fontSize={1.5}
+          font="/fonts/Inter-Bold.ttf" // Assuming standard font fallback if missing
+          color="#00E5FF"
+          anchorX="center"
+          anchorY="middle"
+          letterSpacing={0.1}
+        >
+          VERIFIED
+        </Text>
       </group>
+      
     </group>
   );
 }

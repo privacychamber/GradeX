@@ -4,96 +4,60 @@ import { useRef } from "react";
 import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
 
-export default function RobotPlaceholder(props: any) {
-  const robotGroup = useRef<THREE.Group>(null);
+export default function RobotPlaceholder() {
   const armRef = useRef<THREE.Group>(null);
-  const headRef = useRef<THREE.Group>(null);
-
+  
   useFrame((state) => {
-    if (robotGroup.current) {
-      // Subtle hovering effect
-      robotGroup.current.position.y = Math.sin(state.clock.elapsedTime) * 0.05;
-    }
+    // Subtle mechanical scanning movement for the robot arm
     if (armRef.current) {
-      // Arm scanning motion
-      armRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.5) * 0.5;
+      armRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 2) * 0.3;
+      armRef.current.rotation.x = Math.cos(state.clock.elapsedTime * 1.5) * 0.1;
     }
-    if (headRef.current) {
-      // Head looking around
-      headRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.8) * 0.3;
-    }
-  });
-
-  // Materials
-  const carbonMaterial = new THREE.MeshPhysicalMaterial({
-    color: "#111",
-    metalness: 0.9,
-    roughness: 0.6,
-    clearcoat: 0.8,
-    clearcoatRoughness: 0.2
-  });
-
-  const steelMaterial = new THREE.MeshPhysicalMaterial({
-    color: "#aaa",
-    metalness: 0.8,
-    roughness: 0.3,
   });
 
   return (
-    <group ref={robotGroup} {...props}>
-      {/* Base/Chassis */}
+    <group position={[0, -0.5, 0]}>
+      {/* Heavy Machinery Chassis */}
       <mesh receiveShadow castShadow position={[0, 0, 0]}>
-        <boxGeometry args={[1.5, 0.4, 2]} />
-        <primitive object={carbonMaterial} attach="material" />
+        <boxGeometry args={[1.5, 0.8, 2.5]} />
+        <meshStandardMaterial color="#0A0A0A" metalness={0.9} roughness={0.4} />
       </mesh>
-
-      {/* Tracks (Left and Right) */}
-      <mesh receiveShadow castShadow position={[-0.85, 0, 0]}>
-        <boxGeometry args={[0.2, 0.45, 2.2]} />
-        <primitive object={carbonMaterial} attach="material" />
+      
+      {/* Tank Tracks (Left and Right) */}
+      <mesh receiveShadow castShadow position={[-0.85, -0.2, 0]}>
+        <boxGeometry args={[0.3, 0.6, 2.8]} />
+        <meshStandardMaterial color="#050505" roughness={0.9} />
       </mesh>
-      <mesh receiveShadow castShadow position={[0.85, 0, 0]}>
-        <boxGeometry args={[0.2, 0.45, 2.2]} />
-        <primitive object={carbonMaterial} attach="material" />
+      <mesh receiveShadow castShadow position={[0.85, -0.2, 0]}>
+        <boxGeometry args={[0.3, 0.6, 2.8]} />
+        <meshStandardMaterial color="#050505" roughness={0.9} />
       </mesh>
-
-      {/* Central Pillar */}
-      <mesh receiveShadow castShadow position={[0, 0.5, 0]}>
-        <cylinderGeometry args={[0.3, 0.4, 0.6, 16]} />
-        <primitive object={steelMaterial} attach="material" />
+      
+      {/* Mechanical Base Joint */}
+      <mesh position={[0, 0.5, -0.5]} castShadow>
+        <cylinderGeometry args={[0.4, 0.5, 0.4, 16]} />
+        <meshStandardMaterial color="#222" metalness={0.8} />
       </mesh>
-
-      {/* Robotic Arm Assembly */}
-      <group ref={armRef} position={[0, 0.8, 0]}>
-        {/* Arm Base */}
-        <mesh receiveShadow castShadow>
-          <boxGeometry args={[0.4, 0.8, 0.4]} />
-          <primitive object={carbonMaterial} attach="material" />
+      
+      {/* Articulated Inspection/Cleaning Arm */}
+      <group ref={armRef} position={[0, 0.7, -0.5]}>
+        <mesh castShadow position={[0, 0.5, 0]}>
+          <boxGeometry args={[0.2, 1.2, 0.2]} />
+          <meshStandardMaterial color="#333" metalness={0.7} />
         </mesh>
-
-        {/* Head/Scanner */}
-        <group ref={headRef} position={[0, 0.5, 0.2]}>
-          <mesh receiveShadow castShadow>
-            <boxGeometry args={[0.8, 0.4, 0.6]} />
-            <primitive object={steelMaterial} attach="material" />
-          </mesh>
-          {/* Laser Scanner Lens */}
-          <mesh position={[0, 0, 0.35]}>
-            <cylinderGeometry args={[0.1, 0.1, 0.1, 16]} />
-            <meshStandardMaterial color="#00E5FF" emissive="#00E5FF" emissiveIntensity={2} />
-          </mesh>
-        </group>
+        
+        {/* Cleaning Head / Camera Array */}
+        <mesh castShadow position={[0, 1.2, 0.2]}>
+          <boxGeometry args={[0.8, 0.4, 0.6]} />
+          <meshStandardMaterial color="#111" metalness={0.9} />
+        </mesh>
+        
+        {/* Inspection Lens */}
+        <mesh position={[0, 1.2, 0.52]}>
+          <circleGeometry args={[0.12, 16]} />
+          <meshBasicMaterial color="#00E5FF" />
+        </mesh>
       </group>
-
-      {/* Status LEDs */}
-      <mesh position={[0.6, 0.25, 0.95]}>
-        <sphereGeometry args={[0.05, 8, 8]} />
-        <meshStandardMaterial color="#00E5FF" emissive="#00E5FF" emissiveIntensity={1} />
-      </mesh>
-      <mesh position={[-0.6, 0.25, 0.95]}>
-        <sphereGeometry args={[0.05, 8, 8]} />
-        <meshStandardMaterial color="#00E5FF" emissive="#00E5FF" emissiveIntensity={1} />
-      </mesh>
     </group>
   );
 }
