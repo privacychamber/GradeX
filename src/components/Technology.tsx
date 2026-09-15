@@ -132,8 +132,7 @@ export default function Technology() {
                   rotation={[0, -Math.PI / 6, 0]} 
                   polar={[-0.2, Math.PI / 4]} 
                   azimuth={[-Math.PI / 2, Math.PI / 2]}
-                  config={{ mass: 2, tension: 400 }}
-                  snap={{ mass: 4, tension: 400 }}
+                  snap
                 >
                   <Float rotationIntensity={0.1} floatIntensity={0.2} speed={1}>
                     <TechRobotPlaceholder />

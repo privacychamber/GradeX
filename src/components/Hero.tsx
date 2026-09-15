@@ -115,8 +115,7 @@ export default function Hero() {
                 rotation={[0, -Math.PI / 4, 0]} 
                 polar={[-0.1, Math.PI / 4]} 
                 azimuth={[-Math.PI / 2, Math.PI / 2]}
-                config={{ mass: 2, tension: 400 }}
-                snap={{ mass: 4, tension: 400 }}
+                snap
               >
                 <Float rotationIntensity={0.2} floatIntensity={0.5} speed={2}>
                   <CleanRobotPlaceholder />
