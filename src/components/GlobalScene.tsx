@@ -12,10 +12,14 @@ export default function GlobalScene() {
     <div className="w-full h-screen bg-black">
       <Canvas shadows gl={{ antialias: true, alpha: false, powerPreference: "high-performance" }}>
         <color attach="background" args={["#050505"]} />
-        <fog attach="fog" args={["#050505", 5, 40]} />
+        <fog attach="fog" args={["#050505", 20, 150]} />
         
+        {/* Basic lighting so the scene is never pitch black */}
+        <ambientLight intensity={1.5} />
+        <directionalLight position={[10, 20, 10]} intensity={2} castShadow />
+
         <Suspense fallback={null}>
-          <ScrollControls pages={10} damping={0.2} distance={1.5}>
+          <ScrollControls pages={8} damping={0.2}>
             {/* The Master Camera that drives the experience */}
             <CinematicCamera />
             
@@ -28,7 +32,7 @@ export default function GlobalScene() {
             </Scroll>
             
           </ScrollControls>
-          <Environment preset="night" />
+          <Environment preset="city" />
           <Preload all />
         </Suspense>
       </Canvas>

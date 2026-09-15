@@ -30,14 +30,14 @@ export default function DuctSequence() {
 
   return (
     <group>
-      {/* 1. The Duct Environment spanning Z = 0 to -80 */}
-      <DuctEnvironment position={[0, 0, -30]} scale={[2, 2, 8]} />
+      {/* 1. The Duct Environment spanning Z = 0 to -40 */}
+      <DuctEnvironment position={[0, 0, 0]} scale={[2, 2, 8]} />
       
       {/* 2. The Grease Layer (Fades out as camera passes) */}
-      <mesh ref={greaseMesh} position={[0, 0, -40]}>
-        <boxGeometry args={[7.8, 5.8, 30]} />
+      <mesh ref={greaseMesh} position={[0, 0, -15]}>
+        <boxGeometry args={[7.8, 5.8, 20]} />
         <meshStandardMaterial 
-          color="#1a1a1a" 
+          color="#333333" 
           roughness={0.9} 
           transparent 
           side={THREE.BackSide}
@@ -45,16 +45,16 @@ export default function DuctSequence() {
         />
       </mesh>
 
-      {/* 3. The Robot waiting at Z = -60 */}
-      <group position={[3, -2.5, -60]} rotation={[0, -Math.PI / 4, 0]} scale={[2, 2, 2]}>
+      {/* 3. The Robot waiting at Z = -30 */}
+      <group position={[3, -2.5, -30]} rotation={[0, -Math.PI / 4, 0]} scale={[2, 2, 2]}>
         <RobotPlaceholder />
         
         {/* Spotlights pointing from Robot */}
         <spotLight position={[0, 1, -2]} angle={0.3} penumbra={0.5} intensity={5} color="#00ffff" />
       </group>
       
-      {/* 4. The Clean Architectural Environment at Z = -100 */}
-      <group position={[-10, 0, -100]}>
+      {/* 4. The Clean Architectural Environment at Z = -60 */}
+      <group position={[-10, 0, -60]}>
         {/* A sleek, white/glass studio space */}
         <mesh receiveShadow position={[0, -5, 0]} rotation={[-Math.PI / 2, 0, 0]}>
           <planeGeometry args={[100, 100]} />

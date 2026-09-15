@@ -11,16 +11,16 @@ export default function CinematicCamera() {
   const cameraGroup = useRef<THREE.Group>(null);
   
   // Create a spline curve for the camera to follow
-  // Starts outside the duct, goes in, sweeps around to the robot, then exits to the dashboard
+  // Starts just outside the duct, goes in, sweeps around to the robot, then exits to the dashboard
   const curve = new THREE.CatmullRomCurve3([
-    new THREE.Vector3(0, 0, 10),    // Page 0: Hero outside
-    new THREE.Vector3(0, 0, -20),   // Page 1: Entering Duct
-    new THREE.Vector3(0, -2, -50),  // Page 2: Approaching Grease
-    new THREE.Vector3(5, -2, -60),  // Page 3: Seeing Robot
-    new THREE.Vector3(0, 5, -80),   // Page 4: Above Robot
-    new THREE.Vector3(-10, 0, -100),// Page 5: Exiting to Evidence/Report
-    new THREE.Vector3(0, 0, -120),  // Page 6: Services
-    new THREE.Vector3(0, 0, -150)   // End of scroll
+    new THREE.Vector3(0, 0, 5),     // Page 0: Hero outside
+    new THREE.Vector3(0, 0, -5),    // Page 1: Entering Duct
+    new THREE.Vector3(0, -1, -15),  // Page 2: Approaching Grease
+    new THREE.Vector3(3, -1, -30),  // Page 3: Seeing Robot
+    new THREE.Vector3(0, 4, -40),   // Page 4: Above Robot
+    new THREE.Vector3(-10, 0, -60), // Page 5: Exiting to Evidence/Report
+    new THREE.Vector3(-10, 0, -80), // Page 6: Services
+    new THREE.Vector3(-10, 0, -100) // End of scroll
   ]);
 
   useFrame((state, delta) => {
