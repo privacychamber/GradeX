@@ -70,11 +70,6 @@ export default function DuctSequence() {
           />
         </mesh>
         
-        <mesh receiveShadow position={[-20, 0, -20]} rotation={[0, Math.PI / 4, 0]}>
-           <boxGeometry args={[10, 20, 1]} />
-           <meshStandardMaterial color="#111" metalness={0.5} roughness={0.5} />
-        </mesh>
-
         <pointLight position={[0, 20, 0]} intensity={10} color="#ffffff" distance={100} />
         <spotLight position={[-10, 10, 10]} angle={0.5} penumbra={0.8} intensity={20} color="#00ffff" />
       </group>
