@@ -55,11 +55,19 @@ export default function Methodology() {
       }, 0);
     }, containerRef);
 
-    return () => ctx.revert();
+    // Ensure layout is recalculated after images/fonts/canvases settle
+    const timeout = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 500);
+
+    return () => {
+      clearTimeout(timeout);
+      ctx.revert();
+    };
   }, []);
 
   return (
-    <section id="methodology" className="bg-brand-midnight text-white relative h-screen flex flex-col justify-center overflow-hidden" ref={containerRef}>
+    <section id="methodology" className="bg-background text-foreground relative h-screen flex flex-col justify-center overflow-hidden" ref={containerRef}>
       <div className="max-w-7xl mx-auto px-6 relative z-10 w-full mb-12">
         <div className="flex flex-col md:flex-row justify-between items-end gap-8">
           <div>
@@ -73,7 +81,7 @@ export default function Methodology() {
           </div>
 
           <button
-            className="flex items-center gap-2 px-6 py-3 border border-white/20 rounded-sm text-sm font-semibold hover:bg-white/10 transition-colors"
+            className="flex items-center gap-2 px-6 py-3 border border-border rounded-sm text-sm font-semibold hover:bg-surface transition-colors"
           >
             OUR PROCESS
             <ArrowRight size={16} />

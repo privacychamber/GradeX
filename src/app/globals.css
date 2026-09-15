@@ -5,15 +5,38 @@
   --font-display: var(--font-outfit);
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
-  --color-brand-midnight: #050505;
-  --color-brand-dark: #0A0A0A;
-  --color-brand-graphite: #171717;
-  --color-brand-steel: #E2E8F0;
-  --color-brand-light: #F8FAFC;
-  --color-brand-white: #FFFFFF;
+  /* Semantic Theme Variables */
+  --color-background: var(--bg);
+  --color-foreground: var(--fg);
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+
+  /* Brand Accents */
   --color-brand-cyan: #00E5FF;
   --color-brand-blue: #2563EB;
   --color-brand-blue-glow: rgba(37, 99, 235, 0.4);
+}
+
+@layer base {
+  :root {
+    --bg: #F8FAFC;
+    --fg: #0A0A0A;
+    --surface: #FFFFFF;
+    --surface-hover: #F1F5F9;
+    --muted: #64748B;
+    --border: #E2E8F0;
+  }
+  
+  .dark {
+    --bg: #050505;
+    --fg: #FFFFFF;
+    --surface: #0A0A0A;
+    --surface-hover: #171717;
+    --muted: #9CA3AF;
+    --border: #262626;
+  }
 }
 
 @utility glass-dark {
