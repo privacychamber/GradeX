@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useScrollStore } from "@/store/scrollStore";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -10,123 +11,178 @@ if (typeof window !== "undefined") {
 
 export default function HtmlOverlays() {
   const containerRef = useRef<HTMLDivElement>(null);
-
+  
   useEffect(() => {
     if (!containerRef.current) return;
-    
-    // Create a context for all GSAP animations in this component
     const ctx = gsap.context(() => {
       
-      // Select all sections that need fade in/out
-      const sections = gsap.utils.toArray<HTMLElement>('.gsap-fade-section');
+      // Hero Typography Clip-path reveal (onload)
+      gsap.fromTo(".hero-line", 
+        { y: 100, clipPath: "polygon(0 0, 100% 0, 100% 0, 0 0)" },
+        { y: 0, clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)", duration: 1.5, stagger: 0.2, ease: "power4.out", delay: 0.5 }
+      );
       
+      // Scroll indicator line continuous animation
+      gsap.to(".scroll-line", {
+        scaleY: 1,
+        y: 20,
+        opacity: 0,
+        duration: 1.5,
+        repeat: -1,
+        ease: "power2.inOut"
+      });
+
+      // Section Fade and Translate logic
+      const sections = gsap.utils.toArray<HTMLElement>('.gsap-section');
       sections.forEach((section) => {
         gsap.fromTo(section, 
-          { opacity: 0, y: 50 },
+          { opacity: 0, y: 30 },
           {
             opacity: 1, 
             y: 0,
+            duration: 1,
+            ease: "power2.out",
             scrollTrigger: {
               trigger: section,
-              start: "top 60%", // Start fading in when top hits 60% of viewport
-              end: "bottom 40%", // Fade out when bottom hits 40% of viewport
-              toggleActions: "play reverse play reverse", // fade in/out repeatedly
+              start: "top 70%", 
+              end: "bottom 30%",
+              toggleActions: "play reverse play reverse",
             }
           }
         );
       });
+
+      // Parallax text
+      gsap.utils.toArray<HTMLElement>('.parallax-slow').forEach(el => {
+        gsap.to(el, {
+          y: -150,
+          ease: "none",
+          scrollTrigger: {
+            trigger: el,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true
+          }
+        });
+      });
       
     }, containerRef);
-    
     return () => ctx.revert();
   }, []);
 
   return (
-    <div ref={containerRef} className="w-full text-foreground relative z-10 flex flex-col">
+    <div ref={containerRef} className="w-full text-white relative z-10 flex flex-col font-sans">
       
-      {/* PAGE 0: HERO */}
-      <section className="w-full min-h-[120vh] flex flex-col justify-start pt-48 px-6 lg:px-20 pointer-events-none gsap-fade-section">
-        <div className="max-w-7xl mx-auto w-full sticky top-48">
-          <h1 className="text-6xl md:text-8xl font-display font-bold tracking-tighter leading-[0.9] text-balance">
-            PRECISION.<br/>
-            TECHNOLOGY.<br/>
-            <span className="text-brand-cyan">COMPLIANCE.</span>
-          </h1>
-          <p className="mt-8 text-xl max-w-2xl text-muted font-light">
-            Advanced robotic technology and proven methodology for commercial kitchen exhaust cleaning.
-          </p>
-          <div className="mt-12 flex gap-4 pointer-events-auto">
-            <button className="px-8 py-4 bg-brand-cyan text-brand-midnight font-bold tracking-widest text-sm hover:bg-white transition-colors">
-              REQUEST A QUOTE
-            </button>
-            <button className="px-8 py-4 border border-border text-foreground font-bold tracking-widest text-sm hover:bg-surface-hover transition-colors">
-              EXPLORE THE TECHNOLOGY
-            </button>
+      {/* 01 — HERO */}
+      <section className="w-full h-[200vh] pointer-events-none relative">
+        <div className="w-full h-screen sticky top-0 flex flex-col items-center justify-center">
+          
+          {/* Centered Massive Typography */}
+          <div className="flex flex-col items-center text-center mix-blend-difference parallax-slow z-20">
+            <div className="overflow-hidden py-2">
+              <h1 className="hero-line text-[10vw] md:text-[8vw] font-bold tracking-tighter leading-[0.85] text-white">
+                PRECISION.
+              </h1>
+            </div>
+            <div className="overflow-hidden py-2">
+              <h1 className="hero-line text-[10vw] md:text-[8vw] font-bold tracking-tighter leading-[0.85] text-white">
+                TECHNOLOGY.
+              </h1>
+            </div>
+            <div className="overflow-hidden py-2">
+              <h1 className="hero-line text-[10vw] md:text-[8vw] font-bold tracking-tighter leading-[0.85] text-brand-cyan">
+                COMPLIANCE.
+              </h1>
+            </div>
+          </div>
+          
+          {/* Scroll Indicator */}
+          <div className="absolute bottom-12 flex flex-col items-center gap-4 parallax-slow z-20">
+            <span className="text-[9px] font-mono tracking-[0.3em] text-white/50">SCROLL</span>
+            <div className="w-[1px] h-12 bg-white/10 relative overflow-hidden">
+              <div className="scroll-line absolute top-0 left-0 w-full h-full bg-white origin-top"></div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* SPACE FILLER FOR DUCT ENTRY */}
-      <div className="h-[50vh]"></div>
+      {/* SPACE FILLER: Camera Enters Duct */}
+      <div className="h-[200vh]"></div>
 
-      {/* PAGE 3: TECHNOLOGY (Over robot) */}
-      <section className="w-full min-h-[150vh] flex flex-col justify-start px-6 lg:px-20 pointer-events-none gsap-fade-section">
-        <div className="max-w-7xl mx-auto w-full grid grid-cols-2 sticky top-1/3">
-          <div className="col-span-1 flex flex-col gap-8 bg-background/50 backdrop-blur-sm p-8 rounded-lg border border-white/10">
-            <span className="font-mono text-brand-cyan text-sm tracking-[0.3em]">01 / THE ROBOT</span>
-            <h2 className="text-5xl font-display font-bold tracking-tighter leading-tight text-white drop-shadow-lg">
-              ENGINEERED FOR <br/> REAL RESULTS.
+      {/* 02 — METHODOLOGY / ROBOT INTERACTION */}
+      <section className="w-full min-h-[300vh] relative pointer-events-none gsap-section">
+        <div className="w-full h-screen sticky top-0 flex flex-col justify-center px-6 lg:px-24">
+          <div className="max-w-xl bg-transparent">
+            <div className="overflow-hidden mb-6">
+              <span className="text-[10px] font-mono tracking-[0.3em] text-brand-cyan inline-block uppercase">
+                01 / Engineering
+              </span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tighter leading-tight text-white mb-12">
+              THE ROBOTIC <br/> PLATFORM.
             </h2>
-            <div className="flex flex-col gap-4 border-l border-border pl-6 font-mono text-sm">
-              <div className="text-brand-cyan transition-colors">INSPECT</div>
-              <div className="text-white transition-colors">MEASURE</div>
-              <div className="text-white transition-colors">CLEAN</div>
-              <div className="text-white transition-colors">VERIFY</div>
-              <div className="text-white transition-colors">REPORT</div>
+            
+            {/* Pinned Methodology Steps via Zustand Scroll Store */}
+            <div className="flex flex-col gap-6 border-l border-white/10 pl-6 relative">
+              <MethodologyTracker />
             </div>
           </div>
         </div>
       </section>
       
-      {/* PAGE 5: DIGITAL EVIDENCE */}
-      <section className="w-full min-h-[150vh] flex flex-col justify-start px-6 lg:px-20 pointer-events-none gsap-fade-section">
-        <div className="max-w-7xl mx-auto w-full flex justify-end sticky top-1/3">
-          <div className="w-full md:w-1/2 glass-dark p-12 flex flex-col gap-6 pointer-events-auto shadow-2xl border border-white/10 rounded-lg">
-             <span className="font-mono text-brand-cyan text-sm tracking-[0.3em]">02 / EVIDENCE</span>
-             <h2 className="text-4xl font-display font-bold tracking-tighter">DIGITAL PROOF</h2>
-             <p className="text-muted">
-               As the robot cleans, the system constructs a precise digital record of grease reduction, mapping every surface from entry to exit.
+      {/* 03 — DIGITAL PROOF (HUD) */}
+      <section className="w-full min-h-[200vh] relative pointer-events-none gsap-section">
+        <div className="w-full h-screen sticky top-0 flex items-center justify-end px-6 lg:px-24">
+          
+          {/* Strict Engineering HUD - No Glassmorphism */}
+          <div className="w-full md:w-[450px] bg-[#050505] border border-[#333333] p-8 pointer-events-auto">
+             <div className="flex justify-between items-center mb-8 pb-4 border-b border-[#222222]">
+               <span className="text-[10px] font-mono tracking-[0.2em] text-brand-cyan">02 / EVIDENCE</span>
+               <span className="text-[10px] font-mono text-white/30">SYS.ON</span>
+             </div>
+             
+             <h2 className="text-3xl font-bold tracking-tighter mb-6">DIGITAL PROOF</h2>
+             <p className="text-[13px] font-mono text-white/50 leading-relaxed mb-8">
+               [ RECORDING ] Precise digital record of grease reduction mapped from entry to exit point.
              </p>
-             <div className="grid grid-cols-2 gap-4 border-t border-white/10 pt-6 mt-6">
-               <div className="flex flex-col">
-                 <span className="text-xs text-muted font-mono">BEFORE</span>
-                 <span className="text-2xl font-mono">02.8 <span className="text-sm">mm</span></span>
+             
+             <div className="grid grid-cols-2 gap-px bg-[#222222] border border-[#222222]">
+               <div className="bg-[#0A0A0A] p-6 flex flex-col gap-2">
+                 <span className="text-[9px] text-white/40 font-mono tracking-widest">BEFORE [CONTAMINATED]</span>
+                 <span className="text-3xl font-mono text-white">02.8<span className="text-xs text-white/30 ml-1">mm</span></span>
                </div>
-               <div className="flex flex-col">
-                 <span className="text-xs text-brand-cyan font-mono">AFTER</span>
-                 <span className="text-2xl font-mono text-brand-cyan">00.4 <span className="text-sm">mm</span></span>
+               <div className="bg-[#0A0A0A] p-6 flex flex-col gap-2">
+                 <span className="text-[9px] text-brand-cyan font-mono tracking-widest">AFTER [VERIFIED]</span>
+                 <span className="text-3xl font-mono text-brand-cyan">00.4<span className="text-xs text-brand-cyan/50 ml-1">mm</span></span>
                </div>
+             </div>
+
+             <div className="mt-6 flex items-center gap-4">
+               <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+               <span className="text-[10px] font-mono text-white/50 tracking-widest">AS1851-2012 COMPLIANT</span>
              </div>
           </div>
         </div>
       </section>
 
-      {/* SPACE FILLER BEFORE FINAL SECTIONS */}
-      <div className="h-[30vh]"></div>
+      {/* SPACE FILLER: Camera exits duct into final void */}
+      <div className="h-[150vh]"></div>
 
-      {/* PAGE 7: SERVICES (Separate Section) */}
-      <section className="w-full min-h-[100vh] flex flex-col justify-center px-6 lg:px-20 bg-background pointer-events-auto py-32 z-20 relative border-t border-border gsap-fade-section">
-        <div className="max-w-4xl mx-auto w-full">
-          <div className="flex flex-col gap-8">
-            <span className="font-mono text-brand-cyan text-sm tracking-[0.3em] text-center">03 / EXPERTISE</span>
-            <h2 className="text-5xl font-display font-bold tracking-tighter leading-tight text-center">
-              PRECISION SERVICES.
-            </h2>
-            <div className="flex flex-col border-t border-border mt-12">
+      {/* 04 — SERVICES EXPLORER */}
+      <section className="w-full min-h-[100vh] bg-[#020202] py-40 z-20 relative border-t border-white/5 pointer-events-auto gsap-section">
+        <div className="max-w-7xl mx-auto px-6 lg:px-24">
+          <span className="text-[10px] font-mono tracking-[0.3em] text-white/40 block mb-12">03 / EXPERTISE</span>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-20">
+            <div className="lg:col-span-5">
+              <h2 className="text-5xl md:text-7xl font-bold tracking-tighter leading-tight text-white sticky top-40">
+                PRECISION <br/> SERVICES.
+              </h2>
+            </div>
+            <div className="lg:col-span-7 flex flex-col border-t border-white/10">
               {['Commercial Exhaust Cleaning', 'Filter Exchange Program', 'Compliance Certification', 'HVAC Duct Remediation'].map((service, i) => (
-                <div key={i} className="py-8 border-b border-border flex justify-between items-center group cursor-pointer hover:px-6 transition-all duration-300">
-                  <span className="text-2xl font-light text-foreground group-hover:text-brand-cyan transition-colors">{service}</span>
-                  <span className="font-mono text-sm text-muted group-hover:text-brand-cyan transition-colors">0{i + 1}</span>
+                <div key={i} className="py-12 border-b border-white/10 flex justify-between items-center group cursor-pointer">
+                  <span className="text-2xl md:text-3xl font-medium tracking-tight text-white/60 group-hover:text-white transition-colors duration-500">{service}</span>
+                  <span className="text-[10px] font-mono text-white/20 group-hover:text-brand-cyan transition-colors duration-500 tracking-widest">0{i + 1}</span>
                 </div>
               ))}
             </div>
@@ -134,33 +190,87 @@ export default function HtmlOverlays() {
         </div>
       </section>
 
-      {/* PAGE 8: COMPLIANCE & WA MAP (Separate Section) */}
-      <section className="w-full min-h-[100vh] flex flex-col justify-center px-6 lg:px-20 bg-background pointer-events-auto pb-32 z-20 relative gsap-fade-section">
-        <div className="max-w-4xl mx-auto w-full">
-          <div className="flex flex-col justify-between p-16 bg-surface rounded-lg border border-border shadow-2xl">
-            <div className="flex flex-col gap-6 text-center items-center">
-              <span className="font-mono text-brand-blue text-sm tracking-[0.3em]">04 / ASSURANCE</span>
-              <h2 className="text-4xl font-display font-bold tracking-tighter text-foreground max-w-2xl">
+      {/* 05 — ASSURANCE & WA MAP */}
+      <section className="w-full min-h-[100vh] bg-[#020202] py-40 z-20 relative pointer-events-auto gsap-section">
+        <div className="max-w-7xl mx-auto px-6 lg:px-24">
+          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-20">
+            <div className="flex flex-col max-w-2xl">
+              <span className="text-[10px] font-mono tracking-[0.3em] text-white/40 block mb-12">04 / ASSURANCE</span>
+              <h2 className="text-4xl md:text-6xl font-bold tracking-tighter leading-tight text-white mb-8">
                 FULLY COMPLIANT. <br/> FULLY DOCUMENTED.
               </h2>
-              <p className="text-muted mt-4 max-w-2xl">
+              <p className="text-sm font-mono text-white/50 leading-relaxed max-w-xl">
                 Meeting all AS1851-2012 regulatory requirements for Western Australian commercial kitchens. Every service includes a comprehensive photographic report and compliance certificate.
               </p>
             </div>
             
-            <div className="mt-16 pt-12 border-t border-border flex flex-col md:flex-row justify-between items-center gap-8">
-              <div className="flex flex-col gap-2 items-center md:items-start">
-                <span className="font-mono text-xs text-brand-cyan tracking-widest">BUILT FOR</span>
-                <span className="text-3xl font-display font-bold tracking-tight">WESTERN AUSTRALIA</span>
-              </div>
-              <button className="px-8 py-4 bg-foreground text-background font-bold tracking-widest text-sm hover:bg-brand-cyan hover:text-foreground transition-colors shrink-0">
-                GET CERTIFIED
-              </button>
+            {/* Minimal WA Visualization (Placeholder for SVG Path) */}
+            <div className="w-full lg:w-[400px] h-[400px] border border-[#111111] bg-[#050505] flex items-center justify-center relative overflow-hidden">
+               {/* Abstract Grid */}
+               <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'linear-gradient(#333 1px, transparent 1px), linear-gradient(90deg, #333 1px, transparent 1px)', backgroundSize: '20px 20px' }}></div>
+               <div className="text-center z-10 flex flex-col items-center gap-4">
+                 <span className="text-[10px] font-mono tracking-[0.2em] text-brand-cyan">BUILT FOR</span>
+                 <span className="text-2xl font-bold tracking-tighter text-white">WESTERN AUSTRALIA</span>
+               </div>
             </div>
           </div>
         </div>
       </section>
 
+      {/* 06 — FINAL CTA */}
+      <section className="w-full h-screen bg-[#000000] z-20 relative pointer-events-auto flex flex-col items-center justify-center text-center px-6">
+        <div className="max-w-4xl parallax-slow">
+          <h2 className="text-5xl md:text-8xl font-bold tracking-tighter leading-[0.9] text-white mb-16">
+            CLEANER KITCHENS.<br/>
+            SAFER OPERATIONS.<br/>
+            BETTER EVIDENCE.
+          </h2>
+          <button className="px-10 py-5 border border-white/20 text-white text-[11px] font-mono tracking-[0.3em] hover:bg-white hover:text-black transition-all duration-500">
+            REQUEST A QUOTE
+          </button>
+        </div>
+      </section>
+
     </div>
+  );
+}
+
+// Sub-component to map scroll progress to methodology steps
+function MethodologyTracker() {
+  const steps = [
+    "INSPECT", "MEASURE", "PREPARE", "CLEAN", "VERIFY", "REPORT"
+  ];
+  
+  // We read the global progress (0 to 1) from the scroll store.
+  // The methodology section spans roughly from t = 0.3 to t = 0.5
+  const progress = useScrollStore((state) => state.progress);
+  
+  // Map progress to active step index
+  let activeIndex = 0;
+  if (progress > 0.3) {
+    const range = (progress - 0.3) * 5; // Maps 0.3-0.5 to 0-1
+    activeIndex = Math.min(steps.length - 1, Math.floor(range * steps.length));
+  }
+
+  return (
+    <>
+      {steps.map((step, i) => {
+        const isActive = i === activeIndex;
+        const isPast = i < activeIndex;
+        return (
+          <div key={step} className="flex items-center gap-6 transition-all duration-300">
+            {/* Animated indicator line */}
+            <div className={`h-[1px] transition-all duration-500 ${isActive ? 'w-8 bg-brand-cyan' : 'w-4 bg-[#333333]'}`}></div>
+            
+            <span className={`text-[12px] font-mono tracking-[0.2em] transition-colors duration-500 ${
+              isActive ? "text-brand-cyan" : 
+              isPast ? "text-white/40" : "text-[#333333]"
+            }`}>
+              {step}
+            </span>
+          </div>
+        );
+      })}
+    </>
   );
 }

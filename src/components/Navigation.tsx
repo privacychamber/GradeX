@@ -3,19 +3,12 @@
 import { useState, useEffect } from "react";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import Link from "next/link";
-import { Menu, X, Sun, Moon } from "lucide-react";
-import { useTheme } from "next-themes";
+import { Menu, X } from "lucide-react";
 
 export default function Navigation() {
   const { scrollY } = useScroll();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     if (latest > 50) {
@@ -26,61 +19,50 @@ export default function Navigation() {
   });
 
   const navLinks = [
-    { name: "Services", href: "#services" },
-    { name: "Technology", href: "#technology" },
-    { name: "Evidence", href: "#evidence" },
-    { name: "Compliance", href: "#compliance" },
-    { name: "Case Studies", href: "#case-studies" },
-    { name: "About", href: "#about" },
+    { name: "TECHNOLOGY", href: "#technology" },
+    { name: "SERVICES", href: "#services" },
+    { name: "EVIDENCE", href: "#evidence" },
+    { name: "COMPLIANCE", href: "#compliance" },
+    { name: "ABOUT", href: "#about" },
   ];
 
   return (
     <motion.header
-      className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-2xl bg-background/95 transition-colors duration-300 ${
-        isScrolled ? "border-b border-white/10 shadow-lg" : ""
+      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-500 ${
+        isScrolled ? "bg-[#050505]/90 border-b border-white/[0.03]" : "bg-transparent"
       }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+      transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
     >
-      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        {/* Logo */}
+      <div className="w-full px-6 lg:px-12 h-24 flex items-center justify-between">
+        {/* Minimal Typographic Logo */}
         <Link href="/" className="flex items-center gap-2 relative z-10">
-          {/* We will use a styled text logo for now until image is linked */}
           <div className="flex items-center">
-             <span className="text-2xl font-bold tracking-tighter text-white">
-               GRADE <span className="text-brand-cyan">X</span>
+             <span className="text-sm font-medium tracking-[0.3em] text-white">
+               GRADE<span className="text-brand-cyan/80 ml-2">X</span>
              </span>
           </div>
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden md:flex items-center gap-12">
           {navLinks.map((link) => (
             <Link
               key={link.name}
               href={link.href}
-              className="text-sm font-medium text-gray-300 hover:text-white transition-colors"
+              className="text-[10px] font-mono tracking-[0.2em] text-white/50 hover:text-white transition-colors duration-300"
             >
               {link.name}
             </Link>
           ))}
         </nav>
 
-        {/* Desktop Controls (CTA + Theme) */}
-        <div className="hidden md:flex items-center gap-4">
-          {mounted && (
-            <button
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="p-2 rounded-full border border-border/50 text-muted hover:text-foreground hover:bg-surface-hover transition-colors"
-              aria-label="Toggle theme"
-            >
-              {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
-            </button>
-          )}
+        {/* Desktop CTA */}
+        <div className="hidden md:flex items-center">
           <Link
             href="#quote"
-            className="px-6 py-2.5 rounded-sm bg-brand-blue/20 border border-brand-blue/50 text-brand-cyan text-sm font-semibold tracking-wide hover:bg-brand-blue hover:text-white transition-all duration-300 shadow-[0_0_15px_var(--color-brand-blue-glow)]"
+            className="px-6 py-3 border border-white/10 text-white/80 text-[10px] font-mono tracking-[0.2em] hover:bg-white hover:text-black transition-all duration-300"
           >
             REQUEST A QUOTE
           </Link>
@@ -88,26 +70,26 @@ export default function Navigation() {
 
         {/* Mobile Toggle */}
         <button
-          className="md:hidden text-white relative z-10 p-2"
+          className="md:hidden text-white/50 hover:text-white relative z-10 p-2 transition-colors duration-300"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
-          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          {mobileMenuOpen ? <X size={20} strokeWidth={1} /> : <Menu size={20} strokeWidth={1} />}
         </button>
       </div>
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          className="absolute top-20 left-0 right-0 glass-dark border-b border-white/10 p-6 flex flex-col gap-6 md:hidden"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="absolute top-24 left-0 right-0 bg-[#050505] border-b border-white/5 p-8 flex flex-col gap-8 md:hidden"
         >
           {navLinks.map((link) => (
             <Link
               key={link.name}
               href={link.href}
-              className="text-lg font-medium text-gray-300 hover:text-white transition-colors"
+              className="text-[11px] font-mono tracking-[0.2em] text-white/70 hover:text-white transition-colors"
               onClick={() => setMobileMenuOpen(false)}
             >
               {link.name}
@@ -115,7 +97,7 @@ export default function Navigation() {
           ))}
           <Link
             href="#quote"
-            className="w-full py-3 text-center rounded-sm bg-brand-blue border border-brand-blue/50 text-white font-semibold tracking-wide"
+            className="w-full py-4 text-center border border-white/10 text-white text-[11px] font-mono tracking-[0.2em]"
             onClick={() => setMobileMenuOpen(false)}
           >
             REQUEST A QUOTE
