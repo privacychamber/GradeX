@@ -26,33 +26,33 @@ function SceneController() {
     cameraGroupRef.current.position.set(0, 0, 5); // Start outside duct
     robotRef.current.position.set(0, -1, -5); // Robot inside
 
-    // Setup GSAP Timeline tied to the scroll of the hero section
-    // We assume the body scrolls normally, so we map scroll from top to a certain height
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: "#hero-section",
-        start: "top top",
-        end: "+=1500", // Scroll for 1500px to play this
-        scrub: 1, // Smooth scrubbing
-        pin: true, // Pin the hero section while animating the 3D scene
-      },
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: "#hero-section",
+          start: "top top",
+          end: "+=1500", // Scroll for 1500px to play this
+          scrub: 1, // Smooth scrubbing
+          pin: true, // Pin the hero section while animating the 3D scene
+          pinType: "transform"
+        },
+      });
+
+      // Camera moves into the duct
+      tl.to(cameraGroupRef.current.position, {
+        z: -15, // Move deep into the duct
+        ease: "none",
+      }, 0);
+
+      // Robot moves forward as well but slightly slower to give a parallax feel
+      tl.to(robotRef.current.position, {
+        z: -25,
+        ease: "none",
+      }, 0);
     });
 
-    // Camera moves into the duct
-    tl.to(cameraGroupRef.current.position, {
-      z: -15, // Move deep into the duct
-      ease: "none",
-    }, 0);
-
-    // Robot moves forward as well but slightly slower to give a parallax feel
-    tl.to(robotRef.current.position, {
-      z: -25,
-      ease: "none",
-    }, 0);
-
     return () => {
-      tl.kill();
-      ScrollTrigger.getAll().forEach(t => t.kill());
+      ctx.revert(); // Properly clean up pin-spacers and GSAP state
     };
   }, [camera]);
 
