@@ -35,14 +35,14 @@ export default function Footer() {
 
         {/* Right: Contact Details */}
         <div className="flex flex-col gap-3">
-          <a href="tel:1300000000" className="text-sm font-semibold tracking-wide text-gray-600 hover:text-brand-blue transition-colors">
-            1300 000 000
+          <a href="tel:0430360162" className="text-sm font-semibold tracking-wide text-gray-600 hover:text-brand-blue transition-colors">
+            0430 360 162
           </a>
-          <a href="mailto:info@gradex.com.au" className="text-sm font-semibold tracking-wide text-gray-600 hover:text-brand-blue transition-colors">
-            info@gradex.com.au
+          <a href="mailto:gradex.perth@gmail.com" className="text-sm font-semibold tracking-wide text-gray-600 hover:text-brand-blue transition-colors">
+            gradex.perth@gmail.com
           </a>
           <p className="text-sm font-semibold tracking-wide text-gray-600">
-            Perth, Western Australia
+            5 Elward Way, Balga WA 6061
           </p>
         </div>
 
@@ -51,7 +51,7 @@ export default function Footer() {
       {/* Bottom Legal */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 mt-16 pt-8 border-t border-gray-100 flex flex-col sm:flex-row justify-between items-center gap-4">
         <span className="text-xs text-gray-400 font-mono tracking-wider">
-          © {new Date().getFullYear()} GRADE X COMMERCIAL SOLUTIONS PTY LTD.
+          © {new Date().getFullYear()} GRADE X COMMERCIAL SOLUTIONS PTY LTD. ABN 45 684 073 345
         </span>
         <div className="flex gap-6">
           <Link href="#" className="text-xs text-gray-400 hover:text-gray-900 transition-colors">Privacy Policy</Link>

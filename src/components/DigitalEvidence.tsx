@@ -1,94 +1,102 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { CheckCircle2, FileText, Camera, Video, BarChart } from "lucide-react";
-
-const evidenceItems = [
-  { icon: <Camera size={18} />, label: "BEFORE PHOTOS" },
-  { icon: <Camera size={18} />, label: "AFTER PHOTOS" },
-  { icon: <BarChart size={18} />, label: "GREASE THICKNESS" },
-  { icon: <Video size={18} />, label: "VIDEO RECORDING" },
-  { icon: <FileText size={18} />, label: "SERVICE REPORT" },
-  { icon: <CheckCircle2 size={18} />, label: "COMPLIANCE DOCUMENTATION" },
-];
+import { CheckCircle, FileText, Camera, BarChart } from "lucide-react";
 
 export default function DigitalEvidence() {
   return (
-    <section id="evidence" className="w-full bg-white py-24 md:py-32 relative border-t border-gray-100">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+    <section id="evidence" className="w-full bg-[#F4F6F7] py-24 md:py-32 relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-col lg:flex-row gap-16 items-center">
         
-        {/* Left Text */}
-        <div className="lg:col-span-5 flex flex-col gap-6">
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-bold tracking-tight text-[#0A1016]"
-          >
+        {/* Left: Copy */}
+        <div className="w-full lg:w-1/2 flex flex-col gap-6">
+          <div className="text-xs font-bold tracking-[0.2em] text-brand-blue uppercase">
+            Digital Evidence & Reporting
+          </div>
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-[#0A1016] leading-[1.1]">
             See the results.<br/>Prove the difference.
-          </motion.h2>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="text-gray-600 max-w-md leading-relaxed"
-          >
-            Every clean includes objective measurements, photographic evidence and live video so you have complete documentation for compliance.
-          </motion.p>
+          </h2>
+          <p className="text-gray-600 text-lg leading-relaxed max-w-lg mt-4">
+            Every clean includes objective measurements using the <span className="font-bold text-gray-900">Teinnova Grasmeter</span> (digital grease thickness gauge), photographic evidence, and live video so clients have complete, verifiable documentation.
+          </p>
+
+          <div className="flex flex-col gap-4 mt-6">
+            {[
+              { icon: BarChart, text: "Digital grease measurement records (Microns)" },
+              { icon: Camera, text: "Before-and-after photographic evidence" },
+              { icon: FileText, text: "Comprehensive compliance documentation" },
+              { icon: CheckCircle, text: "Recommendations for future maintenance" }
+            ].map((item, i) => (
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="flex items-center gap-4 bg-white p-4 rounded-lg shadow-sm border border-gray-100"
+              >
+                <div className="w-10 h-10 rounded-full bg-[#F4F6F7] flex items-center justify-center shrink-0">
+                  <item.icon size={18} className="text-brand-blue" />
+                </div>
+                <span className="font-semibold text-[#0A1016] text-sm">{item.text}</span>
+              </motion.div>
+            ))}
+          </div>
         </div>
 
-        {/* Right Report UI */}
-        <div className="lg:col-span-7 w-full">
+        {/* Right: Report UI Presentation */}
+        <div className="w-full lg:w-1/2">
           <motion.div 
-            initial={{ opacity: 0, y: 40, rotateX: 10 }}
-            whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, type: "spring", bounce: 0.2 }}
-            className="w-full bg-[#F8FAFC] rounded-2xl border border-gray-200 shadow-xl overflow-hidden p-6 md:p-8 flex flex-col gap-8"
-            style={{ perspective: "1000px" }}
+            className="w-full bg-white rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-gray-100 overflow-hidden relative"
           >
-            {/* Report Header */}
-            <div className="flex justify-between items-start border-b border-gray-200 pb-6">
-              <div className="flex flex-col gap-1">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-brand-blue">INSPECTION REPORT</span>
-                <h3 className="text-2xl font-bold text-[#0A1016]">Post-Service Verification</h3>
+            {/* Header */}
+            <div className="border-b border-gray-100 p-6 flex justify-between items-center bg-gray-50/50">
+              <div className="flex flex-col">
+                <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Service Report #4092</span>
+                <span className="text-lg font-bold text-gray-900">Compliance Certificate</span>
               </div>
-              <div className="text-right flex flex-col gap-1">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400">ID: GX-8842-A</span>
-                <span className="text-xs font-mono text-gray-600">SEP 15, 2026</span>
+              <div className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
+                <CheckCircle size={12} /> Verified
               </div>
             </div>
 
-            {/* Report Body (Grid) */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {evidenceItems.map((item, i) => (
-                <motion.div
-                  key={item.label}
-                  initial={{ opacity: 0, x: -10 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.3 + (i * 0.1) }}
-                  className="flex items-center gap-3 p-3 bg-white border border-gray-100 rounded-lg shadow-sm"
-                >
-                  <div className="w-8 h-8 rounded bg-blue-50 text-brand-blue flex items-center justify-center shrink-0">
-                    {item.icon}
+            {/* Content */}
+            <div className="p-6 flex flex-col gap-6">
+              
+              {/* Measurements */}
+              <div className="bg-[#F4F6F7] p-4 rounded-lg flex justify-between items-center border border-gray-200">
+                <div className="flex flex-col">
+                  <span className="text-xs font-bold text-gray-500 uppercase tracking-widest">Grease Thickness (Grasmeter)</span>
+                  <div className="flex items-end gap-2 mt-1">
+                    <span className="text-3xl font-black text-gray-900 line-through opacity-40">120µm</span>
+                    <span className="text-3xl font-black text-brand-blue">15µm</span>
                   </div>
-                  <span className="text-xs font-bold uppercase tracking-wide text-gray-700">{item.label}</span>
-                  <div className="ml-auto w-4 h-4 rounded-full bg-green-100 flex items-center justify-center">
-                    <CheckCircle2 size={12} className="text-green-600" />
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+                </div>
+                <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm">
+                  <BarChart className="text-brand-cyan" size={20} />
+                </div>
+              </div>
 
-            {/* Simulated Photo Grid */}
-            <div className="grid grid-cols-3 gap-2 mt-2">
-              <div className="aspect-square bg-gray-200 rounded animate-pulse"></div>
-              <div className="aspect-square bg-gray-200 rounded animate-pulse" style={{ animationDelay: "150ms" }}></div>
-              <div className="aspect-square bg-gray-200 rounded animate-pulse" style={{ animationDelay: "300ms" }}></div>
+              {/* Photos */}
+              <div className="grid grid-cols-2 gap-4">
+                <div className="flex flex-col gap-2">
+                  <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Before</span>
+                  <div className="w-full aspect-[4/3] bg-gray-200 rounded-md overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1590496839352-87002bdfad5d?auto=format&fit=crop&q=80&w=400" className="object-cover w-full h-full grayscale opacity-70" alt="Before" />
+                  </div>
+                </div>
+                <div className="flex flex-col gap-2">
+                  <span className="text-xs font-bold text-brand-blue uppercase tracking-wider">After</span>
+                  <div className="w-full aspect-[4/3] bg-gray-100 rounded-md overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1590496839352-87002bdfad5d?auto=format&fit=crop&q=80&w=400" className="object-cover w-full h-full" alt="After" />
+                  </div>
+                </div>
+              </div>
+
             </div>
-            
           </motion.div>
         </div>
 

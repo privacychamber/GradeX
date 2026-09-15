@@ -136,13 +136,13 @@ export default function Hero() {
           </div>
 
           <h1 ref={h1Ref} className="text-[clamp(48px,5vw,84px)] font-bold tracking-tight text-[#071019] leading-[1.05] mb-6">
-            <span className="block">A deeper clean</span>
-            <span className="block text-gray-400">for a safer</span>
-            <span className="block">tomorrow.</span>
+            <span className="block">Precision.</span>
+            <span className="block text-gray-400">Technology.</span>
+            <span className="block">Compliance.</span>
           </h1>
           
           <p ref={pRef} className="text-lg text-[#66717B] mb-10 max-w-[480px] leading-relaxed">
-            Advanced robotic technology and proven methodology for commercial kitchen exhaust cleaning, with measurable results and detailed documentation.
+            Advanced equipment and proven methodology for professional commercial kitchen exhaust cleaning.
           </p>
           
           <div ref={ctaRef} className="flex flex-col sm:flex-row items-start sm:items-center gap-4">

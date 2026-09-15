@@ -5,20 +5,20 @@ import { CheckCircle } from "lucide-react";
 
 const blocks = [
   {
-    title: "AS/NZS COMPLIANT",
-    desc: "All cleaning and documentation meets strict Australian standards for commercial exhaust maintenance."
+    title: "PUBLIC LIABILITY & WORKCOVER",
+    desc: "Comprehensive public liability and workers compensation insurance for total site peace of mind."
   },
   {
-    title: "FULLY INSURED",
-    desc: "Comprehensive public liability and commercial insurance coverage for total peace of mind."
-  },
-  {
-    title: "WHS FOCUSED",
-    desc: "Rigorous occupational health and safety protocols applied to every site and operation."
+    title: "WHS COMPLIANT & SWMS",
+    desc: "Rigorous safe work practices, risk assessments, and site-specific Safe Work Method Statements."
   },
   {
     title: "FOOD-SAFE PRACTICES",
-    desc: "Utilising approved, food-safe cleaning compounds designed specifically for commercial kitchens."
+    desc: "Utilising approved, food-safe cleaning compounds designed specifically for commercial kitchen environments."
+  },
+  {
+    title: "CONTINUOUS IMPROVEMENT",
+    desc: "Procedures designed around recognised industry standards with ongoing quality inspections."
   }
 ];
 
@@ -44,7 +44,7 @@ export default function TrustCompliance() {
             transition={{ delay: 0.2 }}
             className="text-gray-600 leading-relaxed mx-auto md:mx-0"
           >
-            We operate with a strong focus on safety, hygiene, compliance and documentation.
+            We operate with a strong focus on ISO-level standards, safety, hygiene, compliance and quality control documentation.
           </motion.p>
         </div>
 
@@ -62,7 +62,7 @@ export default function TrustCompliance() {
               <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm">
                 <CheckCircle size={20} className="text-brand-blue" />
               </div>
-              <h3 className="text-sm font-bold tracking-widest text-[#0A1016] uppercase mt-2">
+              <h3 className="text-[11px] font-bold tracking-widest text-[#0A1016] uppercase mt-2 leading-relaxed">
                 {block.title}
               </h3>
               <p className="text-sm text-gray-500 leading-relaxed">
