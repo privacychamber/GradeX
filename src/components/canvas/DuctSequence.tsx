@@ -86,32 +86,25 @@ export default function DuctSequence() {
 
   return (
     <group>
-      {/* Cinematic RectAreaLights for Automotive Reflections */}
-      <rectAreaLight 
-        width={10} 
-        height={2} 
+      {/* Guaranteed Cinematic Lighting */}
+      <ambientLight intensity={1.5} />
+      
+      {/* Forward pointing light into the canopy */}
+      <directionalLight 
+        position={[0, 0, 15]} 
+        intensity={3} 
         color="#ffffff" 
-        intensity={50} 
-        position={[0, 2, 5]} 
-        rotation={[-Math.PI / 2, 0, 0]} 
-      />
-      <rectAreaLight 
-        width={10} 
-        height={10} 
-        color="#ffffff" 
-        intensity={10} 
-        position={[0, 0, 6]} 
-        rotation={[0, Math.PI, 0]} // Point forward into the duct
+        castShadow 
       />
       
       {/* Deep Duct Lighting */}
-      <rectAreaLight 
-        width={6} 
-        height={2} 
+      <spotLight 
+        position={[0, 4, 0]} 
+        angle={0.8}
+        penumbra={0.5}
+        intensity={20} 
         color="#ffffff" 
-        intensity={80} 
-        position={[0, 2, -25]} 
-        rotation={[-Math.PI / 2, 0, 0]} 
+        distance={60}
       />
       
       {/* 1. Extraction Canopy & Duct Environment */}
