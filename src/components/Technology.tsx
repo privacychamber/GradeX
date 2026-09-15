@@ -6,7 +6,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { Suspense, useRef } from "react";
 import { Environment, PresentationControls, Float, useGLTF } from "@react-three/drei";
 import * as THREE from "three";
-import { DotLottieReact } from "@dotlottie/react-player";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { ASSETS } from "@/config/assets";
 
 function RealTechRobot() {

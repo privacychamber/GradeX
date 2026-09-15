@@ -8,7 +8,7 @@ import { Environment, ContactShadows, PresentationControls, Float, useGLTF } fro
 import * as THREE from "three";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { DotLottieReact } from "@dotlottie/react-player";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { ASSETS } from "@/config/assets";
 
 gsap.registerPlugin(ScrollTrigger);
