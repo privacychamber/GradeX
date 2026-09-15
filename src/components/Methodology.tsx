@@ -66,7 +66,7 @@ export default function Methodology() {
             <p className="text-brand-cyan text-xs font-mono font-semibold tracking-[0.2em] uppercase mb-4">
               THE CLEANING PROCESS
             </p>
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tighter leading-tight">
+            <h2 className="text-5xl md:text-6xl font-display font-bold tracking-tighter leading-tight text-balance">
               A SMARTER CLEAN. <br />
               <span className="text-gray-500">STEP BY STEP.</span>
             </h2>
@@ -93,11 +93,11 @@ export default function Methodology() {
         ></div>
 
         {/* Steps Container */}
-        <div ref={scrollWrapperRef} className="flex gap-8 w-max pr-32">
+        <div ref={scrollWrapperRef} className="flex gap-12 w-max pr-32">
           {steps.map((step, index) => (
             <div
               key={step.num}
-              className="flex flex-col gap-4 group w-[280px] shrink-0"
+              className="flex flex-col gap-6 group w-[320px] shrink-0"
             >
               {/* Visual Thumbnail Placeholder */}
               <div className="w-full aspect-video bg-brand-dark rounded-sm border border-white/5 overflow-hidden relative group-hover:border-brand-cyan/50 transition-colors">
@@ -113,8 +113,8 @@ export default function Methodology() {
               </div>
 
               <div className="flex flex-col">
-                <span className="text-2xl font-light text-brand-cyan mb-1 font-mono">{step.num}</span>
-                <span className="text-xs font-semibold tracking-wide text-gray-300 leading-tight">
+                <span className="text-3xl font-light text-brand-cyan mb-2 font-mono drop-shadow-[0_0_10px_rgba(0,229,255,0.4)]">{step.num}</span>
+                <span className="text-sm font-semibold tracking-wider text-gray-200 leading-tight">
                   {step.title}
                 </span>
               </div>

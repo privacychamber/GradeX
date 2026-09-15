@@ -1,26 +1,27 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-outfit);
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
-  --color-brand-midnight: #0B0F19;
-  --color-brand-dark: #121826;
-  --color-brand-graphite: #1E2532;
+  --color-brand-midnight: #050505;
+  --color-brand-dark: #0A0A0A;
+  --color-brand-graphite: #171717;
   --color-brand-steel: #E2E8F0;
   --color-brand-light: #F8FAFC;
   --color-brand-white: #FFFFFF;
   --color-brand-cyan: #00E5FF;
   --color-brand-blue: #2563EB;
-  --color-brand-blue-glow: rgba(37, 99, 235, 0.3);
+  --color-brand-blue-glow: rgba(37, 99, 235, 0.4);
 }
 
 @utility glass-dark {
-  background: rgba(18, 24, 38, 0.6);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(10, 10, 10, 0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 @utility glass-light {

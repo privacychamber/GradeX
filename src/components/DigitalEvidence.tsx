@@ -102,7 +102,7 @@ export default function DigitalEvidence() {
             <p className="text-brand-blue text-xs font-mono font-semibold tracking-[0.2em] uppercase mb-4">
               THE REAL EVIDENCE
             </p>
-            <h2 className="text-5xl md:text-6xl font-bold tracking-tighter mb-6 leading-tight">
+            <h2 className="text-5xl md:text-6xl font-display font-bold tracking-tighter mb-6 leading-tight text-balance">
               SEE THE RESULTS. <br />
               <span className="text-gray-400">PROVE THE DIFFERENCE.</span>
             </h2>
@@ -136,7 +136,7 @@ export default function DigitalEvidence() {
         <div className="lg:col-span-7 relative">
           <div
             ref={dashboardRef}
-            className="w-full bg-white rounded-xl shadow-[0_30px_60px_rgba(0,0,0,0.1)] border border-gray-100 overflow-hidden relative z-10 perspective-1000"
+            className="w-full bg-white/95 backdrop-blur-2xl rounded-2xl shadow-[0_40px_80px_rgba(0,0,0,0.1)] border border-gray-100/50 overflow-hidden relative z-10 perspective-1000"
           >
             {/* Dashboard Header */}
             <div className="flex items-center justify-between p-4 border-b border-gray-100 bg-gray-50/50">
@@ -154,7 +154,7 @@ export default function DigitalEvidence() {
             </div>
 
             {/* Dashboard Body */}
-            <div className="p-6 grid grid-cols-1 sm:grid-cols-2 gap-6 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAwIDEwIEwgNDAgMTAgTSAxMCAwIEwgMTAgNDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgwLCAwLCAwLCAwLjAxKSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')]">
+            <div className="p-8 grid grid-cols-1 md:grid-cols-2 gap-8 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAwIDEwIEwgNDAgMTAgTSAxMCAwIEwgMTAgNDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgwLCAwLCAwLCAwLjAxKSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')]">
                
                {/* Left Column Data */}
                <div ref={panelRef} className="flex flex-col gap-6">
