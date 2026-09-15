@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { MoveHorizontal } from "lucide-react";
+import ProblemCanvas from "./canvas/ProblemCanvas";
 
 export default function TheProblem() {
   const [sliderPosition, setSliderPosition] = useState(50);
@@ -55,21 +56,11 @@ export default function TheProblem() {
           animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
           transition={{ duration: 1, delay: 0.2 }}
         >
-          {/* AFTER Image (Background/Base) */}
-          <div className="absolute inset-0 bg-gradient-to-r from-gray-700 to-gray-500 flex items-center justify-center">
-             <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAwIDEwIEwgNDAgMTAgTSAxMCAwIEwgMTAgNDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgyNTUsIDI1NSwgMjU1LCAwLjIpIiBzdHJva2Utd2lkdGg9IjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] mix-blend-overlay"></div>
-             <span className="text-white/50 font-mono text-2xl tracking-widest absolute right-10 bottom-10 z-0">AFTER</span>
-          </div>
-
-          {/* BEFORE Image (Clipped overlay) */}
-          <div 
-            className="absolute inset-0 bg-gradient-to-r from-[#2A1D0D] to-[#1F1710] flex items-center justify-center border-r border-brand-cyan/50 shadow-[5px_0_15px_rgba(0,0,0,0.5)]"
-            style={{ clipPath: `polygon(0 0, ${sliderPosition}% 0, ${sliderPosition}% 100%, 0 100%)` }}
-          >
-             {/* Grimy texture simulation */}
-             <div className="absolute inset-0 opacity-40 mix-blend-multiply bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIj48ZmlsdGVyIGlkPSJuIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iMC4wNSIgbnVtT2N0YXZlcz0iNSIgc3RpdGNoVGlsZXM9InN0aXRjaCIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIyMDAlIiBoZWlnaHQ9IjIwMCUiIGZpbHRlcj0idXJsKCNuKSIvPjwvc3ZnPg==')]"></div>
-             <span className="text-white/30 font-mono text-2xl tracking-widest absolute left-10 bottom-10 z-0">BEFORE</span>
-          </div>
+          {/* 3D Canvas Background */}
+          <ProblemCanvas sliderPosition={sliderPosition} />
+          
+          <span className="text-white/50 font-mono text-2xl tracking-widest absolute right-10 bottom-10 z-0 pointer-events-none">AFTER</span>
+          <span className="text-white/30 font-mono text-2xl tracking-widest absolute left-10 bottom-10 z-0 pointer-events-none">BEFORE</span>
 
           {/* Slider Handle */}
           <div 

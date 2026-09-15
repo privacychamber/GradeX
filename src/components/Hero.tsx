@@ -2,19 +2,16 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, Play, Camera, Activity, ShieldCheck } from "lucide-react";
+import HeroCanvas from "./canvas/HeroCanvas";
 
 export default function Hero() {
   const { scrollY } = useScroll();
   const hudY = useTransform(scrollY, [0, 500], [0, -50]);
 
   return (
-    <section className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-brand-midnight">
-      {/* Background Duct Environment placeholder (can be replaced with 3D or Video later) */}
-      <div className="absolute inset-0 z-0 bg-gradient-to-r from-brand-midnight via-brand-dark to-brand-graphite">
-        <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white/10 via-transparent to-transparent"></div>
-        {/* Subtle grid to emphasize technical feel */}
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAwIDEwIEwgNDAgMTAgTSAxMCAwIEwgMTAgNDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgyNTUsIDI1NSwgMjU1LCAwLjA1KSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-30 mix-blend-overlay"></div>
-      </div>
+    <section id="hero-section" className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-brand-midnight">
+      {/* 3D Environment Background */}
+      <HeroCanvas />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         {/* Left Content */}
@@ -70,12 +67,9 @@ export default function Hero() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.5 }}
         >
-          {/* Placeholder for the Robot Image */}
-          <div className="absolute inset-0 flex items-center justify-center opacity-80 mix-blend-luminosity hover:mix-blend-normal transition-all duration-700">
-             {/* Using a placeholder visual until asset is mapped */}
-             <div className="w-[80%] h-[60%] bg-gradient-to-tr from-gray-800 to-gray-600 rounded-lg shadow-2xl relative border border-white/10 flex items-center justify-center">
-                 <span className="text-gray-400 font-mono text-sm">ROBOT ASSET PLACEHOLDER</span>
-             </div>
+          {/* Placeholder for the Robot Image - We keep a subtle overlay frame if desired, or remove it since the 3D robot is there */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+             {/* Invisible placeholder for layout constraints */}
           </div>
 
           {/* Floating Glass HUD */}

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight, View } from "lucide-react";
+import RobotProductCanvas from "./canvas/RobotProductCanvas";
 
 export default function Technology() {
   const callouts = [
@@ -72,12 +73,8 @@ export default function Technology() {
                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-50 blur-xl"></div>
             </div>
 
-            {/* Robot Image Placeholder */}
-            <div className="absolute inset-0 flex items-center justify-center z-10 pb-[10%]">
-                <div className="w-[70%] h-[50%] bg-gradient-to-br from-gray-300 to-gray-400 rounded-lg shadow-[0_30px_60px_rgba(0,0,0,0.15)] flex items-center justify-center relative border border-white/50">
-                   <span className="text-gray-500 font-mono text-sm tracking-widest uppercase">ROBOT 3D ASSET</span>
-                </div>
-            </div>
+            {/* Interactive 3D Robot Product View */}
+            <RobotProductCanvas />
 
             {/* Technical Callouts */}
             <div className="absolute inset-0 hidden md:block">
