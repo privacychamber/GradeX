@@ -91,9 +91,17 @@ export default function DuctSequence() {
         width={10} 
         height={2} 
         color="#ffffff" 
-        intensity={5} 
+        intensity={50} 
         position={[0, 2, 5]} 
         rotation={[-Math.PI / 2, 0, 0]} 
+      />
+      <rectAreaLight 
+        width={10} 
+        height={10} 
+        color="#ffffff" 
+        intensity={10} 
+        position={[0, 0, 6]} 
+        rotation={[0, Math.PI, 0]} // Point forward into the duct
       />
       
       {/* Deep Duct Lighting */}
@@ -101,7 +109,7 @@ export default function DuctSequence() {
         width={6} 
         height={2} 
         color="#ffffff" 
-        intensity={8} 
+        intensity={80} 
         position={[0, 2, -25]} 
         rotation={[-Math.PI / 2, 0, 0]} 
       />
@@ -112,12 +120,12 @@ export default function DuctSequence() {
       {/* 2. The Physical Grease Layer */}
       <mesh ref={greaseMesh} position={[0, 0, -15]}>
         {/* Slightly smaller than duct to sit tightly on walls */}
-        <boxGeometry args={[7.8, 5.8, 20]} />
+        <boxGeometry args={[7.8, 5.8, 40]} />
         <meshStandardMaterial 
-          color="#080808" // Matte black grease
-          roughness={0.95} 
-          metalness={0.0}
-          side={THREE.DoubleSide}
+          color="#1a1512" // Dark brownish grease
+          roughness={0.9} 
+          metalness={0.1}
+          side={THREE.BackSide} // CRITICAL: BackSide so we are INSIDE the grease tunnel
         />
       </mesh>
 
