@@ -34,6 +34,11 @@ export default function HtmlOverlays() {
        const opacity = Math.sin((t - 0.5) * Math.PI * 3);
        evidenceRef.current.style.opacity = `${Math.max(0, opacity)}`;
     }
+    // Fade Services In
+    if (servicesRef.current) {
+       const opacity = Math.sin((t - 0.7) * Math.PI * 3);
+       servicesRef.current.style.opacity = `${Math.max(0, opacity)}`;
+    }
   });
 
   return (
@@ -76,11 +81,11 @@ export default function HtmlOverlays() {
               ENGINEERED FOR <br/> REAL RESULTS.
             </h2>
             <div className="flex flex-col gap-4 border-l border-border pl-6 font-mono text-sm">
-              <div className="text-brand-cyan">INSPECT</div>
-              <div className="text-muted">MEASURE</div>
-              <div className="text-muted">CLEAN</div>
-              <div className="text-muted">VERIFY</div>
-              <div className="text-muted">REPORT</div>
+              <div className="text-brand-cyan transition-colors">INSPECT</div>
+              <div className="text-muted transition-colors">MEASURE</div>
+              <div className="text-muted transition-colors">CLEAN</div>
+              <div className="text-muted transition-colors">VERIFY</div>
+              <div className="text-muted transition-colors">REPORT</div>
             </div>
           </div>
         </div>
@@ -112,8 +117,52 @@ export default function HtmlOverlays() {
         </div>
       </section>
 
-      {/* SPACE FILLER FOR SCROLL */}
-      <div style={{ height: "1000vh" }}></div>
+      {/* PAGE 7: SERVICES & COMPLIANCE */}
+      <section
+        ref={servicesRef}
+        className="absolute top-[700vh] left-0 w-full h-screen flex flex-col justify-center px-6 lg:px-20 z-10 pointer-events-none"
+      >
+        <div className="max-w-7xl mx-auto w-full grid grid-cols-2 gap-16 pointer-events-auto">
+          {/* Services Explorer */}
+          <div className="flex flex-col gap-8">
+            <span className="font-mono text-brand-cyan text-sm tracking-[0.3em]">03 / EXPERTISE</span>
+            <h2 className="text-5xl font-display font-bold tracking-tighter leading-tight">
+              PRECISION <br/> SERVICES.
+            </h2>
+            <div className="flex flex-col border-t border-border mt-8">
+              {['Commercial Exhaust Cleaning', 'Filter Exchange Program', 'Compliance Certification', 'HVAC Duct Remediation'].map((service, i) => (
+                <div key={i} className="py-6 border-b border-border flex justify-between items-center group cursor-pointer hover:pl-4 transition-all">
+                  <span className="text-xl font-light text-foreground group-hover:text-brand-cyan transition-colors">{service}</span>
+                  <span className="font-mono text-xs text-muted group-hover:text-brand-cyan transition-colors">0{i + 1}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          
+          {/* Compliance & WA Map */}
+          <div className="flex flex-col justify-between p-12 bg-surface rounded-lg border border-border">
+            <div className="flex flex-col gap-4">
+              <span className="font-mono text-brand-blue text-sm tracking-[0.3em]">04 / ASSURANCE</span>
+              <h2 className="text-4xl font-display font-bold tracking-tighter text-foreground">
+                FULLY COMPLIANT. <br/> FULLY DOCUMENTED.
+              </h2>
+              <p className="text-muted mt-4">
+                Meeting all AS1851-2012 regulatory requirements for Western Australian commercial kitchens. Every service includes a comprehensive photographic report and compliance certificate.
+              </p>
+            </div>
+            
+            <div className="mt-12 flex justify-between items-end">
+              <div className="flex flex-col gap-2">
+                <span className="font-mono text-xs text-brand-cyan tracking-widest">BUILT FOR</span>
+                <span className="text-2xl font-display font-bold">WESTERN AUSTRALIA</span>
+              </div>
+              <button className="px-6 py-3 bg-foreground text-background font-bold tracking-widest text-xs hover:bg-brand-cyan hover:text-foreground transition-colors">
+                GET CERTIFIED
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
 
     </div>
   );
