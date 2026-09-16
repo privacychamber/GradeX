@@ -36,8 +36,9 @@ export default function Navigation() {
 
       {/* Right: CTA & Mobile Menu */}
       <div className="flex items-center gap-4">
-        <button className="hidden md:flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-white bg-brand-blue px-5 py-2.5 rounded hover:bg-blue-700 transition-colors">
-          Request a Quote <ArrowRight size={14} />
+        <button className="btn-uiverse hidden md:flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-white bg-brand-blue px-5 py-2.5 rounded">
+          BOOK INSPECTION
+          <ArrowRight className="w-3 h-3" />
         </button>
         <button className="lg:hidden text-gray-900 p-2">
           <Menu size={24} />

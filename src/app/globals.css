@@ -57,4 +57,47 @@
   ::-webkit-scrollbar-thumb:hover {
     background: var(--color-brand-blue);
   }
+
+  /* Uiverse Classic Cyber Button */
+  .btn-uiverse {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+    z-index: 1;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .btn-uiverse::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 0%;
+    height: 100%;
+    background: var(--color-brand-cyan);
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+    z-index: -1;
+  }
+  
+  .btn-uiverse:hover::before {
+    width: 100%;
+  }
+
+  .btn-uiverse:hover {
+    color: #071019 !important;
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.4);
+    border-color: var(--color-brand-cyan) !important;
+  }
+  
+  .btn-uiverse:active {
+    transform: scale(0.95);
+  }
+  
+  .btn-uiverse svg {
+    transition: transform 0.3s ease;
+  }
+  
+  .btn-uiverse:hover svg {
+    transform: translateX(4px);
+  }
 }

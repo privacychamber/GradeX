@@ -36,8 +36,9 @@ export default function FinalCTA() {
           </p>
           
           <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
-            <button className="w-full sm:w-auto flex justify-center items-center gap-2 text-sm font-bold uppercase tracking-wide text-white bg-brand-blue px-8 py-4 rounded hover:bg-blue-700 transition-colors">
-              Request a Quote <ArrowRight size={16} />
+            <button className="btn-uiverse w-full sm:w-auto flex justify-center items-center gap-2 text-sm font-bold uppercase tracking-wide text-white bg-brand-blue px-8 py-4 rounded">
+              BOOK INSPECTION
+              <ArrowRight className="w-4 h-4" />
             </button>
             <a href="tel:0430360162" className="w-full sm:w-auto flex justify-center items-center gap-2 text-[13px] font-bold uppercase tracking-wide text-white bg-white/10 hover:bg-white/20 backdrop-blur px-8 py-4 rounded-md transition-colors border border-white/10">
               <Phone size={16} /> 0430 360 162

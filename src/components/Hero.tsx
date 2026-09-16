@@ -142,9 +142,9 @@ export default function Hero() {
           </p>
           
           <div ref={ctaRef} className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-            <button className="flex items-center gap-2 text-[13px] font-bold uppercase tracking-wide text-white bg-brand-blue px-6 py-4 rounded-md hover:bg-blue-700 transition-all group">
-              Request a Quote 
-              <ArrowRight size={16} className="group-hover:translate-x-1.5 transition-transform" />
+            <button className="btn-uiverse flex items-center gap-2 text-[13px] font-bold uppercase tracking-wide text-white bg-brand-blue px-6 py-4 rounded-md">
+              BOOK INSPECTION
+              <ArrowRight className="w-4 h-4" />
             </button>
             <button className="flex items-center gap-2 text-[13px] font-bold uppercase tracking-wide text-[#071019] bg-transparent border border-gray-300 px-6 py-4 rounded-md hover:bg-white hover:border-gray-400 transition-colors">
               <Play size={16} className="fill-current" /> Watch How it Works
