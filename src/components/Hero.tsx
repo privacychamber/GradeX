@@ -116,8 +116,11 @@ export default function Hero() {
   }, []);
 
   return (
-    <section ref={containerRef} className="relative w-full min-h-[90vh] bg-[#F4F6F7] flex flex-col justify-between overflow-hidden pt-24 pb-8">
+    <section ref={containerRef} className="relative w-full min-h-[90vh] bg-gradient-to-br from-[#050A10] via-[#0A101A] to-[#071019] flex flex-col justify-between overflow-hidden pt-24 pb-8">
       
+      {/* Subtle glowing radial gradient behind the robot */}
+      <div className="absolute top-1/2 right-0 -translate-y-1/2 translate-x-1/4 w-[800px] h-[800px] bg-brand-blue/10 rounded-full blur-[120px] pointer-events-none" />
+
       {/* Invisible refs for simulating nav/logo entrance if needed, though actual Nav is in layout/page */}
       <div ref={logoRef} className="hidden" />
       <div ref={navRef} className="hidden" />
@@ -127,27 +130,27 @@ export default function Hero() {
         {/* LEFT: EDITORIAL TYPOGRAPHY */}
         <div className="lg:col-span-6 flex flex-col pt-12 lg:pt-0 z-20">
           
-          <div className="mb-4 text-[11px] font-bold tracking-[0.2em] text-brand-blue uppercase">
+          <div className="mb-4 text-[11px] font-bold tracking-[0.2em] text-brand-cyan uppercase drop-shadow-[0_0_10px_rgba(0,229,255,0.3)]">
             Western Australia's Robotic Exhaust Cleaning Specialists
           </div>
 
-          <h1 ref={h1Ref} className="text-[clamp(48px,5vw,84px)] font-bold tracking-tight text-[#071019] leading-[1.05] mb-6">
+          <h1 ref={h1Ref} className="text-[clamp(48px,5vw,84px)] font-bold tracking-tight text-white leading-[1.05] mb-6">
             <span className="block">Precision.</span>
-            <span className="block text-gray-400">Technology.</span>
+            <span className="block text-gray-500">Technology.</span>
             <span className="block">Compliance.</span>
           </h1>
           
-          <p ref={pRef} className="text-lg text-[#66717B] mb-10 max-w-[480px] leading-relaxed">
+          <p ref={pRef} className="text-lg text-gray-400 mb-10 max-w-[480px] leading-relaxed">
             Advanced equipment and proven methodology for professional commercial kitchen exhaust cleaning.
           </p>
           
           <div ref={ctaRef} className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-            <button className="btn-uiverse flex items-center gap-2 text-[13px] font-bold uppercase tracking-wide text-white bg-brand-blue px-6 py-4 rounded-md">
+            <button className="btn-uiverse flex items-center gap-2 text-[13px] font-bold uppercase tracking-wide text-[#071019] bg-brand-cyan px-6 py-4 rounded-md">
               BOOK INSPECTION
               <ArrowRight className="w-4 h-4" />
             </button>
-            <button className="flex items-center gap-2 text-[13px] font-bold uppercase tracking-wide text-[#071019] bg-transparent border border-gray-300 px-6 py-4 rounded-md hover:bg-white hover:border-gray-400 transition-colors">
-              <Play size={16} className="fill-current" /> Watch How it Works
+            <button className="flex items-center gap-2 text-[13px] font-bold uppercase tracking-wide text-white bg-transparent border border-white/20 px-6 py-4 rounded-md hover:bg-white/5 transition-colors">
+              <Play size={16} className="fill-brand-cyan text-brand-cyan" /> Watch How it Works
             </button>
           </div>
         </div>
@@ -156,7 +159,7 @@ export default function Hero() {
         <div ref={robotRef} className="lg:col-span-6 h-[50vh] lg:h-[75vh] w-full relative z-10">
           
           {/* LOTTIE Technical Annotation */}
-          <div ref={annotationRef} className="absolute top-[20%] left-0 bg-white/90 backdrop-blur-md border border-gray-200 shadow-sm p-3 rounded-lg text-[10px] uppercase font-bold tracking-widest text-[#071019] z-20 flex items-center gap-3">
+          <div ref={annotationRef} className="absolute top-[20%] left-0 glass-panel p-3 rounded-lg text-[10px] uppercase font-bold tracking-widest text-white z-20 flex items-center gap-3">
             <div className="w-6 h-6 flex items-center justify-center relative">
               <div className="w-2 h-2 rounded-full bg-brand-cyan animate-[pulse_1.5s_ease-in-out_infinite]"></div>
             </div>
@@ -194,27 +197,27 @@ export default function Hero() {
       </div>
 
       {/* BOTTOM: TRUST STRIP */}
-      <div ref={trustRef} className="w-full bg-white border-t border-gray-200 py-6 px-6 md:px-12 z-20 mt-8 relative">
+      <div ref={trustRef} className="w-full glass-panel border-t border-white/5 py-6 px-6 md:px-12 z-20 mt-8 relative">
         <div className="max-w-[1280px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-6">
           
           <div className="flex items-center gap-3">
-            <Wrench className="text-brand-blue" size={20} strokeWidth={1.5} />
-            <span className="text-[11px] font-bold uppercase tracking-wider text-[#0B1117]">WA's Only Robotic Exhaust Cleaning</span>
+            <Wrench className="text-brand-cyan" size={20} strokeWidth={1.5} />
+            <span className="text-[11px] font-bold uppercase tracking-wider text-gray-300">WA's Only Robotic Exhaust Cleaning</span>
           </div>
           
           <div className="flex items-center gap-3">
-            <Shield className="text-brand-blue" size={20} strokeWidth={1.5} />
-            <span className="text-[11px] font-bold uppercase tracking-wider text-[#0B1117]">Fully Insured & Certified</span>
+            <Shield className="text-brand-cyan" size={20} strokeWidth={1.5} />
+            <span className="text-[11px] font-bold uppercase tracking-wider text-gray-300">Fully Insured & Certified</span>
           </div>
           
           <div className="flex items-center gap-3">
-            <CheckCircle className="text-brand-blue" size={20} strokeWidth={1.5} />
-            <span className="text-[11px] font-bold uppercase tracking-wider text-[#0B1117]">Food-Safe Practices</span>
+            <CheckCircle className="text-brand-cyan" size={20} strokeWidth={1.5} />
+            <span className="text-[11px] font-bold uppercase tracking-wider text-gray-300">Food-Safe Practices</span>
           </div>
           
           <div className="flex items-center gap-3">
-            <Clock className="text-brand-blue" size={20} strokeWidth={1.5} />
-            <span className="text-[11px] font-bold uppercase tracking-wider text-[#0B1117]">24/7 Emergency Response</span>
+            <Clock className="text-brand-cyan" size={20} strokeWidth={1.5} />
+            <span className="text-[11px] font-bold uppercase tracking-wider text-gray-300">24/7 Emergency Response</span>
           </div>
 
         </div>

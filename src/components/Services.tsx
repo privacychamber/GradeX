@@ -53,7 +53,7 @@ const serviceCategories = [
 
 export default function Services() {
   return (
-    <section id="services" className="w-full bg-white py-24 md:py-32 relative">
+    <section id="services" className="w-full bg-[#071019] py-24 md:py-32 relative border-t border-white/5">
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-col gap-16">
         
         {/* Header */}
@@ -62,7 +62,7 @@ export default function Services() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-xs font-bold tracking-[0.2em] text-gray-400 uppercase"
+            className="text-xs font-bold tracking-[0.2em] text-brand-cyan uppercase drop-shadow-[0_0_8px_rgba(0,229,255,0.3)]"
           >
             Capabilities
           </motion.div>
@@ -71,7 +71,7 @@ export default function Services() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-4xl md:text-5xl font-bold tracking-tight text-[#0A1016]"
+            className="text-4xl md:text-5xl font-bold tracking-tight text-white"
           >
             Complete commercial hygiene solutions.
           </motion.h2>
@@ -86,28 +86,28 @@ export default function Services() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="flex flex-col group cursor-pointer"
+              className="glass-card p-6 rounded-2xl flex flex-col group cursor-pointer hover:shadow-[0_0_30px_rgba(0,229,255,0.1)] hover:border-brand-cyan/30 transition-all duration-500"
             >
               {/* Image Container */}
-              <div className="w-full aspect-[4/3] rounded-xl overflow-hidden mb-6 relative bg-[#F5F7F8]">
+              <div className="w-full aspect-[4/3] rounded-xl overflow-hidden mb-6 relative bg-[#050A10] border border-white/5">
                 <img 
                   src={category.image} 
                   alt={category.title}
-                  className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700 ease-out"
+                  className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700 ease-out opacity-80 group-hover:opacity-100"
                 />
-                <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors duration-500"></div>
+                <div className="absolute inset-0 bg-brand-cyan/10 group-hover:bg-transparent transition-colors duration-500 mix-blend-overlay"></div>
               </div>
               
               {/* Content */}
-              <h3 className="text-sm font-bold tracking-widest text-[#0A1016] uppercase mb-4 flex items-center justify-between">
+              <h3 className="text-sm font-bold tracking-widest text-white uppercase mb-4 flex items-center justify-between">
                 {category.title}
-                <ArrowRight size={14} className="text-brand-blue opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                <ArrowRight size={14} className="text-brand-cyan opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
               </h3>
               
               <ul className="flex flex-col gap-3">
                 {category.services.map((service) => (
-                  <li key={service} className="text-sm text-gray-500 hover:text-brand-blue transition-colors flex items-start gap-2">
-                    <span className="text-brand-blue/50 mt-0.5">•</span>
+                  <li key={service} className="text-sm text-gray-400 hover:text-brand-cyan transition-colors flex items-start gap-2">
+                    <span className="text-brand-cyan/50 mt-0.5">•</span>
                     {service}
                   </li>
                 ))}

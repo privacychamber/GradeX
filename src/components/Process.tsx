@@ -55,7 +55,7 @@ export default function Process() {
   });
 
   return (
-    <section ref={containerRef} id="process" className="w-full bg-[#071019] text-white relative">
+    <section ref={containerRef} id="process" className="w-full bg-[#050A10] text-white relative">
       
       {/* Sticky Container */}
       <div className="sticky top-0 h-screen w-full flex flex-col justify-center overflow-hidden">
@@ -96,7 +96,7 @@ export default function Process() {
             );
           })}
           {/* Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#071019] via-[#071019]/80 to-transparent w-[100vw]"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-[#050A10] via-[#050A10]/80 to-transparent w-[100vw]"></div>
         </div>
 
         {/* Content */}

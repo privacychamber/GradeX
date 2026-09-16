@@ -20,27 +20,36 @@
 
 @layer base {
   :root {
-    --bg: #FFFFFF;
-    --fg: #0A1016;
-    --surface: #F5F7F8;
-    --surface-hover: #E2E8F0;
-    --muted: #64748B;
-    --border: #E2E8F0;
-  }
-  
-  .dark {
-    --bg: #071019;
+    --bg: #050A10;
     --fg: #FFFFFF;
     --surface: #0A1016;
     --surface-hover: #171F29;
     --muted: #9CA3AF;
     --border: #1E293B;
   }
-
+  
+  /* We remove the .dark class override because the entire site is dark mode natively */
+  
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
+  }
+
+  /* Glassmorphism Utilities */
+  .glass-panel {
+    background: rgba(10, 16, 22, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  
+  .glass-card {
+    background: rgba(10, 16, 22, 0.8);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   }
 
   /* Custom Scrollbar for premium feel */

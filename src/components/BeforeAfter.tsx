@@ -36,7 +36,7 @@ export default function BeforeAfter() {
   }, []);
 
   return (
-    <section id="case-studies" className="w-full bg-white py-24 md:py-32 relative border-t border-gray-100">
+    <section id="case-studies" className="w-full bg-[#050A10] py-24 md:py-32 relative border-t border-white/5">
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-col gap-16">
         
         {/* Header */}
@@ -47,10 +47,10 @@ export default function BeforeAfter() {
             viewport={{ once: true }}
             className="flex flex-col gap-4"
           >
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-[#0A1016]">
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white">
               Grease hides where you can't see it.
             </h2>
-            <p className="text-gray-600 max-w-md leading-relaxed">
+            <p className="text-gray-400 max-w-md leading-relaxed">
               Accumulated grease and contaminants create severe fire hazards deep within commercial exhaust systems.
             </p>
           </motion.div>
@@ -62,10 +62,10 @@ export default function BeforeAfter() {
             transition={{ delay: 0.2 }}
             className="flex flex-col gap-4 md:text-right md:items-end"
           >
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-brand-blue">
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-brand-cyan drop-shadow-[0_0_15px_rgba(0,229,255,0.2)]">
               We see it.<br/>We clean it.
             </h2>
-            <p className="text-gray-600 max-w-md leading-relaxed">
+            <p className="text-gray-400 max-w-md leading-relaxed">
               Our robotic system reaches deep into exhaust structures and delivers measurable, documented results.
             </p>
           </motion.div>
@@ -100,7 +100,7 @@ export default function BeforeAfter() {
               draggable={false}
             />
             <div className="absolute inset-0 bg-black/10"></div>
-            <div className="absolute bottom-6 right-6 bg-white/90 backdrop-blur px-4 py-2 rounded text-xs font-bold tracking-widest uppercase">
+            <div className="absolute bottom-6 right-6 glass-panel px-4 py-2 rounded text-xs font-bold tracking-widest uppercase text-white shadow-lg">
               After
             </div>
           </div>
@@ -118,18 +118,18 @@ export default function BeforeAfter() {
               draggable={false}
             />
             <div className="absolute inset-0 bg-black/40"></div>
-            <div className="absolute bottom-6 left-6 bg-white/90 backdrop-blur px-4 py-2 rounded text-xs font-bold tracking-widest uppercase">
+            <div className="absolute bottom-6 left-6 glass-panel px-4 py-2 rounded text-xs font-bold tracking-widest uppercase text-white shadow-lg">
               Before
             </div>
           </div>
 
           {/* Slider Handle */}
           <div 
-            className="absolute top-0 bottom-0 w-1 bg-white cursor-ew-resize flex items-center justify-center pointer-events-none"
+            className="absolute top-0 bottom-0 w-1 bg-brand-cyan cursor-ew-resize flex items-center justify-center pointer-events-none drop-shadow-[0_0_8px_rgba(0,229,255,0.8)]"
             style={{ left: `${sliderPosition}%`, transform: 'translateX(-50%)' }}
           >
-            <div className="w-10 h-10 bg-white rounded-full shadow-xl flex items-center justify-center pointer-events-auto">
-              <MoveHorizontal size={20} className="text-gray-900" />
+            <div className="w-10 h-10 bg-brand-cyan rounded-full shadow-[0_0_15px_rgba(0,229,255,0.6)] flex items-center justify-center pointer-events-auto border-2 border-[#050A10]">
+              <MoveHorizontal size={20} className="text-[#050A10]" />
             </div>
           </div>
         </motion.div>

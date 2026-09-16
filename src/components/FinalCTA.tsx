@@ -5,7 +5,7 @@ import { ArrowRight, Phone } from "lucide-react";
 
 export default function FinalCTA() {
   return (
-    <section id="contact" className="w-full bg-[#071019] relative text-white overflow-hidden">
+    <section id="contact" className="w-full bg-[#050A10] relative text-white overflow-hidden">
       
       {/* Background Image */}
       <div className="absolute inset-0 w-full h-full">
@@ -14,7 +14,7 @@ export default function FinalCTA() {
           alt="Commercial Kitchen"
           className="w-full h-full object-cover opacity-20"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#071019] via-[#071019]/80 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#050A10] via-[#050A10]/80 to-transparent"></div>
       </div>
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 py-32 md:py-48 relative z-10 flex flex-col items-center text-center gap-8">
@@ -36,7 +36,7 @@ export default function FinalCTA() {
           </p>
           
           <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
-            <button className="btn-uiverse w-full sm:w-auto flex justify-center items-center gap-2 text-sm font-bold uppercase tracking-wide text-white bg-brand-blue px-8 py-4 rounded">
+            <button className="btn-uiverse w-full sm:w-auto flex justify-center items-center gap-2 text-sm font-bold uppercase tracking-wide text-[#071019] bg-brand-cyan px-8 py-4 rounded">
               BOOK INSPECTION
               <ArrowRight className="w-4 h-4" />
             </button>
