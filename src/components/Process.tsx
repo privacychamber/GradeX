@@ -63,21 +63,22 @@ export default function Process() {
         {/* Background Image Track */}
         <div className="absolute inset-0 w-[400vw] h-full flex pointer-events-none">
           {processStages.map((stage, i) => {
-            const opacity = useTransform(
-              scrollYProgress,
-              [
-                (i - 1) * 0.25, 
-                i * 0.25, 
-                (i + 1) * 0.25
-              ],
-              [0, 1, 0]
-            );
+            const bgOpacityMap = [
+              { in: [0, 0.25, 1], out: [1, 0, 0] },
+              { in: [0, 0.25, 0.5, 1], out: [0, 1, 0, 0] },
+              { in: [0, 0.25, 0.5, 0.75, 1], out: [0, 0, 1, 0, 0] },
+              { in: [0, 0.5, 0.75, 1], out: [0, 0, 1, 1] }
+            ][i];
             
-            const scale = useTransform(
-              scrollYProgress,
-              [i * 0.25, (i + 1) * 0.25],
-              [1.05, 1]
-            );
+            const scaleMap = [
+              { in: [0, 0.25, 1], out: [1.05, 1, 1] },
+              { in: [0, 0.25, 0.5, 1], out: [1.05, 1.05, 1, 1] },
+              { in: [0, 0.5, 0.75, 1], out: [1.05, 1.05, 1, 1] },
+              { in: [0, 0.75, 1], out: [1.05, 1.05, 1] }
+            ][i];
+                
+            const opacity = useTransform(scrollYProgress, bgOpacityMap.in, bgOpacityMap.out);
+            const scale = useTransform(scrollYProgress, scaleMap.in, scaleMap.out);
 
             return (
               <motion.div 
@@ -115,25 +116,22 @@ export default function Process() {
           {/* Right: Stages Content */}
           <div className="w-full md:w-2/3 h-[50vh] relative">
             {processStages.map((stage, i) => {
-              const y = useTransform(
-                scrollYProgress,
-                [
-                  (i - 1) * 0.25,
-                  i * 0.25,
-                  (i + 1) * 0.25
-                ],
-                [100, 0, -100]
-              );
+              const yMap = [
+                { in: [0, 0.25, 1], out: [0, -100, -100] },
+                { in: [0, 0.25, 0.5, 1], out: [100, 0, -100, -100] },
+                { in: [0, 0.25, 0.5, 0.75, 1], out: [100, 100, 0, -100, -100] },
+                { in: [0, 0.5, 0.75, 1], out: [100, 100, 0, 0] }
+              ][i];
               
-              const opacity = useTransform(
-                scrollYProgress,
-                [
-                  (i - 0.5) * 0.25,
-                  i * 0.25,
-                  (i + 0.5) * 0.25
-                ],
-                [0, 1, 0]
-              );
+              const textOpacityMap = [
+                { in: [0, 0.125, 1], out: [1, 0, 0] },
+                { in: [0, 0.125, 0.25, 0.375, 1], out: [0, 0, 1, 0, 0] },
+                { in: [0, 0.375, 0.5, 0.625, 1], out: [0, 0, 1, 0, 0] },
+                { in: [0, 0.625, 0.75, 1], out: [0, 0, 1, 1] }
+              ][i];
+                  
+              const y = useTransform(scrollYProgress, yMap.in, yMap.out);
+              const opacity = useTransform(scrollYProgress, textOpacityMap.in, textOpacityMap.out);
 
               return (
                 <motion.div 
