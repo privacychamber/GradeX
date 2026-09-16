@@ -8,7 +8,6 @@ import { Environment, ContactShadows, PresentationControls, Float, useGLTF } fro
 import * as THREE from "three";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { ASSETS } from "@/config/assets";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -162,11 +161,7 @@ export default function Hero() {
           {/* LOTTIE Technical Annotation */}
           <div ref={annotationRef} className="absolute top-[20%] left-0 bg-white/90 backdrop-blur-md border border-gray-200 shadow-sm p-3 rounded-lg text-[10px] uppercase font-bold tracking-widest text-[#071019] z-20 flex items-center gap-3">
             <div className="w-6 h-6 flex items-center justify-center relative">
-              <DotLottieReact 
-                src={ASSETS.lottie.scanLine} 
-                loop 
-                autoplay 
-              />
+              <div className="w-2 h-2 rounded-full bg-brand-cyan animate-[pulse_1.5s_ease-in-out_infinite]"></div>
             </div>
             <div className="flex flex-col">
               <span className="text-[9px] text-gray-400">STATUS</span>

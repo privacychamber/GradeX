@@ -6,7 +6,6 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { Suspense, useRef } from "react";
 import { Environment, PresentationControls, Float, useGLTF } from "@react-three/drei";
 import * as THREE from "three";
-import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { ASSETS } from "@/config/assets";
 
 function RealTechRobot() {
@@ -85,11 +84,7 @@ export default function Technology() {
                 style={{ top: ann.top, left: ann.left }}
               >
                 <div className="w-6 h-6 rounded-full bg-white border border-gray-100 shadow-sm flex items-center justify-center relative overflow-hidden shrink-0">
-                  <DotLottieReact 
-                    src={ann.lottie} 
-                    loop 
-                    autoplay 
-                  />
+                  <div className="w-2 h-2 rounded-full bg-brand-cyan animate-[pulse_1.5s_ease-in-out_infinite]"></div>
                 </div>
                 <div className="h-[1px] w-8 md:w-12 bg-gray-200 hidden md:block"></div>
                 <span className="text-[10px] font-bold uppercase tracking-widest text-[#071019] bg-white/90 backdrop-blur px-2.5 py-1.5 rounded border border-gray-100">
