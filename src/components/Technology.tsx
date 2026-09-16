@@ -3,13 +3,14 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Suspense, useRef } from "react";
+import { Suspense, useRef, useMemo } from "react";
 import { Environment, PresentationControls, Float, useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 import { ASSETS } from "@/config/assets";
 
 function RealTechRobot() {
   const { scene } = useGLTF(ASSETS.models.technologyRobot);
+  const clonedScene = useMemo(() => scene.clone(), [scene]);
   const modelRef = useRef<THREE.Group>(null);
   
   useFrame((state) => {
@@ -20,12 +21,10 @@ function RealTechRobot() {
 
   return (
     <group ref={modelRef} dispose={null} scale={2} position={[0, -1, 0]}>
-      <primitive object={scene} />
+      <primitive object={clonedScene} />
     </group>
   );
 }
-
-useGLTF.preload(ASSETS.models.technologyRobot);
 
 const annotations = [
   { title: "HIGH-PRESSURE CLEANING SYSTEM", top: "15%", left: "10%", lottie: ASSETS.lottie.scanLine },

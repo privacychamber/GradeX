@@ -1,9 +1,8 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { Suspense, useRef, useEffect, useMemo } from "react";
 import { ArrowRight, Play, Shield, Wrench, Clock, CheckCircle } from "lucide-react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Suspense } from "react";
 import { Environment, ContactShadows, PresentationControls, Float, useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 import gsap from "gsap";
@@ -15,24 +14,22 @@ gsap.registerPlugin(ScrollTrigger);
 // Load the realistic GLB model
 function RealRobotModel() {
   const { scene } = useGLTF(ASSETS.models.heroRobot);
+  const clonedScene = useMemo(() => scene.clone(), [scene]);
   const modelRef = useRef<THREE.Group>(null);
   
-  // Subtle idle animation
   useFrame((state) => {
     if (modelRef.current) {
-      modelRef.current.position.y = Math.sin(state.clock.elapsedTime * 0.5) * 0.05;
+      modelRef.current.position.y = Math.sin(state.clock.elapsedTime) * 0.1;
     }
   });
 
   return (
-    <group ref={modelRef} dispose={null} scale={1.5} position={[0, -1, 0]}>
-      <primitive object={scene} />
+    <group ref={modelRef} dispose={null} scale={1.5}>
+      <primitive object={clonedScene} />
     </group>
   );
 }
 
-// Pre-load model to prevent waterfall
-useGLTF.preload(ASSETS.models.heroRobot);
 
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
