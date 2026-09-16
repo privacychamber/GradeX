@@ -62,6 +62,7 @@ export default function Navigation() {
           <Menu size={24} />
         </button>
       </div>
-    </motion.header>
+      </div>
+    </motion.nav>
   );
 }
