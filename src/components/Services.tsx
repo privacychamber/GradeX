@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import Image from "next/image";
 
 const serviceCategories = [
   {
@@ -91,11 +90,10 @@ export default function Services() {
             >
               {/* Image Container */}
               <div className="w-full aspect-[4/3] rounded-xl overflow-hidden mb-6 relative bg-[#F5F7F8]">
-                <Image 
+                <img 
                   src={category.image} 
                   alt={category.title}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                  className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700 ease-out"
                 />
                 <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors duration-500"></div>
               </div>
