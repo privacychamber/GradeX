@@ -1,126 +1,131 @@
-"use client";
+import React, { useEffect, useRef } from 'react';
+import { PerformanceCanvas } from '../3d/components/PerformanceCanvas';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { TechnologyScene } from '../3d/scenes/TechnologyScene';
+import { scrollState } from '../store/scrollState';
 
-import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { Suspense, useRef, useMemo } from "react";
-import { Environment, PresentationControls, Float, useGLTF } from "@react-three/drei";
-import * as THREE from "three";
-import { ASSETS } from "@/config/assets";
+gsap.registerPlugin(ScrollTrigger);
 
-function RealTechRobot() {
-  const { scene } = useGLTF(ASSETS.models.technologyRobot);
-  const clonedScene = useMemo(() => scene.clone(), [scene]);
-  const modelRef = useRef<THREE.Group>(null);
+export const Technology = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
   
-  useFrame((state) => {
-    if (modelRef.current) {
-      modelRef.current.rotation.y = Math.cos(state.clock.elapsedTime * 0.5) * 0.2;
-    }
-  });
+  // Section refs for GSAP fading
+  const text1Ref = useRef<HTMLDivElement>(null);
+  const text2Ref = useRef<HTMLDivElement>(null);
+  const text3Ref = useRef<HTMLDivElement>(null);
+  const text4Ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    // ScrollTrigger to update global scroll state for the 3D scene
+    const st = ScrollTrigger.create({
+      trigger: containerRef.current,
+      start: 'top top',
+      end: 'bottom bottom',
+      scrub: true,
+      onUpdate: (self) => {
+        scrollState.techProgress = self.progress;
+      },
+    });
+
+    // Helper for fading text sections in/out based on scroll regions
+    const sections = [text1Ref, text2Ref, text3Ref, text4Ref];
+    
+    sections.forEach((ref, index) => {
+      if (!ref.current) return;
+      const startTrigger = `${index * 25}% top`; // e.g. 0%, 25%, 50%, 75%
+      const endTrigger = `${(index + 1) * 25}% top`; // e.g. 25%, 50%, 75%, 100%
+      
+      gsap.fromTo(ref.current, 
+        { autoAlpha: 0, y: 20 },
+        { 
+          autoAlpha: 1, 
+          y: 0, 
+          duration: 0.5,
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: startTrigger,
+            end: endTrigger,
+            toggleActions: "play reverse play reverse",
+          }
+        }
+      );
+    });
+
+    return () => {
+      st.kill();
+      ScrollTrigger.getAll().forEach((t) => t.kill());
+    };
+  }, []);
 
   return (
-    <group ref={modelRef} dispose={null} scale={2} position={[0, -1, 0]}>
-      <primitive object={clonedScene} />
-    </group>
-  );
-}
-
-const annotations = [
-  { title: "HIGH-PRESSURE CLEANING SYSTEM", top: "15%", left: "10%", lottie: ASSETS.lottie.scanLine },
-  { title: "LIVE CAMERA & LED LIGHTING", top: "25%", left: "65%", lottie: ASSETS.lottie.scanLine },
-  { title: "REMOTE OPERATION", top: "65%", left: "15%", lottie: ASSETS.lottie.scanLine },
-  { title: "PRECISION TRACK SYSTEM", top: "80%", left: "60%", lottie: ASSETS.lottie.scanLine },
-];
-
-export default function Technology() {
-  return (
-    <section id="technology" className="w-full bg-[#071019] py-24 md:py-32 relative">
-      <div className="max-w-[1280px] mx-auto px-6 md:px-12 flex flex-col gap-16">
+    // 400vh for 4 distinct sections
+    <section ref={containerRef} className="relative w-full h-[400vh] bg-[#0A0D14]">
+      
+      {/* Sticky Fullscreen Wrapper */}
+      <div className="sticky top-0 w-full h-screen overflow-hidden flex flex-col pointer-events-none">
         
-        {/* Header */}
-        <div className="flex flex-col md:flex-row gap-8 justify-between items-start md:items-end">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="flex flex-col gap-4"
-          >
-            <div className="text-[11px] font-bold tracking-[0.2em] text-gray-500 uppercase">
-              Our Technology
-            </div>
-            <h2 className="text-[clamp(36px,4vw,64px)] font-bold tracking-tight text-white leading-[1.05]">
-              Engineered for<br/>real results.
-            </h2>
-            <p className="text-gray-400 max-w-md leading-relaxed mt-2">
-              Our robotic exhaust cleaning technology combines high-pressure cleaning, live camera inspection and precision measurement to deliver a deeper, more consistent clean.
-            </p>
-          </motion.div>
-          
-          <motion.button 
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-brand-cyan group drop-shadow-[0_0_10px_rgba(0,229,255,0.2)]"
-          >
-            Explore the Technology <ArrowRight size={16} className="group-hover:translate-x-1.5 transition-transform" />
-          </motion.button>
+        {/* Header (Always visible) */}
+        <div className="absolute top-12 left-0 w-full px-6 md:px-12 lg:px-24 z-20">
+          <h2 className="display-lg text-[var(--color-text-primary)]">A DIFFERENT WAY INSIDE.</h2>
         </div>
 
-        {/* Technical Showcase */}
-        <div className="relative w-full h-[60vh] md:h-[80vh] glass-card shadow-[0_0_50px_rgba(0,229,255,0.05)] overflow-hidden flex items-center justify-center">
-          
-          {/* Engineering Annotations Overlay */}
-          <div className="absolute inset-0 pointer-events-none z-10">
-            {annotations.map((ann, i) => (
-              <motion.div 
-                key={ann.title}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.15 + 0.5 }}
-                className="absolute flex items-center gap-3"
-                style={{ top: ann.top, left: ann.left }}
-              >
-                <div className="w-6 h-6 rounded-full glass-panel flex items-center justify-center relative overflow-hidden shrink-0">
-                  <div className="w-2 h-2 rounded-full bg-brand-cyan animate-[pulse_1.5s_ease-in-out_infinite] shadow-[0_0_10px_rgba(0,229,255,0.8)]"></div>
-                </div>
-                <div className="h-[1px] w-8 md:w-12 bg-brand-cyan/50 hidden md:block drop-shadow-[0_0_5px_rgba(0,229,255,0.5)]"></div>
-                <span className="text-[10px] font-bold uppercase tracking-widest text-white glass-panel px-2.5 py-1.5 rounded">
-                  {ann.title}
-                </span>
-              </motion.div>
-            ))}
+        {/* Dynamic Text Overlay Zones */}
+        <div className="absolute inset-0 z-10 flex items-center px-6 md:px-12 lg:px-24">
+          <div className="max-w-sm pointer-events-auto mt-32">
+            
+            {/* 01 PLATFORM */}
+            <div ref={text1Ref} className="absolute">
+              <p className="tech-label text-[var(--color-accent-blue)] mb-2">01 // ROBOTIC PLATFORM</p>
+              <h3 className="h2 mb-4">Precision Engineered</h3>
+              <p className="body text-gray-400">
+                A highly maneuverable, ruggedized chassis designed specifically to navigate the extreme confines and tight angles of commercial ductwork.
+              </p>
+            </div>
+
+            {/* 02 INSPECTION */}
+            <div ref={text2Ref} className="absolute invisible">
+              <p className="tech-label text-[var(--color-accent-blue)] mb-2">02 // INSPECTION</p>
+              <h3 className="h2 mb-4">Full Visibility</h3>
+              <p className="body text-gray-400">
+                High-definition camera arrays and intense LED lighting pierce the darkness, identifying every risk point with absolute clarity.
+              </p>
+            </div>
+
+            {/* 03 CLEANING */}
+            <div ref={text3Ref} className="absolute invisible">
+              <p className="tech-label text-[var(--color-accent-blue)] mb-2">03 // CLEANING</p>
+              <h3 className="h2 mb-4">Targeted Eradication</h3>
+              <p className="body text-gray-400">
+                Specialized mechanical brush action and high-pressure dispersal systems strip heavy grease deposits back to bare metal.
+              </p>
+            </div>
+
+            {/* 04 EXHAUST */}
+            <div ref={text4Ref} className="absolute invisible">
+              <p className="tech-label text-[var(--color-accent-blue)] mb-2">04 // EXHAUST SYSTEM</p>
+              <h3 className="h2 mb-4">Comprehensive Coverage</h3>
+              <p className="body text-gray-400">
+                Reaching vertical risers, horizontal runs, and complex bends that traditional manual cleaning simply cannot access.
+              </p>
+            </div>
+
           </div>
+        </div>
 
-          {/* Isolated 3D Canvas */}
-          <div className="w-full h-full relative z-0">
-            <Canvas shadows dpr={[1, 2]} camera={{ position: [5, 2, 5], fov: 40 }}>
-              <Suspense fallback={null}>
-                <ambientLight intensity={1.5} />
-                <spotLight position={[5, 10, 5]} angle={0.4} penumbra={1} intensity={2} castShadow shadow-bias={-0.0001} />
-                <directionalLight position={[-5, 5, -5]} intensity={1} color="#e0f2fe" />
-                
-                <PresentationControls 
-                  global 
-                  rotation={[0, -Math.PI / 6, 0]} 
-                  polar={[-0.2, Math.PI / 4]} 
-                  azimuth={[-Math.PI, Math.PI]}
-                  snap
-                >
-                  <Float rotationIntensity={0.05} floatIntensity={0.1} speed={1}>
-                    <RealTechRobot />
-                  </Float>
-                </PresentationControls>
-
-                <Environment preset="studio" />
-              </Suspense>
-            </Canvas>
-          </div>
-
+        {/* Dedicated Interactive 3D Canvas */}
+        <div className="absolute inset-0 w-full h-full z-0 pointer-events-auto">
+          <PerformanceCanvas 
+            shadows
+            camera={{ position: [4, 2, 5], fov: 45 }}
+          >
+            <TechnologyScene />
+          </PerformanceCanvas>
         </div>
 
       </div>
     </section>
   );
-}
+};

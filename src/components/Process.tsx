@@ -1,179 +1,162 @@
-"use client";
+import React, { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+gsap.registerPlugin(ScrollTrigger);
 
-const processStages = [
+const STAGES = [
   {
-    num: "01",
-    title: "INSPECT & MEASURE",
-    desc: "We begin every job with precise, objective measurements.",
-    image: "https://images.unsplash.com/photo-1590496839352-87002bdfad5d?auto=format&fit=crop&q=80&w=1200",
+    id: 'INSPECT',
+    title: 'INSPECT',
+    color: 'var(--color-accent-blue)',
     steps: [
-      "1. Site inspection and assessment",
-      "2. Grease thickness measurement and documentation"
+      { num: '01', text: 'Site inspection and assessment' }
     ]
   },
   {
-    num: "02",
-    title: "CLEAN & EXTRACT",
-    desc: "Advanced robotic and steam technology for a deeper clean.",
-    image: "https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?auto=format&fit=crop&q=80&w=1200",
+    id: 'MEASURE',
+    title: 'MEASURE',
+    color: 'var(--color-accent-gold)',
     steps: [
-      "3. Preparation and protection of the work area",
-      "4. Interior steam washing and deep cleaning",
-      "5. Canopy, ductwork, and accessible component cleaning"
+      { num: '02', text: 'Grease thickness measurement and documentation' }
     ]
   },
   {
-    num: "03",
-    title: "VERIFY RESULTS",
-    desc: "We don't guess. We verify the reduction in grease thickness.",
-    image: "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&q=80&w=1200",
+    id: 'CLEAN',
+    title: 'CLEAN',
+    color: '#F5F6F8', // clean state
     steps: [
-      "6. Final inspection and quality control",
-      "7. Post-cleaning grease measurement"
+      { num: '03', text: 'Preparation and protection of the work area' },
+      { num: '04', text: 'Interior steam washing and deep cleaning' },
+      { num: '05', text: 'Canopy, ductwork and accessible exhaust component cleaning' }
     ]
   },
   {
-    num: "04",
-    title: "REPORT & COMPLY",
-    desc: "Complete documentation for your compliance requirements.",
-    image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=1200",
+    id: 'VERIFY',
+    title: 'VERIFY',
+    color: 'var(--color-accent-blue)',
     steps: [
-      "8. Detailed reporting and client documentation"
+      { num: '06', text: 'Final inspection and quality control' },
+      { num: '07', text: 'Post-cleaning grease measurement' },
+      { num: '08', text: 'Detailed reporting and client documentation' }
     ]
   }
 ];
 
-export default function Process() {
+export const Process = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"]
-  });
+  const spineFillRef = useRef<HTMLDivElement>(null);
+  const stageRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    if (!containerRef.current || !spineFillRef.current) return;
+
+    // The central spine "fills up" as we scroll down the entire 400vh container
+    // We use 400vh here instead of 800vh because 800vh can feel incredibly long.
+    // 400vh gives 100vh per stage, which is plenty of time to read 1-3 steps.
+    gsap.fromTo(
+      spineFillRef.current,
+      { scaleY: 0 },
+      {
+        scaleY: 1,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: true,
+        }
+      }
+    );
+
+    // Each stage text block fades in and slides slightly when it enters the center
+    stageRefs.current.forEach((el, index) => {
+      if (!el) return;
+      
+      const startTrigger = `${index * 25}% center`;
+      const endTrigger = `${(index + 1) * 25}% center`;
+
+      gsap.fromTo(el,
+        { autoAlpha: 0, x: -30 },
+        {
+          autoAlpha: 1, 
+          x: 0,
+          duration: 0.5,
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: startTrigger,
+            end: endTrigger,
+            toggleActions: "play reverse play reverse",
+          }
+        }
+      );
+    });
+
+    return () => {
+      ScrollTrigger.getAll().forEach((t) => t.kill());
+    };
+  }, []);
 
   return (
-    <section ref={containerRef} id="process" className="w-full bg-[#050A10] text-white relative">
+    // 400vh provides a cinematic pacing for the 4 core stages
+    <section ref={containerRef} className="relative w-full h-[400vh] bg-[var(--color-primary-base)]">
       
-      {/* Sticky Container */}
-      <div className="sticky top-0 h-screen w-full flex flex-col justify-center overflow-hidden">
+      {/* Sticky Viewport */}
+      <div className="sticky top-0 w-full h-screen overflow-hidden flex items-center justify-center">
         
-        {/* Background Image Track */}
-        <div className="absolute inset-0 w-[400vw] h-full flex pointer-events-none">
-          {processStages.map((stage, i) => {
-            const bgOpacityMap = [
-              { in: [0, 0.25, 1], out: [1, 0, 0] },
-              { in: [0, 0.25, 0.5, 1], out: [0, 1, 0, 0] },
-              { in: [0, 0.25, 0.5, 0.75, 1], out: [0, 0, 1, 0, 0] },
-              { in: [0, 0.5, 0.75, 1], out: [0, 0, 1, 1] }
-            ][i];
-            
-            const scaleMap = [
-              { in: [0, 0.25, 1], out: [1.05, 1, 1] },
-              { in: [0, 0.25, 0.5, 1], out: [1.05, 1.05, 1, 1] },
-              { in: [0, 0.5, 0.75, 1], out: [1.05, 1.05, 1, 1] },
-              { in: [0, 0.75, 1], out: [1.05, 1.05, 1] }
-            ][i];
+        {/* Header (Top Left) */}
+        <div className="absolute top-12 left-6 md:left-12 lg:left-24 z-20 pointer-events-none">
+          <h2 className="display leading-[1.1]">
+            EIGHT STEPS.<br/>
+            NOTHING SKIPPED.
+          </h2>
+        </div>
+
+        {/* The Central Physical Spine (Represents the Duct) */}
+        <div className="absolute left-6 md:left-12 lg:left-[30%] top-0 bottom-0 w-1 bg-[var(--color-border)] z-0">
+          <div 
+            ref={spineFillRef}
+            className="w-full h-full bg-[var(--color-accent-blue)] origin-top"
+            style={{ transform: 'scaleY(0)' }}
+          ></div>
+        </div>
+
+        {/* Dynamic Stage Content */}
+        <div className="w-full h-full relative z-10 pointer-events-none">
+          {STAGES.map((stage, index) => (
+            <div 
+              key={stage.id}
+              ref={el => { stageRefs.current[index] = el; }}
+              className="absolute top-1/2 left-6 md:left-12 lg:left-[30%] -translate-y-1/2 flex gap-8 md:gap-16 lg:gap-24 pl-8 md:pl-16 w-full max-w-4xl"
+            >
+              {/* Left Side: Core Stage Title */}
+              <div className="w-48 shrink-0 hidden md:block">
+                <h3 className="h1 tracking-wider" style={{ color: stage.color }}>
+                  {stage.title}
+                </h3>
+              </div>
+
+              {/* Right Side: Explicit Steps */}
+              <div className="flex flex-col gap-8 flex-1">
+                {/* Mobile Title Fallback */}
+                <h3 className="h2 tracking-wider md:hidden mb-2" style={{ color: stage.color }}>
+                  {stage.title}
+                </h3>
                 
-            const opacity = useTransform(scrollYProgress, bgOpacityMap.in, bgOpacityMap.out);
-            const scale = useTransform(scrollYProgress, scaleMap.in, scaleMap.out);
-
-            return (
-              <motion.div 
-                key={stage.num}
-                className="absolute inset-0 w-full h-full"
-                style={{ opacity }}
-              >
-                <motion.img 
-                  src={stage.image}
-                  alt={stage.title}
-                  style={{ scale }}
-                  className="w-full h-full object-cover opacity-30"
-                />
-              </motion.div>
-            );
-          })}
-          {/* Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#050A10] via-[#050A10]/80 to-transparent w-[100vw]"></div>
-        </div>
-
-        {/* Content */}
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row gap-12 md:gap-24 items-center">
-          
-          {/* Left: Section Title */}
-          <div className="w-full md:w-1/3 flex flex-col gap-4 shrink-0">
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white leading-[1.1]">
-              Advanced cleaning.<br/>
-              <span className="text-brand-cyan">Step by step.</span>
-            </h2>
-            <p className="text-gray-400">
-              Our verifiable 8-step methodology guarantees a deeper clean and complete compliance documentation.
-            </p>
-          </div>
-
-          {/* Right: Stages Content */}
-          <div className="w-full md:w-2/3 h-[50vh] relative">
-            {processStages.map((stage, i) => {
-              const yMap = [
-                { in: [0, 0.25, 1], out: [0, -100, -100] },
-                { in: [0, 0.25, 0.5, 1], out: [100, 0, -100, -100] },
-                { in: [0, 0.25, 0.5, 0.75, 1], out: [100, 100, 0, -100, -100] },
-                { in: [0, 0.5, 0.75, 1], out: [100, 100, 0, 0] }
-              ][i];
-              
-              const textOpacityMap = [
-                { in: [0, 0.125, 1], out: [1, 0, 0] },
-                { in: [0, 0.125, 0.25, 0.375, 1], out: [0, 0, 1, 0, 0] },
-                { in: [0, 0.375, 0.5, 0.625, 1], out: [0, 0, 1, 0, 0] },
-                { in: [0, 0.625, 0.75, 1], out: [0, 0, 1, 1] }
-              ][i];
-                  
-              const y = useTransform(scrollYProgress, yMap.in, yMap.out);
-              const opacity = useTransform(scrollYProgress, textOpacityMap.in, textOpacityMap.out);
-
-              return (
-                <motion.div 
-                  key={stage.num}
-                  className="absolute inset-0 flex flex-col justify-center gap-6"
-                  style={{ y, opacity }}
-                >
-                  <span className="text-brand-cyan font-mono text-xl tracking-widest">{stage.num}</span>
-                  <h3 className="text-3xl md:text-5xl font-bold uppercase tracking-tight">{stage.title}</h3>
-                  <p className="text-gray-300 text-lg max-w-md leading-relaxed">
-                    {stage.desc}
-                  </p>
-                  
-                  {/* Detailed 8-step methodology injection */}
-                  <div className="mt-4 flex flex-col gap-2 border-l-2 border-brand-blue/30 pl-4">
-                    {stage.steps.map(step => (
-                      <span key={step} className="text-sm font-mono text-gray-400 uppercase tracking-wide">
-                        {step}
-                      </span>
-                    ))}
+                {stage.steps.map((step) => (
+                  <div key={step.num} className="flex gap-6 items-start">
+                    <span className="tech-label text-gray-500 mt-1 shrink-0">{step.num} //</span>
+                    <p className="body text-[var(--color-text-primary)]">
+                      {step.text}
+                    </p>
                   </div>
-                </motion.div>
-              );
-            })}
-          </div>
-
-        </div>
-        
-        {/* Progress Bar */}
-        <div className="absolute bottom-12 left-0 w-full px-6 md:px-12">
-          <div className="max-w-7xl mx-auto h-[2px] bg-white/10 relative">
-            <motion.div 
-              className="absolute top-0 left-0 h-full bg-brand-cyan"
-              style={{ scaleX: scrollYProgress, transformOrigin: "left" }}
-            />
-          </div>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
 
       </div>
-
-      {/* Spacer to allow scrolling */}
-      <div className="h-[400vh]"></div>
     </section>
   );
-}
+};
