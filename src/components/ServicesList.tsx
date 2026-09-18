@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { motion } from 'framer-motion';
+import { ArrowUpRight } from 'lucide-react';
 
 const CATEGORIES = [
   {
@@ -43,8 +45,6 @@ const CATEGORIES = [
       { title: 'Window Cleaning', desc: 'Streak-free clarity for large commercial glazing.' },
       { title: 'Line Marking', desc: 'Crisp, high-visibility restriping for parking and safety zones.' },
       { title: 'General Commercial Cleaning', desc: 'Scalable janitorial solutions for adjoining operational spaces.' },
-      // Note: "Hygiene & Sanitation Services" was the 21st, but prompt asked for 20 distinct. 
-      // Counting above: 5 + 6 + 3 + 6 = 20 distinct services. Perfect.
     ]
   }
 ];
@@ -54,7 +54,6 @@ export const ServicesList = () => {
   const sectionRefs = useRef<(HTMLElement | null)[]>([]);
 
   useEffect(() => {
-    // Intersection Observer to highlight the active category in the sticky sidebar
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -64,7 +63,7 @@ export const ServicesList = () => {
         });
       },
       {
-        rootMargin: '-20% 0px -70% 0px', // Trigger when section is in the upper middle of viewport
+        rootMargin: '-20% 0px -70% 0px',
       }
     );
 
@@ -83,41 +82,45 @@ export const ServicesList = () => {
   };
 
   return (
-    <section className="relative w-full bg-[var(--color-primary-base)] py-24 md:py-32">
-      <div className="container px-6 md:px-12 lg:px-24">
+    <section className="relative w-full bg-background py-32 overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-surface/50 to-background" />
+      <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full mix-blend-screen filter blur-[150px] z-0" />
+
+      <div className="container px-6 md:px-12 lg:px-24 relative z-10">
         
         {/* Section Header */}
-        <div className="mb-24 border-b border-[var(--color-border)] pb-8">
-          <p className="tech-label text-[var(--color-accent-blue)] mb-4">COMPLETE SERVICES</p>
-          <h2 className="display-lg leading-tight">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-24 border-b border-white/10 pb-12"
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/20 bg-primary/10 mb-6">
+             <p className="tech-label !text-primary !mb-0 tracking-widest">COMPLETE SERVICES</p>
+          </div>
+          <h2 className="display-sm leading-tight text-gradient">
             BEYOND THE EXHAUST.
           </h2>
-          <p className="body text-gray-400 mt-6 max-w-lg">
+          <p className="body text-gray-400 mt-6 max-w-xl text-lg">
             Grade X applies the same rigorous, compliance-driven methodology to every aspect of your commercial environment.
           </p>
           
-          {/* Discrepancy Flag as requested */}
-          <div className="mt-8 p-4 bg-yellow-900/20 border border-yellow-700/50 inline-block">
-            <p className="font-mono text-xs text-yellow-600 uppercase tracking-widest">
-              [SYSTEM FLAG]: BRIEF CITED 21 SERVICES. 20 DISTINCT SERVICES ENUMERATED BELOW. PLEASE CONFIRM FINAL ROSTER.
-            </p>
-          </div>
-        </div>
+        </motion.div>
 
         {/* Split Screen Layout */}
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-24 relative">
           
           {/* Sticky Left Navigation (Desktop) */}
           <div className="hidden lg:block w-1/3 shrink-0">
-            <div className="sticky top-32 flex flex-col gap-6">
+            <div className="sticky top-32 flex flex-col gap-4">
               {CATEGORIES.map((cat) => (
                 <button
                   key={cat.id}
                   onClick={() => scrollToCategory(cat.id)}
-                  className={`text-left text-sm font-bold tracking-widest uppercase transition-colors duration-300 ${
+                  className={`text-left text-sm font-bold tracking-[0.2em] uppercase transition-all duration-300 py-3 rounded-xl px-4 ${
                     activeCategory === cat.id 
-                      ? 'text-[var(--color-accent-blue)] pl-4 border-l-2 border-[var(--color-accent-blue)]' 
-                      : 'text-gray-600 hover:text-gray-400'
+                      ? 'text-primary bg-primary/10 border border-primary/20 shadow-[0_0_20px_rgba(59,130,246,0.15)]' 
+                      : 'text-gray-500 hover:text-gray-300 hover:bg-white/5'
                   }`}
                 >
                   {cat.title}
@@ -133,34 +136,41 @@ export const ServicesList = () => {
                 key={cat.id} 
                 id={cat.id}
                 ref={(el) => { sectionRefs.current[index] = el; }}
-                className="scroll-mt-32" // offset for sticky header if any
+                className="scroll-mt-32"
               >
                 {/* Mobile Category Header */}
-                <h3 className="lg:hidden tech-label text-[var(--color-accent-blue)] mb-8 border-b border-[var(--color-border)] pb-4">
+                <h3 className="lg:hidden tech-label text-primary mb-8 border-b border-white/10 pb-4">
                   {cat.title}
                 </h3>
                 
-                <div className="flex flex-col">
+                <div className="flex flex-col gap-4">
                   {cat.services.map((service, sIndex) => (
-                    <div 
+                    <motion.div 
                       key={sIndex}
-                      className="group border-b border-[rgba(255,255,255,0.05)] py-8 first:pt-0 hover:bg-[rgba(255,255,255,0.02)] transition-colors duration-300 -mx-6 px-6"
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: "-10%" }}
+                      transition={{ duration: 0.5, delay: sIndex * 0.1 }}
+                      className="group glass-card overflow-hidden relative cursor-pointer"
                     >
-                      <div className="flex justify-between items-start gap-8">
+                      <div className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/5 to-primary/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 -translate-x-full group-hover:translate-x-full" />
+                      
+                      <div className="flex justify-between items-center gap-8 relative z-10">
                         <div>
-                          <h4 className="h2 text-xl md:text-2xl mb-2 group-hover:text-[var(--color-accent-blue)] transition-colors">
+                          <h4 className="text-xl md:text-2xl font-bold text-gray-200 mb-2 group-hover:text-white transition-colors flex items-center gap-3">
+                            <span className="w-1.5 h-1.5 rounded-full bg-primary/50 group-hover:bg-primary group-hover:shadow-[0_0_10px_rgba(59,130,246,1)] transition-all" />
                             {service.title}
                           </h4>
-                          <p className="body text-gray-400 max-w-md">
+                          <p className="body text-gray-400/80 max-w-md pl-4">
                             {service.desc}
                           </p>
                         </div>
-                        {/* Optional detail indicator */}
-                        <div className="shrink-0 pt-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                          <span className="tech-label text-xs">EXPLORE +</span>
+                        
+                        <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 group-hover:border-primary/50 group-hover:text-primary transition-all duration-300">
+                           <ArrowUpRight className="w-5 h-5 text-gray-500 group-hover:text-primary transition-colors" />
                         </div>
                       </div>
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
               </article>
