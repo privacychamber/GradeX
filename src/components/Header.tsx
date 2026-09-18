@@ -32,8 +32,8 @@ export const Header = () => {
         <div className="container mx-auto px-6 flex items-center justify-between">
           
           {/* Logo / Brand */}
-          <div className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-primary rounded flex items-center justify-center font-bold text-white text-xl">GX</div>
+          <div className="flex items-center gap-3">
+            <img src="/assets/images/logo.jpg" alt="Grade X Logo" className="h-12 object-contain bg-white rounded-md p-1" />
             <div className="hidden sm:block">
               <div className="font-display font-bold text-white leading-none tracking-wider">GRADE X</div>
               <div className="text-[10px] font-mono text-gray-400 tracking-widest mt-1">COMMERCIAL SOLUTIONS</div>

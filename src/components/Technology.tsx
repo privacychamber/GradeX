@@ -1,6 +1,4 @@
 import React from 'react';
-import { PerformanceCanvas } from '../3d/components/PerformanceCanvas';
-import { TechnologyScene } from '../3d/scenes/TechnologyScene';
 import { motion } from 'framer-motion';
 import { Bot, Search, Droplets, Wind } from 'lucide-react';
 
@@ -90,16 +88,11 @@ export const Technology = () => {
 
           </div>
 
-          {/* Sticky 3D Canvas Container */}
+          {/* Sticky Image Container */}
           <div className="hidden lg:block h-full relative">
-            <div className="sticky top-32 h-[600px] w-full rounded-2xl overflow-hidden border border-white/10 bg-surface/50 shadow-2xl">
+            <div className="sticky top-32 h-[600px] w-full rounded-2xl overflow-hidden border border-white/10 bg-surface/50 shadow-2xl flex items-center justify-center p-8">
                <div className="absolute inset-0 bg-gradient-radial from-primary/10 to-transparent mix-blend-screen" />
-               <PerformanceCanvas 
-                 shadows
-                 camera={{ position: [4, 2, 5], fov: 45 }}
-               >
-                 <TechnologyScene />
-               </PerformanceCanvas>
+               <img src="/assets/images/robot2.jpg" alt="Grade X Robotic Cleaning Technology" className="w-full h-full object-cover rounded-xl shadow-2xl" />
             </div>
           </div>
 
@@ -108,4 +101,3 @@ export const Technology = () => {
     </section>
   );
 };
-
