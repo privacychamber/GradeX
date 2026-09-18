@@ -131,7 +131,7 @@ export const DigitalEvidence = () => {
           <div ref={headerRef} className="border-b-2 border-black pb-6 mb-8 flex justify-between items-start">
             <div>
               <h3 className="font-bold text-3xl tracking-tight leading-none mb-2">SERVICE REPORT</h3>
-              <p className="font-mono text-sm text-gray-500">ID: [PLACEHOLDER_49201]</p>
+              <p className="font-mono text-sm text-gray-500">ID: GX-WA-8409</p>
             </div>
             <div className="text-right">
               <div className="font-bold text-xl tracking-widest">GRADE X</div>
@@ -143,7 +143,7 @@ export const DigitalEvidence = () => {
           <div ref={metadataRef} className="grid grid-cols-3 gap-6 font-mono text-sm mb-12">
             <div>
               <span className="text-gray-500 block mb-1">SITE</span>
-              <strong>[PLACEHOLDER_LOCATION]</strong>
+              <strong>Perth CBD Commercial Kitchen</strong>
             </div>
             <div>
               <span className="text-gray-500 block mb-1">SERVICE</span>
@@ -151,7 +151,7 @@ export const DigitalEvidence = () => {
             </div>
             <div>
               <span className="text-gray-500 block mb-1">DATE</span>
-              <strong>[PLACEHOLDER_DATE]</strong>
+              <strong>{new Date().toLocaleDateString()}</strong>
             </div>
           </div>
 
@@ -175,10 +175,10 @@ export const DigitalEvidence = () => {
             <h4 className="font-bold border-b border-gray-300 pb-2 mb-4 tracking-wider">BEFORE / AFTER PHOTOS</h4>
             <div className="grid grid-cols-2 gap-4">
               <div className="aspect-video bg-gray-100 border border-gray-300 flex items-center justify-center">
-                <span className="font-mono text-sm text-gray-400">[PLACEHOLDER_PRE_PHOTO]</span>
+                <span className="font-mono text-sm text-gray-400">PRE-CLEAN SCAN</span>
               </div>
               <div className="aspect-video bg-gray-100 border border-gray-300 flex items-center justify-center relative">
-                <span className="font-mono text-sm text-gray-400">[PLACEHOLDER_POST_PHOTO]</span>
+                <span className="font-mono text-sm text-gray-400">POST-CLEAN VERIFICATION</span>
                 <div className="absolute top-2 right-2 bg-[var(--color-accent-blue)] text-white text-[10px] px-2 py-1 font-bold">VERIFIED</div>
               </div>
             </div>
@@ -189,17 +189,17 @@ export const DigitalEvidence = () => {
             <div>
               <h4 className="font-bold border-b border-gray-300 pb-2 mb-4 tracking-wider font-sans">AREAS INSPECTED</h4>
               <ul className="list-disc pl-4 space-y-2 text-gray-600">
-                <li>[PLACEHOLDER_AREA_1]</li>
-                <li>[PLACEHOLDER_AREA_2]</li>
-                <li>[PLACEHOLDER_AREA_3]</li>
+                <li>Canopy / Hood</li>
+                <li>Vertical Riser</li>
+                <li>Exhaust Fan Unit</li>
               </ul>
             </div>
             <div>
               <h4 className="font-bold border-b border-gray-300 pb-2 mb-4 tracking-wider font-sans">AREAS CLEANED</h4>
               <ul className="list-disc pl-4 space-y-2 text-[var(--color-accent-blue)] font-bold">
-                <li>[PLACEHOLDER_AREA_1]</li>
-                <li>[PLACEHOLDER_AREA_2]</li>
-                <li>[PLACEHOLDER_AREA_3]</li>
+                <li>Canopy / Hood</li>
+                <li>Vertical Riser</li>
+                <li>Exhaust Fan Unit</li>
               </ul>
             </div>
           </div>
@@ -208,12 +208,12 @@ export const DigitalEvidence = () => {
           <div ref={complianceRef} className="mt-auto pt-8 border-t-2 border-black">
             <h4 className="font-bold mb-2 tracking-wider">COMPLIANCE DOCUMENTATION</h4>
             <p className="body text-sm text-gray-600 mb-6">
-              System has been cleaned to bare metal in accordance with [PLACEHOLDER_STANDARD]. Certificate of compliance issued.
+              System has been cleaned to bare metal in accordance with AS 1851-2012. Certificate of compliance issued.
             </p>
             
             <h4 className="font-bold mb-2 tracking-wider">FUTURE MAINTENANCE RECOMMENDATIONS</h4>
             <p className="body text-sm text-gray-600 mb-8">
-              [PLACEHOLDER_MAINTENANCE_ADVICE]
+              Next scheduled deep clean required in 6 months due to high volume char-grill operation.
             </p>
 
             <div className="flex justify-between items-end border-t border-gray-300 pt-6">

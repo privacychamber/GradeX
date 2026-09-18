@@ -1,18 +1,20 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  /* Color Palette */
-  --color-primary-base: #0A0D14;
-  --color-primary-surface: #111520;
+  /* Premium Dark Theme Color Palette */
+  --color-primary-base: #050810;
+  --color-primary-surface: #0a0e17;
+  --color-primary-elevated: #111827;
   
   --color-accent-blue: #3B82F6;
+  --color-accent-blue-light: #60A5FA;
   --color-accent-gold: #F59E0B;
   
   --color-text-primary: #FFFFFF;
-  --color-border: rgba(255, 255, 255, 0.1);
+  --color-text-muted: #9CA3AF;
+  --color-border: rgba(255, 255, 255, 0.08);
 }
 
 @layer base {
@@ -21,6 +23,12 @@
     color: var(--color-text-primary);
     font-family: 'Inter', sans-serif;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+  
+  h1, h2, h3, h4, h5, h6, .font-display {
+    font-family: 'Outfit', sans-serif;
   }
 }
 
@@ -28,30 +36,44 @@
   /* Typography Scale */
   .display-lg {
     @apply font-bold text-5xl md:text-7xl lg:text-8xl tracking-tight;
+    font-family: 'Outfit', sans-serif;
   }
   
   .display {
     @apply font-bold text-4xl md:text-6xl lg:text-7xl tracking-tight;
+    font-family: 'Outfit', sans-serif;
   }
   
   .display-sm {
     @apply font-bold text-3xl md:text-5xl lg:text-6xl tracking-tight;
+    font-family: 'Outfit', sans-serif;
   }
 
   .h1 {
     @apply font-bold text-3xl md:text-4xl;
+    font-family: 'Outfit', sans-serif;
   }
 
   .h2 {
     @apply font-bold text-2xl md:text-3xl;
+    font-family: 'Outfit', sans-serif;
   }
 
   .body {
-    @apply text-base md:text-lg leading-relaxed;
+    @apply text-base md:text-lg leading-relaxed text-[var(--color-text-muted)];
   }
 
   .tech-label {
     @apply font-mono text-xs md:text-sm font-bold tracking-[0.2em] uppercase;
+  }
+
+  /* Text Gradients */
+  .text-gradient {
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-gray-400;
+  }
+  
+  .text-gradient-blue {
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600;
   }
 
   /* Grid System */
@@ -71,36 +93,49 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+
+  /* Glassmorphism */
+  .glass-panel {
+    @apply bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl;
+  }
+
+  /* Buttons */
+  .gx-button {
+    @apply relative inline-flex items-center justify-center px-8 py-4 font-semibold text-white transition-all duration-300 ease-out bg-blue-600 rounded-full overflow-hidden;
+  }
+  
+  .gx-button::before {
+    content: '';
+    @apply absolute inset-0 w-full h-full bg-gradient-to-r from-blue-500 to-blue-700 opacity-0 transition-opacity duration-300;
+  }
+  
+  .gx-button:hover::before {
+    @apply opacity-100;
+  }
+  
+  .gx-button span {
+    @apply relative z-10 flex items-center gap-2;
+  }
+
+  .gx-button-outline {
+    @apply relative inline-flex items-center justify-center px-8 py-4 font-semibold text-white transition-all duration-300 ease-out border border-white/20 rounded-full hover:bg-white/5;
+  }
 }
 
-/* Phase 16: Motion Direction Standardization */
-.btn-tactile {
-  transition: transform 0.1s ease-out, background-color 0.2s ease-out, color 0.2s ease-out;
-}
-
-.btn-tactile:active {
-  /* Small tactile response, strictly no bouncy eases */
-  transform: scale(0.98);
-}
-
+/* Animations */
 .anim-text {
-  /* Base state for GSAP text reveals (fade + translate + clip reveal) */
   opacity: 0;
   transform: translateY(20px);
   clip-path: inset(0 0 100% 0);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *,
-  ::before,
-  ::after {
-    /* Neutralize all CSS animations and transitions */
+  *, ::before, ::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-  
   .anim-text {
     opacity: 1 !important;
     transform: none !important;

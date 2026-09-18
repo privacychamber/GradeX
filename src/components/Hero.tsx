@@ -59,30 +59,30 @@ export const Hero = () => {
       </div>
 
       {/* Sticky DOM Overlay */}
-      <div className="sticky top-0 w-full h-screen flex flex-col justify-center z-10 pointer-events-none">
+      <div className="sticky top-0 w-full h-screen flex flex-col justify-center z-10 pointer-events-none bg-gradient-to-b from-black/60 via-transparent to-black/80">
         <div className="container grid-editorial" ref={textContainerRef}>
           <div className="col-span-12 lg:col-span-8 lg:col-start-2">
             
-            <p className="tech-label text-[var(--color-accent-gold)] mb-6">
+            <p className="tech-label text-[var(--color-accent-gold)] mb-6 drop-shadow-md">
               WESTERN AUSTRALIA <br/> COMMERCIAL KITCHEN EXHAUST
             </p>
             
-            <h1 className="display-lg mb-8 leading-[1.05]">
+            <h1 className="display-lg mb-8 leading-[1.05] text-gradient">
               PRECISION.<br/>
               TECHNOLOGY.<br/>
               COMPLIANCE.
             </h1>
             
-            <p className="body max-w-lg mb-12">
+            <p className="body max-w-lg mb-12 text-white/90 drop-shadow-md">
               Advanced equipment and proven methodology for professional commercial kitchen exhaust cleaning.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-6 items-start sm:items-center pointer-events-auto">
-              <button className="gx-button">
-                REQUEST A QUOTE &rarr;
+              <button className="gx-button group">
+                <span>REQUEST A QUOTE <span className="group-hover:translate-x-1 transition-transform">&rarr;</span></span>
               </button>
-              <button className="gx-button-outline px-0 py-2 border-none hover:text-[var(--color-accent-blue)] transition-colors">
-                EXPLORE THE TECHNOLOGY &darr;
+              <button className="gx-button-outline group">
+                <span>EXPLORE THE TECHNOLOGY <span className="group-hover:translate-y-1 transition-transform">&darr;</span></span>
               </button>
             </div>
             

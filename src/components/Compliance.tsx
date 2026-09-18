@@ -17,7 +17,7 @@ export const Compliance = () => {
   return (
     <section className="relative w-full bg-[#050A10] py-24 md:py-32 border-t border-b border-[rgba(255,255,255,0.05)]">
       <div className="container px-6 md:px-12 lg:px-24">
-        
+
         {/* Editorial Header */}
         <div className="mb-16 md:mb-24 text-center md:text-left">
           <p className="tech-label text-[var(--color-accent-blue)] mb-4">COMPLIANCE & WHS</p>
@@ -30,8 +30,8 @@ export const Compliance = () => {
         {/* Legal Ledger Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-0 border-t border-[rgba(255,255,255,0.1)]">
           {COMPLIANCE_ITEMS.map((item, index) => (
-            <div 
-              key={index} 
+            <div
+              key={index}
               className="flex justify-between items-center py-6 border-b border-[rgba(255,255,255,0.1)] group hover:bg-[rgba(255,255,255,0.02)] transition-colors px-4 -mx-4"
             >
               <h3 className="text-lg md:text-xl font-medium text-gray-300 group-hover:text-white transition-colors">
