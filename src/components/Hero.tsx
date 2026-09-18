@@ -75,11 +75,25 @@ export const Hero = () => {
         >
           {/* Subtle glow behind robot */}
           <div className="absolute inset-0 bg-gradient-radial from-primary/20 to-transparent filter blur-[80px]" />
-          <img 
+          <motion.img 
+            animate={{ 
+              y: [0, -20, 0],
+              rotateZ: [0, 2, -1, 0],
+              rotateY: [0, 5, -5, 0]
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
             src="/assets/images/robot2.jpg" 
             alt="Grade X Robotic Cleaning Technology" 
             className="w-full max-w-[800px] h-auto object-contain relative z-10 scale-110 lg:scale-125 lg:translate-x-12 mix-blend-screen"
-            style={{ filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.5))" }}
+            style={{ 
+              filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.5))",
+              perspective: "1000px",
+              transformStyle: "preserve-3d"
+            }}
           />
         </motion.div>
       </div>

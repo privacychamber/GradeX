@@ -69,24 +69,27 @@ export const Process = () => {
             <motion.div 
               key={step.num}
               variants={itemVariants}
-              className="flex flex-col items-center text-center group"
+              whileHover={{ y: -10, scale: 1.05 }}
+              transition={{ duration: 0.3 }}
+              className="flex flex-col items-center text-center group cursor-pointer p-6 rounded-3xl hover:bg-white/5 border border-transparent hover:border-white/10"
+              style={{ transformStyle: "preserve-3d" }}
             >
-              <div className="relative mb-8">
-                <div className="w-24 h-24 rounded-[2rem] bg-background border border-white/10 flex items-center justify-center relative z-10 group-hover:border-primary/50 group-hover:bg-primary/10 transition-all duration-300">
+              <div className="relative mb-8 transform-gpu" style={{ transform: "translateZ(30px)" }}>
+                <div className="w-24 h-24 rounded-[2rem] bg-background border border-white/10 flex items-center justify-center relative z-10 group-hover:border-primary/50 group-hover:bg-primary/10 transition-all duration-300 group-hover:shadow-[0_0_30px_rgba(59,130,246,0.3)] group-hover:rotate-6">
                   {step.icon}
                 </div>
                 <div className="absolute -inset-4 bg-primary/20 filter blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full" />
               </div>
               
-              <h3 className="text-4xl font-black text-gray-800 mb-4 group-hover:text-primary transition-colors">
+              <h3 className="text-4xl font-black text-gray-800 mb-4 group-hover:text-primary transition-colors transform-gpu" style={{ transform: "translateZ(20px)" }}>
                 {step.num}
               </h3>
               
-              <h4 className="text-xl font-bold text-white mb-3">
+              <h4 className="text-xl font-bold text-white mb-3 transform-gpu" style={{ transform: "translateZ(25px)" }}>
                 {step.title}
               </h4>
               
-              <p className="text-sm text-gray-400 leading-relaxed max-w-xs">
+              <p className="text-sm text-gray-400 leading-relaxed max-w-xs transform-gpu" style={{ transform: "translateZ(10px)" }}>
                 {step.desc}
               </p>
             </motion.div>

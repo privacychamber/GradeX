@@ -65,17 +65,20 @@ export const Compliance = () => {
           whileInView="show"
           viewport={{ once: true, margin: "-10%" }}
           className="grid grid-cols-1 lg:grid-cols-2 gap-4"
+          style={{ perspective: "1000px" }}
         >
           {COMPLIANCE_ITEMS.map((item, index) => (
             <motion.div
               key={index}
               variants={itemVariants}
-              whileHover={{ scale: 1.02 }}
+              whileHover={{ scale: 1.02, y: -2, rotateX: 2, rotateY: -2 }}
+              transition={{ type: "spring", stiffness: 400, damping: 25 }}
               className="flex justify-between items-center p-6 rounded-2xl bg-surface/50 border border-white/5 hover:border-primary/50 hover:bg-surfaceHover/80 transition-all duration-300 group cursor-pointer shadow-[0_0_0_rgba(59,130,246,0)] hover:shadow-[0_0_30px_rgba(59,130,246,0.15)] relative overflow-hidden"
+              style={{ transformStyle: "preserve-3d" }}
             >
               <div className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               
-              <div className="flex items-center gap-4 relative z-10">
+              <div className="flex items-center gap-4 relative z-10 transform-gpu" style={{ transform: "translateZ(20px)" }}>
                 <div className="w-10 h-10 rounded-full bg-background border border-white/10 flex items-center justify-center group-hover:border-primary/50 group-hover:bg-primary/10 transition-all">
                    <FileCheck className="w-4 h-4 text-gray-400 group-hover:text-primary transition-colors" />
                 </div>
@@ -83,7 +86,7 @@ export const Compliance = () => {
                   {item.title}
                 </h3>
               </div>
-              <div className="relative z-10 flex items-center gap-3">
+              <div className="relative z-10 flex items-center gap-3 transform-gpu" style={{ transform: "translateZ(30px)" }}>
                 <span className="font-mono text-xs md:text-sm text-gray-500 group-hover:text-primary transition-colors tracking-widest shrink-0 px-3 py-1 bg-background rounded-full border border-white/5 group-hover:border-primary/30">
                   {item.tag}
                 </span>
