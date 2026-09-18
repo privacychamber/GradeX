@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ShieldCheck, FileCheck } from 'lucide-react';
+import { ShieldCheck, FileCheck, ExternalLink } from 'lucide-react';
 
 const COMPLIANCE_ITEMS = [
   { title: 'Public Liability Insurance', tag: 'VERIFIED' },
@@ -32,13 +32,13 @@ const itemVariants = {
 
 export const Compliance = () => {
   return (
-    <section className="relative w-full bg-background py-32 overflow-hidden">
+    <section id="compliance" className="relative w-full bg-background py-32 overflow-hidden">
       
       {/* Background elements */}
       <div className="absolute inset-0 z-0 bg-gradient-radial from-blue-900/10 via-background to-background" />
-      <div className="absolute top-1/2 left-0 w-96 h-96 bg-primary/10 rounded-full mix-blend-screen filter blur-[100px] -translate-y-1/2 -translate-x-1/2 z-0" />
+      <div className="absolute top-1/2 left-0 w-96 h-96 bg-primary/10 rounded-full mix-blend-screen filter blur-[100px] -translate-y-1/2 -translate-x-1/2 z-0 pointer-events-none" />
       
-      <div className="container relative z-10">
+      <div className="container relative z-10 px-6 md:px-12 lg:px-24">
 
         {/* Editorial Header */}
         <motion.div 
@@ -64,25 +64,31 @@ export const Compliance = () => {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-10%" }}
-          className="grid grid-cols-1 lg:grid-cols-2 gap-6 glass-panel p-8 md:p-12"
+          className="grid grid-cols-1 lg:grid-cols-2 gap-4"
         >
           {COMPLIANCE_ITEMS.map((item, index) => (
             <motion.div
               key={index}
               variants={itemVariants}
-              className="flex justify-between items-center p-6 rounded-2xl bg-surfaceHover/30 border border-white/5 hover:border-white/10 hover:bg-surfaceHover/80 transition-all duration-300 group"
+              whileHover={{ scale: 1.02 }}
+              className="flex justify-between items-center p-6 rounded-2xl bg-surface/50 border border-white/5 hover:border-primary/50 hover:bg-surfaceHover/80 transition-all duration-300 group cursor-pointer shadow-[0_0_0_rgba(59,130,246,0)] hover:shadow-[0_0_30px_rgba(59,130,246,0.15)] relative overflow-hidden"
             >
-              <div className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded-full bg-background border border-white/10 flex items-center justify-center group-hover:border-primary/50 group-hover:shadow-[0_0_15px_rgba(59,130,246,0.3)] transition-all">
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              
+              <div className="flex items-center gap-4 relative z-10">
+                <div className="w-10 h-10 rounded-full bg-background border border-white/10 flex items-center justify-center group-hover:border-primary/50 group-hover:bg-primary/10 transition-all">
                    <FileCheck className="w-4 h-4 text-gray-400 group-hover:text-primary transition-colors" />
                 </div>
                 <h3 className="text-lg md:text-xl font-medium text-gray-300 group-hover:text-white transition-colors">
                   {item.title}
                 </h3>
               </div>
-              <span className="font-mono text-xs md:text-sm text-gray-500 group-hover:text-primaryGlow transition-colors tracking-widest shrink-0 ml-4 px-3 py-1 bg-background rounded-full border border-white/5">
-                {item.tag}
-              </span>
+              <div className="relative z-10 flex items-center gap-3">
+                <span className="font-mono text-xs md:text-sm text-gray-500 group-hover:text-primary transition-colors tracking-widest shrink-0 px-3 py-1 bg-background rounded-full border border-white/5 group-hover:border-primary/30">
+                  {item.tag}
+                </span>
+                <ExternalLink className="w-4 h-4 text-transparent group-hover:text-primary/70 transition-colors" />
+              </div>
             </motion.div>
           ))}
         </motion.div>
@@ -98,8 +104,9 @@ export const Compliance = () => {
           <p className="font-mono text-sm text-gray-400 max-w-2xl leading-relaxed">
             Grade X maintains strict adherence to occupational health and safety standards. All insurance certificates, SWMS, and site-specific risk assessments are securely documented and available upon request prior to commencement of works.
           </p>
-          <div className="font-mono text-xs text-primaryGlow/70 shrink-0 border border-primary/20 px-4 py-2 rounded-full bg-primary/5">
-            [OPERATIONAL REGISTRY OPEN]
+          <div className="font-mono text-xs text-primary/70 shrink-0 border border-primary/20 px-4 py-2 rounded-full bg-primary/5 flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+            OPERATIONAL REGISTRY OPEN
           </div>
         </motion.div>
 

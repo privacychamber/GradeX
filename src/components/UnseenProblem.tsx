@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ShieldAlert, Flame, EyeOff } from 'lucide-react';
+import { ShieldAlert, Flame, EyeOff, ArrowRight } from 'lucide-react';
 
 export const UnseenProblem = () => {
   return (
@@ -59,7 +59,7 @@ export const UnseenProblem = () => {
             </ul>
           </motion.div>
           
-          {/* Visual Bento Box */}
+          {/* Visual Bento Box (Interactive) */}
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -67,25 +67,47 @@ export const UnseenProblem = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="grid grid-cols-2 gap-4"
           >
-            <div className="col-span-2 glass-panel p-8 relative overflow-hidden h-[250px] flex flex-col justify-end">
-               <div className="absolute inset-0 bg-[#1c1208] opacity-80" />
+            <motion.div 
+              whileHover={{ scale: 1.02 }}
+              className="col-span-2 glass-panel p-8 relative overflow-hidden h-[250px] flex flex-col justify-end group cursor-crosshair border border-white/5 hover:border-secondary/30 transition-colors"
+            >
+               <div className="absolute inset-0 bg-[#1c1208] opacity-80 group-hover:scale-105 transition-transform duration-700" />
                <div className="absolute inset-0 bg-gradient-radial from-[#38200a]/40 to-transparent" />
-               <div className="relative z-10">
-                 <div className="tech-label text-secondary mb-2">BEFORE</div>
-                 <h3 className="text-xl font-bold text-white">Accumulated Grease Inside</h3>
-                 <p className="text-sm text-gray-400 mt-2">The hidden danger inside your ducts.</p>
+               <div className="relative z-10 flex justify-between items-end">
+                 <div>
+                   <div className="tech-label text-secondary mb-2 flex items-center gap-2">
+                     <span className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
+                     BEFORE
+                   </div>
+                   <h3 className="text-xl font-bold text-white">Accumulated Grease Inside</h3>
+                   <p className="text-sm text-gray-400 mt-2 max-w-sm group-hover:text-gray-300 transition-colors">The hidden danger inside your ducts.</p>
+                 </div>
+                 <div className="w-10 h-10 rounded-full border border-secondary/20 flex items-center justify-center text-secondary opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-x-4 group-hover:translate-x-0 bg-secondary/10">
+                   <ArrowRight className="w-4 h-4" />
+                 </div>
                </div>
-            </div>
+            </motion.div>
             
-            <div className="col-span-2 glass-panel p-8 relative overflow-hidden h-[250px] flex flex-col justify-end border border-primary/30 shadow-[0_0_30px_rgba(59,130,246,0.15)]">
-               <div className="absolute inset-0 bg-slate-900 opacity-90" />
-               <div className="absolute inset-0 bg-gradient-radial from-primary/20 to-transparent mix-blend-screen" />
-               <div className="relative z-10">
-                 <div className="tech-label text-primary mb-2">AFTER (GRADE X)</div>
-                 <h3 className="text-xl font-bold text-white">Restored to Bare Metal</h3>
-                 <p className="text-sm text-gray-400 mt-2">Verified clean, entirely mitigating the fire risk.</p>
+            <motion.div 
+              whileHover={{ scale: 1.02 }}
+              className="col-span-2 glass-panel p-8 relative overflow-hidden h-[250px] flex flex-col justify-end group cursor-crosshair border border-primary/30 shadow-[0_0_30px_rgba(59,130,246,0.15)] hover:shadow-[0_0_50px_rgba(59,130,246,0.3)] transition-all"
+            >
+               <div className="absolute inset-0 bg-slate-900 opacity-90 group-hover:scale-105 transition-transform duration-700" />
+               <div className="absolute inset-0 bg-gradient-radial from-primary/20 to-transparent mix-blend-screen opacity-50 group-hover:opacity-100 transition-opacity duration-500" />
+               <div className="relative z-10 flex justify-between items-end">
+                 <div>
+                   <div className="tech-label text-primary mb-2 flex items-center gap-2">
+                     <span className="w-2 h-2 rounded-full bg-primary shadow-[0_0_10px_rgba(59,130,246,1)]" />
+                     AFTER (GRADE X)
+                   </div>
+                   <h3 className="text-xl font-bold text-white">Restored to Bare Metal</h3>
+                   <p className="text-sm text-gray-400 mt-2 max-w-sm group-hover:text-gray-200 transition-colors">Verified clean, entirely mitigating the fire risk.</p>
+                 </div>
+                 <div className="w-10 h-10 rounded-full border border-primary/50 flex items-center justify-center text-primary transition-all duration-300 translate-x-4 group-hover:translate-x-0 bg-primary/20">
+                   <ArrowRight className="w-4 h-4" />
+                 </div>
                </div>
-            </div>
+            </motion.div>
           </motion.div>
 
         </div>
