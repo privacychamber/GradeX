@@ -1,97 +1,136 @@
 import React from 'react';
-import { PerformanceCanvas } from '../3d/components/PerformanceCanvas';
-import { HeroScene } from '../3d/scenes/HeroScene';
 import { motion } from 'framer-motion';
-import { ArrowRight, ChevronDown, ShieldCheck, Award, HardHat } from 'lucide-react';
+import { ArrowRight, Play, ShieldCheck, Zap, AlertTriangle } from 'lucide-react';
 
 export const Hero = () => {
   return (
-    <section className="relative w-full min-h-screen flex flex-col pt-32 pb-16 bg-background overflow-hidden">
+    <section className="relative w-full min-h-screen flex flex-col bg-background overflow-hidden pt-24 lg:pt-32">
       
       {/* Background Noise & Glow */}
-      <div className="absolute inset-0 z-0 bg-gradient-radial from-blue-900/20 via-background to-background" />
-      <div className="absolute inset-0 z-0 opacity-30 bg-grid" />
+      <div className="absolute inset-0 z-0 bg-gradient-radial from-blue-900/10 via-background to-background" />
+      <div className="absolute inset-0 z-0 opacity-20 bg-grid" />
       
-      {/* Animated Glow Blobs */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full mix-blend-screen filter blur-[100px] animate-blob z-0" />
-      <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-secondary/10 rounded-full mix-blend-screen filter blur-[120px] animate-blob animation-delay-2000 z-0" />
+      <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-primary/10 rounded-full mix-blend-screen filter blur-[120px] animate-blob z-0" />
 
-      {/* Ambient 3D Canvas Background */}
-      <div className="absolute inset-0 w-full h-full z-0 mix-blend-screen opacity-60 pointer-events-none">
-        <PerformanceCanvas 
-          shadows
-          camera={{ position: [0, 0, 8], fov: 45 }}
-        >
-          <HeroScene />
-        </PerformanceCanvas>
-      </div>
+      {/* Main Hero Content */}
+      <div className="container relative z-10 flex-1 flex flex-col lg:flex-row items-center justify-between px-6 md:px-12 lg:px-24">
+        
+        {/* Left Column: Text */}
+        <div className="w-full lg:w-1/2 pt-12 lg:pt-0 pb-16 lg:pb-0 relative z-20">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="mb-6 flex items-center gap-3"
+          >
+            <span className="tech-label !text-gray-400 !mb-0 tracking-[0.2em] text-sm uppercase">Western Australia's</span>
+          </motion.div>
+          
+          <motion.h1 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.2 }}
+            className="text-5xl md:text-6xl lg:text-7xl xl:text-[80px] font-black leading-[0.95] text-white tracking-tight mb-8"
+          >
+            ROBOTIC<br/>
+            EXHAUST<br/>
+            CLEANING<br/>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-500">SPECIALISTS</span>
+          </motion.h1>
+          
+          <motion.p 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.4 }}
+            className="body max-w-md text-gray-400 text-lg md:text-xl font-medium mb-10 leading-relaxed"
+          >
+            Cleaner ducts. Safer kitchens.<br/>
+            Full compliance. Every time.
+          </motion.p>
+          
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="flex flex-col sm:flex-row gap-4 items-center"
+          >
+            <a href="#contact" className="gx-button px-8 py-4 w-full sm:w-auto flex justify-center text-sm font-bold tracking-widest">
+              REQUEST A QUOTE
+            </a>
+            <a href="#technology" className="px-8 py-4 w-full sm:w-auto flex items-center justify-center gap-3 text-white hover:text-primary transition-colors font-bold text-sm tracking-widest group">
+              <div className="w-10 h-10 rounded-full border border-white/20 group-hover:border-primary/50 flex items-center justify-center bg-white/5 transition-colors">
+                <Play className="w-4 h-4 ml-1" />
+              </div>
+              WATCH THE ROBOT
+            </a>
+          </motion.div>
+        </div>
 
-      {/* Hero Content */}
-      <div className="container relative z-10 flex-1 flex flex-col justify-center items-center text-center px-4 mt-12">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-md mb-8"
-        >
-          <span className="w-2 h-2 rounded-full bg-primary animate-glow" />
-          <span className="text-xs font-mono font-bold tracking-widest text-primary">WESTERN AUSTRALIA</span>
-        </motion.div>
-        
-        <motion.h1 
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.2 }}
-          className="display-lg mb-6 text-gradient"
-        >
-          PRECISION.<br/>
-          <span className="text-gradient-blue">TECHNOLOGY.</span><br/>
-          COMPLIANCE.
-        </motion.h1>
-        
-        <motion.p 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.4 }}
-          className="body max-w-2xl mb-12 text-gray-300 text-lg md:text-xl font-medium"
-        >
-          Advanced equipment and proven methodology for professional commercial kitchen exhaust cleaning. We don't just clean; we verify.
-        </motion.p>
-        
+        {/* Right Column: Image */}
         <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="flex flex-col sm:flex-row gap-4 items-center"
+          initial={{ opacity: 0, scale: 0.95, x: 50 }}
+          animate={{ opacity: 1, scale: 1, x: 0 }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
+          className="w-full lg:w-1/2 relative z-10 flex justify-center lg:justify-end mt-8 lg:mt-0"
         >
-          <a href="#contact" className="gx-button group px-8 py-4">
-            <span>REQUEST A QUOTE <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" /></span>
-          </a>
-          <a href="#services" className="gx-button-outline group px-8 py-4">
-            <span>EXPLORE SERVICES <ChevronDown className="w-4 h-4 group-hover:translate-y-1 transition-transform" /></span>
-          </a>
+          {/* Subtle glow behind robot */}
+          <div className="absolute inset-0 bg-gradient-radial from-primary/20 to-transparent filter blur-[80px]" />
+          <img 
+            src="/assets/images/robot2.jpg" 
+            alt="Grade X Robotic Cleaning Technology" 
+            className="w-full max-w-[800px] h-auto object-contain relative z-10 scale-110 lg:scale-125 lg:translate-x-12 mix-blend-screen"
+            style={{ filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.5))" }}
+          />
         </motion.div>
       </div>
 
-      {/* Trust Badges Strip */}
+      {/* Trust & Stats Bar (Bottom) */}
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.8 }}
-        className="container relative z-10 mt-auto pt-16 px-4"
+        className="relative z-20 w-full mt-auto"
       >
-        <div className="flex flex-wrap justify-center gap-8 md:gap-16 border-t border-white/10 pt-8">
-          <div className="flex items-center gap-3 text-gray-400">
-            <HardHat className="w-6 h-6 text-primary" />
-            <span className="text-sm font-bold tracking-wider uppercase">WA's Only Robotic System</span>
-          </div>
-          <div className="flex items-center gap-3 text-gray-400">
-            <ShieldCheck className="w-6 h-6 text-primary" />
-            <span className="text-sm font-bold tracking-wider uppercase">Fully Insured & Compliant</span>
-          </div>
-          <div className="flex items-center gap-3 text-gray-400">
-            <Award className="w-6 h-6 text-primary" />
-            <span className="text-sm font-bold tracking-wider uppercase">Digital Verification</span>
+        {/* Top dividing line */}
+        <div className="w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+        
+        <div className="bg-surface/50 backdrop-blur-md">
+          <div className="container px-6 lg:px-24">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 py-6 md:py-8 text-center md:text-left divide-x divide-white/5">
+              
+              <div className="flex flex-col items-center md:items-start px-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <Zap className="w-4 h-4 text-primary" />
+                  <span className="text-xs font-bold tracking-widest text-gray-500 uppercase">Technology</span>
+                </div>
+                <span className="text-sm font-bold text-gray-300">WA'S ONLY ROBOTIC SYSTEM</span>
+              </div>
+              
+              <div className="flex flex-col items-center md:items-start px-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <ShieldCheck className="w-4 h-4 text-primary" />
+                  <span className="text-xs font-bold tracking-widest text-gray-500 uppercase">Compliance</span>
+                </div>
+                <span className="text-sm font-bold text-gray-300">100% CERTIFIED & INSURED</span>
+              </div>
+              
+              <div className="flex flex-col items-center md:items-start px-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <Play className="w-4 h-4 text-primary" />
+                  <span className="text-xs font-bold tracking-widest text-gray-500 uppercase">Evidence</span>
+                </div>
+                <span className="text-sm font-bold text-gray-300">LIVE VIDEO VERIFICATION</span>
+              </div>
+              
+              <div className="flex flex-col items-center md:items-start px-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <AlertTriangle className="w-4 h-4 text-secondary" />
+                  <span className="text-xs font-bold tracking-widest text-gray-500 uppercase">Support</span>
+                </div>
+                <span className="text-sm font-bold text-gray-300">EMERGENCY RESPONSE</span>
+              </div>
+
+            </div>
           </div>
         </div>
       </motion.div>
