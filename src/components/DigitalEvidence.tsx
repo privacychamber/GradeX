@@ -1,234 +1,137 @@
-import React, { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
+import React from 'react';
+import { motion } from 'framer-motion';
+import { FileText, Camera, Video, Ruler } from 'lucide-react';
 
 export const DigitalEvidence = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  
-  // Refs for the sequential assembly elements
-  const headerRef = useRef<HTMLDivElement>(null);
-  const metadataRef = useRef<HTMLDivElement>(null);
-  const measurementRef = useRef<HTMLDivElement>(null);
-  const photosRef = useRef<HTMLDivElement>(null);
-  const areasRef = useRef<HTMLDivElement>(null);
-  const complianceRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!containerRef.current) return;
-
-    // Use matchMedia to respect prefers-reduced-motion
-    let mm = gsap.matchMedia();
-
-    mm.add("(prefers-reduced-motion: no-preference)", () => {
-      // Create a timeline bound to the scroll of the container
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: 'top top',
-          end: 'bottom bottom',
-          scrub: 1, // Smooth scrub for the assembly
-        }
-      });
-
-      // Initial state: Document looks like a blank grid
-      const elements = [
-        metadataRef.current, 
-        measurementRef.current, 
-        photosRef.current, 
-        areasRef.current, 
-        complianceRef.current
-      ];
-      
-      gsap.set(elements, { autoAlpha: 0, y: 20 });
-      gsap.set(headerRef.current, { autoAlpha: 0 });
-
-      // 1. Header appears
-      tl.to(headerRef.current, { autoAlpha: 1, duration: 0.5 });
-      
-      // 2. Metadata types in
-      tl.to(metadataRef.current, { autoAlpha: 1, y: 0, duration: 0.5 });
-      
-      // 3. Grasmeter measurement pops in (with numeric transition)
-      tl.to(measurementRef.current, { autoAlpha: 1, y: 0, duration: 0.5 })
-        .to({ valBefore: 0, valAfter: 4.2 }, {
-          valBefore: 4.2,
-          valAfter: 0.0,
-          duration: 1,
-          ease: "none",
-          onUpdate: function() {
-            const elBefore = document.getElementById('de-measure-before');
-            const elAfter = document.getElementById('de-measure-after');
-            if(elBefore) elBefore.innerText = this.targets()[0].valBefore.toFixed(1) + 'mm';
-            if(elAfter) elAfter.innerText = this.targets()[0].valAfter.toFixed(1) + 'mm';
-          }
-        }, "<");
-      
-      // 4. Photos load
-      tl.to(photosRef.current, { autoAlpha: 1, y: 0, duration: 0.5 });
-      
-      // 5. Areas logged
-      tl.to(areasRef.current, { autoAlpha: 1, y: 0, duration: 0.5 });
-      
-      // 6. Compliance & Sign-off completes the document
-      tl.to(complianceRef.current, { autoAlpha: 1, y: 0, duration: 0.5 });
-
-      // Hold at the end
-      tl.to({}, { duration: 1 });
-
-      return () => {
-        tl.kill();
-      };
-    });
-
-    // Fallback for prefers-reduced-motion (snap to fully visible)
-    mm.add("(prefers-reduced-motion: reduce)", () => {
-      const elements = [
-        metadataRef.current, 
-        measurementRef.current, 
-        photosRef.current, 
-        areasRef.current, 
-        complianceRef.current
-      ];
-      gsap.set(elements, { autoAlpha: 1, y: 0 });
-      gsap.set(headerRef.current, { autoAlpha: 1 });
-      
-      const elBefore = document.getElementById('de-measure-before');
-      const elAfter = document.getElementById('de-measure-after');
-      if(elBefore) elBefore.innerText = '4.2mm';
-      if(elAfter) elAfter.innerText = '0.0mm';
-    });
-
-    return () => mm.revert();
-  }, []);
-
   return (
-    // 300vh allows enough scroll time for the document to build
-    <section ref={containerRef} className="relative w-full h-[300vh] bg-[var(--color-primary-surface)]">
+    <section id="evidence" className="relative w-full py-32 bg-background overflow-hidden border-t border-white/10">
       
-      {/* Sticky view */}
-      <div className="sticky top-0 w-full h-screen overflow-hidden flex flex-col lg:flex-row items-center justify-center p-6 md:p-12">
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-secondary/10 rounded-full mix-blend-screen filter blur-[120px] translate-x-1/2 -translate-y-1/2 z-0" />
+
+      <div className="container px-6 md:px-12 lg:px-24 relative z-10">
         
-        {/* Left Side: Headline */}
-        <div className="w-full lg:w-1/3 mb-12 lg:mb-0 lg:pr-12 text-center lg:text-left z-10">
-          <p className="tech-label text-[var(--color-accent-gold)] mb-4">DIGITAL EVIDENCE</p>
-          <h2 className="display leading-[1.05] text-[var(--color-text-primary)]">
-            DON'T JUST CLEAN IT.<br/>
-            SHOW IT.
-          </h2>
-        </div>
-
-        {/* Right Side: The Document Stage */}
-        <div className="w-full lg:w-2/3 max-w-4xl h-full max-h-[85vh] bg-white text-black p-6 md:p-12 shadow-2xl flex flex-col relative border border-gray-300 mx-auto overflow-y-auto hide-scrollbar">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           
-          {/* Static Watermark */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-5 pointer-events-none transform -rotate-45">
-            <span className="text-8xl font-bold font-mono tracking-widest">GRADE X</span>
-          </div>
-
-          {/* Assembly Element 1: Header */}
-          <div ref={headerRef} className="border-b-2 border-black pb-6 mb-8 flex justify-between items-start">
-            <div>
-              <h3 className="font-bold text-3xl tracking-tight leading-none mb-2">SERVICE REPORT</h3>
-              <p className="font-mono text-sm text-gray-500">ID: GX-WA-8409</p>
+          {/* Left Side: Text */}
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-10%" }}
+            transition={{ duration: 0.8 }}
+          >
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-secondary/30 bg-secondary/10 mb-8">
+               <span className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
+               <p className="tech-label !text-secondary !mb-0 tracking-widest">DIGITAL EVIDENCE & REPORTING</p>
             </div>
-            <div className="text-right">
-              <div className="font-bold text-xl tracking-widest">GRADE X</div>
-              <p className="font-mono text-sm">ISO CERTIFIED</p>
-            </div>
-          </div>
-
-          {/* Assembly Element 2: Metadata */}
-          <div ref={metadataRef} className="grid grid-cols-3 gap-6 font-mono text-sm mb-12">
-            <div>
-              <span className="text-gray-500 block mb-1">SITE</span>
-              <strong>Perth CBD Commercial Kitchen</strong>
-            </div>
-            <div>
-              <span className="text-gray-500 block mb-1">SERVICE</span>
-              <strong>EXHAUST DEEP CLEAN</strong>
-            </div>
-            <div>
-              <span className="text-gray-500 block mb-1">DATE</span>
-              <strong>{new Date().toLocaleDateString()}</strong>
-            </div>
-          </div>
-
-          {/* Assembly Element 3: Grasmeter Measurements */}
-          <div ref={measurementRef} className="mb-12">
-            <h4 className="font-bold border-b border-gray-300 pb-2 mb-4 tracking-wider">GREASE THICKNESS (GRASMETER)</h4>
-            <div className="grid grid-cols-2 gap-8">
-              <div className="bg-red-50 p-6 border border-red-200">
-                <span className="tech-label text-red-600 block mb-2">BEFORE (CRITICAL)</span>
-                <span id="de-measure-before" className="text-4xl font-mono font-bold text-red-600">[PLACEHOLDER]</span>
-              </div>
-              <div className="bg-blue-50 p-6 border border-blue-200">
-                <span className="tech-label text-[var(--color-accent-blue)] block mb-2">AFTER (BARE METAL)</span>
-                <span id="de-measure-after" className="text-4xl font-mono font-bold text-[var(--color-accent-blue)]">[PLACEHOLDER]</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Assembly Element 4: Photos */}
-          <div ref={photosRef} className="mb-12">
-            <h4 className="font-bold border-b border-gray-300 pb-2 mb-4 tracking-wider">BEFORE / AFTER PHOTOS</h4>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="aspect-video bg-gray-100 border border-gray-300 flex items-center justify-center">
-                <span className="font-mono text-sm text-gray-400">PRE-CLEAN SCAN</span>
-              </div>
-              <div className="aspect-video bg-gray-100 border border-gray-300 flex items-center justify-center relative">
-                <span className="font-mono text-sm text-gray-400">POST-CLEAN VERIFICATION</span>
-                <div className="absolute top-2 right-2 bg-[var(--color-accent-blue)] text-white text-[10px] px-2 py-1 font-bold">VERIFIED</div>
-              </div>
-            </div>
-          </div>
-
-          {/* Assembly Element 5: Areas */}
-          <div ref={areasRef} className="grid grid-cols-2 gap-12 font-mono text-sm mb-12">
-            <div>
-              <h4 className="font-bold border-b border-gray-300 pb-2 mb-4 tracking-wider font-sans">AREAS INSPECTED</h4>
-              <ul className="list-disc pl-4 space-y-2 text-gray-600">
-                <li>Canopy / Hood</li>
-                <li>Vertical Riser</li>
-                <li>Exhaust Fan Unit</li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-bold border-b border-gray-300 pb-2 mb-4 tracking-wider font-sans">AREAS CLEANED</h4>
-              <ul className="list-disc pl-4 space-y-2 text-[var(--color-accent-blue)] font-bold">
-                <li>Canopy / Hood</li>
-                <li>Vertical Riser</li>
-                <li>Exhaust Fan Unit</li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Assembly Element 6: Compliance & Recommendations */}
-          <div ref={complianceRef} className="mt-auto pt-8 border-t-2 border-black">
-            <h4 className="font-bold mb-2 tracking-wider">COMPLIANCE DOCUMENTATION</h4>
-            <p className="body text-sm text-gray-600 mb-6">
-              System has been cleaned to bare metal in accordance with AS 1851-2012. Certificate of compliance issued.
-            </p>
             
-            <h4 className="font-bold mb-2 tracking-wider">FUTURE MAINTENANCE RECOMMENDATIONS</h4>
-            <p className="body text-sm text-gray-600 mb-8">
-              Next scheduled deep clean required in 6 months due to high volume char-grill operation.
+            <h2 className="display-sm leading-tight text-white mb-6">
+              DON'T JUST CLEAN IT.<br/>
+              <span className="text-secondary">PROVE IT.</span>
+            </h2>
+            
+            <p className="body text-gray-300 text-lg mb-8">
+              True compliance requires verification. We provide objective, undeniable proof that your systems have been returned to a safe, bare-metal state, protecting you from liability and ensuring your insurance remains valid.
             </p>
 
-            <div className="flex justify-between items-end border-t border-gray-300 pt-6">
-              <div className="font-mono text-xs text-gray-500">
-                GENERATED: {new Date().toISOString().split('T')[0]}
+            <ul className="flex flex-col gap-6">
+              <li className="flex gap-4 items-start">
+                <div className="mt-1 w-10 h-10 rounded-lg bg-surface flex items-center justify-center shrink-0 border border-white/10">
+                  <Ruler className="w-5 h-5 text-secondary" />
+                </div>
+                <div>
+                  <h4 className="text-white font-bold text-lg mb-1">Digital Grease Thickness Gauge</h4>
+                  <p className="text-gray-400">Electronic Grasmeter probe provides instant, real-time micron readings before and after service. We don't guess; we measure.</p>
+                </div>
+              </li>
+              <li className="flex gap-4 items-start">
+                <div className="mt-1 w-10 h-10 rounded-lg bg-surface flex items-center justify-center shrink-0 border border-white/10">
+                  <Video className="w-5 h-5 text-secondary" />
+                </div>
+                <div>
+                  <h4 className="text-white font-bold text-lg mb-1">Live Video Feeds</h4>
+                  <p className="text-gray-400">Our robotic platforms stream live video during the clean itself, ensuring no section of the duct is missed.</p>
+                </div>
+              </li>
+              <li className="flex gap-4 items-start">
+                <div className="mt-1 w-10 h-10 rounded-lg bg-surface flex items-center justify-center shrink-0 border border-white/10">
+                  <Camera className="w-5 h-5 text-secondary" />
+                </div>
+                <div>
+                  <h4 className="text-white font-bold text-lg mb-1">Photographic Evidence</h4>
+                  <p className="text-gray-400">High-definition before and after photography supplied with every completed job.</p>
+                </div>
+              </li>
+            </ul>
+          </motion.div>
+
+          {/* Right Side: Document Visual */}
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-10%" }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="w-full max-w-xl mx-auto"
+          >
+            <div className="bg-white text-black p-8 shadow-2xl relative border border-gray-300 rounded-lg overflow-hidden transform rotate-2">
+              
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.03] pointer-events-none transform -rotate-45">
+                <span className="text-9xl font-bold font-mono tracking-widest">GRADE X</span>
               </div>
-              <div className="text-right">
-                <p className="font-mono text-xs text-gray-500 mb-2">INSPECTOR SIGNATURE</p>
-                <div className="w-48 h-10 border-b border-black"></div>
+
+              <div className="border-b-2 border-black pb-4 mb-6 flex justify-between items-end">
+                <div>
+                  <h3 className="font-bold text-2xl tracking-tight leading-none mb-1">COMPLIANCE REPORT</h3>
+                  <p className="font-mono text-xs text-gray-500">ID: GX-WA-8409</p>
+                </div>
+                <div className="text-right">
+                  <div className="font-bold text-lg tracking-widest">GRADE X</div>
+                </div>
               </div>
+
+              <div className="mb-6">
+                <h4 className="font-bold border-b border-gray-300 pb-1 mb-3 text-sm tracking-wider">GREASE THICKNESS (GRASMETER)</h4>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="bg-red-50 p-4 border border-red-200">
+                    <span className="text-[10px] font-bold text-red-600 block mb-1">BEFORE (CRITICAL)</span>
+                    <span className="text-2xl font-mono font-bold text-red-600">4.2mm</span>
+                  </div>
+                  <div className="bg-blue-50 p-4 border border-blue-200">
+                    <span className="text-[10px] font-bold text-blue-600 block mb-1">AFTER (BARE METAL)</span>
+                    <span className="text-2xl font-mono font-bold text-blue-600">0.0mm</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mb-6">
+                <h4 className="font-bold border-b border-gray-300 pb-1 mb-3 text-sm tracking-wider">PHOTOGRAPHIC EVIDENCE</h4>
+                <div className="grid grid-cols-2 gap-2">
+                  <div className="aspect-video bg-gray-200 flex items-center justify-center">
+                    <span className="font-mono text-[10px] text-gray-500">PRE-CLEAN SCAN</span>
+                  </div>
+                  <div className="aspect-video bg-gray-200 flex items-center justify-center relative">
+                    <span className="font-mono text-[10px] text-gray-500">POST-CLEAN VERIFICATION</span>
+                    <div className="absolute top-1 right-1 bg-blue-600 text-white text-[8px] px-1 font-bold rounded-sm">VERIFIED</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-auto pt-6 border-t-2 border-black flex justify-between items-end">
+                <div className="font-mono text-[10px] text-gray-500 flex items-center gap-2">
+                  <FileText className="w-3 h-3" />
+                  AS 1851-2012 COMPLIANT
+                </div>
+                <div className="text-right">
+                  <p className="font-mono text-[10px] text-gray-500 mb-1">INSPECTOR SIGNATURE</p>
+                  <div className="w-32 h-6 border-b border-black"></div>
+                </div>
+              </div>
+
             </div>
-          </div>
+          </motion.div>
 
         </div>
       </div>
     </section>
   );
 };
+

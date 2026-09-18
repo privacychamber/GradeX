@@ -1,14 +1,13 @@
-import React, { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
+import React from 'react';
+import { motion } from 'framer-motion';
 
 const STAGES = [
   {
     id: 'INSPECT',
     title: 'INSPECT',
-    color: 'var(--color-accent-blue)',
+    color: 'text-primary',
+    bgColor: 'bg-primary',
+    borderColor: 'border-primary',
     steps: [
       { num: '01', text: 'Site inspection and assessment' }
     ]
@@ -16,7 +15,9 @@ const STAGES = [
   {
     id: 'MEASURE',
     title: 'MEASURE',
-    color: 'var(--color-accent-gold)',
+    color: 'text-secondary',
+    bgColor: 'bg-secondary',
+    borderColor: 'border-secondary',
     steps: [
       { num: '02', text: 'Grease thickness measurement and documentation' }
     ]
@@ -24,17 +25,21 @@ const STAGES = [
   {
     id: 'CLEAN',
     title: 'CLEAN',
-    color: '#F5F6F8', // clean state
+    color: 'text-blue-400',
+    bgColor: 'bg-blue-400',
+    borderColor: 'border-blue-400',
     steps: [
       { num: '03', text: 'Preparation and protection of the work area' },
-      { num: '04', text: 'Interior steam washing and deep cleaning' },
-      { num: '05', text: 'Canopy, ductwork and accessible exhaust component cleaning' }
+      { num: '04', text: 'Interior steam washing and deep cleaning of the kitchen exhaust system' },
+      { num: '05', text: 'Canopy, ductwork, and accessible exhaust component cleaning' }
     ]
   },
   {
     id: 'VERIFY',
     title: 'VERIFY',
-    color: 'var(--color-accent-blue)',
+    color: 'text-purple-400',
+    bgColor: 'bg-purple-400',
+    borderColor: 'border-purple-400',
     steps: [
       { num: '06', text: 'Final inspection and quality control' },
       { num: '07', text: 'Post-cleaning grease measurement' },
@@ -44,119 +49,68 @@ const STAGES = [
 ];
 
 export const Process = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const spineFillRef = useRef<HTMLDivElement>(null);
-  const stageRefs = useRef<(HTMLDivElement | null)[]>([]);
-
-  useEffect(() => {
-    if (!containerRef.current || !spineFillRef.current) return;
-
-    // The central spine "fills up" as we scroll down the entire 400vh container
-    // We use 400vh here instead of 800vh because 800vh can feel incredibly long.
-    // 400vh gives 100vh per stage, which is plenty of time to read 1-3 steps.
-    gsap.fromTo(
-      spineFillRef.current,
-      { scaleY: 0 },
-      {
-        scaleY: 1,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: 'top top',
-          end: 'bottom bottom',
-          scrub: true,
-        }
-      }
-    );
-
-    // Each stage text block fades in and slides slightly when it enters the center
-    stageRefs.current.forEach((el, index) => {
-      if (!el) return;
-      
-      const startTrigger = `${index * 25}% center`;
-      const endTrigger = `${(index + 1) * 25}% center`;
-
-      gsap.fromTo(el,
-        { autoAlpha: 0, x: -30 },
-        {
-          autoAlpha: 1, 
-          x: 0,
-          duration: 0.5,
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: startTrigger,
-            end: endTrigger,
-            toggleActions: "play reverse play reverse",
-          }
-        }
-      );
-    });
-
-    return () => {
-      ScrollTrigger.getAll().forEach((t) => t.kill());
-    };
-  }, []);
-
   return (
-    // 400vh provides a cinematic pacing for the 4 core stages
-    <section ref={containerRef} className="relative w-full h-[400vh] bg-[var(--color-primary-base)]">
-      
-      {/* Sticky Viewport */}
-      <div className="sticky top-0 w-full h-screen overflow-hidden flex items-center justify-center">
+    <section id="process" className="relative w-full bg-surface py-32 overflow-hidden">
+      <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-primary/5 rounded-full mix-blend-screen filter blur-[150px] -translate-y-1/2 -translate-x-1/2 z-0" />
+
+      <div className="container px-6 md:px-12 lg:px-24 relative z-10">
         
-        {/* Header (Top Left) */}
-        <div className="absolute top-12 left-6 md:left-12 lg:left-24 z-20 pointer-events-none">
-          <h2 className="display leading-[1.1]">
+        <div className="mb-24 max-w-2xl">
+          <p className="tech-label text-primary mb-4">OUR METHODOLOGY</p>
+          <h2 className="display-sm leading-tight text-white mb-6">
             EIGHT STEPS.<br/>
             NOTHING SKIPPED.
           </h2>
+          <p className="body text-gray-400 text-lg">
+            We operate on a strict, repeatable methodology. From the initial measurement to the final compliance report, every step is designed to guarantee fire safety and verifiable cleanliness.
+          </p>
         </div>
 
-        {/* The Central Physical Spine (Represents the Duct) */}
-        <div className="absolute left-6 md:left-12 lg:left-[30%] top-0 bottom-0 w-1 bg-[var(--color-border)] z-0">
-          <div 
-            ref={spineFillRef}
-            className="w-full h-full bg-[var(--color-accent-blue)] origin-top"
-            style={{ transform: 'scaleY(0)' }}
-          ></div>
-        </div>
+        <div className="relative max-w-4xl mx-auto">
+          
+          {/* Continuous Vertical Line */}
+          <div className="absolute left-[27px] md:left-[39px] top-0 bottom-0 w-0.5 bg-white/5" />
 
-        {/* Dynamic Stage Content */}
-        <div className="w-full h-full relative z-10 pointer-events-none">
-          {STAGES.map((stage, index) => (
-            <div 
-              key={stage.id}
-              ref={el => { stageRefs.current[index] = el; }}
-              className="absolute top-1/2 left-6 md:left-12 lg:left-[30%] -translate-y-1/2 flex gap-8 md:gap-16 lg:gap-24 pl-8 md:pl-16 w-full max-w-4xl"
-            >
-              {/* Left Side: Core Stage Title */}
-              <div className="w-48 shrink-0 hidden md:block">
-                <h3 className="h1 tracking-wider" style={{ color: stage.color }}>
-                  {stage.title}
-                </h3>
-              </div>
-
-              {/* Right Side: Explicit Steps */}
-              <div className="flex flex-col gap-8 flex-1">
-                {/* Mobile Title Fallback */}
-                <h3 className="h2 tracking-wider md:hidden mb-2" style={{ color: stage.color }}>
-                  {stage.title}
-                </h3>
+          <div className="flex flex-col gap-16">
+            {STAGES.map((stage, sIndex) => (
+              <div key={stage.id} className="relative flex flex-col md:flex-row gap-8 md:gap-16">
                 
-                {stage.steps.map((step) => (
-                  <div key={step.num} className="flex gap-6 items-start">
-                    <span className="tech-label text-gray-500 mt-1 shrink-0">{step.num} //</span>
-                    <p className="body text-[var(--color-text-primary)]">
-                      {step.text}
-                    </p>
+                {/* Stage Header (Mobile & Desktop) */}
+                <div className="md:w-48 shrink-0 flex items-start gap-6 md:gap-8 relative z-10">
+                  <div className={`w-14 h-14 md:w-20 md:h-20 rounded-2xl bg-background flex items-center justify-center border-2 shadow-lg ${stage.borderColor} shrink-0`}>
+                    <div className={`w-3 h-3 md:w-4 md:h-4 rounded-full ${stage.bgColor} animate-pulse`} />
                   </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
+                  <h3 className={`text-2xl md:text-3xl font-bold tracking-widest mt-3 md:mt-5 ${stage.color}`}>
+                    {stage.title}
+                  </h3>
+                </div>
 
+                {/* Steps List */}
+                <div className="flex-1 flex flex-col gap-6 pt-2 md:pt-6 pl-20 md:pl-0">
+                  {stage.steps.map((step, iIndex) => (
+                    <motion.div 
+                      key={step.num}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: "-10%" }}
+                      transition={{ duration: 0.5, delay: iIndex * 0.1 }}
+                      className="glass-panel p-6 rounded-xl flex gap-6 items-start hover:bg-white/5 transition-colors border border-white/5 hover:border-white/10"
+                    >
+                      <span className={`text-xl font-mono font-bold mt-0.5 shrink-0 ${stage.color}`}>{step.num} //</span>
+                      <p className="text-lg text-gray-300 font-medium leading-relaxed">
+                        {step.text}
+                      </p>
+                    </motion.div>
+                  ))}
+                </div>
+
+              </div>
+            ))}
+          </div>
+
+        </div>
       </div>
     </section>
   );
 };
+

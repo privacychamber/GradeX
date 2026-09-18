@@ -77,29 +77,31 @@ export const Contact = () => {
   };
 
   return (
-    <section id="quote" className="relative w-full bg-[#0A0D14] py-24 md:py-32 border-t border-[rgba(255,255,255,0.05)]">
+    <section id="contact" className="relative w-full bg-surface py-24 md:py-32 border-t border-white/5">
       <div className="container px-6 md:px-12 lg:px-24">
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
           
           {/* Left Column: Context & Contact Info */}
           <div>
-            <h2 className="display-sm text-[var(--color-text-primary)] leading-tight mb-8">
-              LET'S MAKE THE UNSEEN VISIBLE.
+            <h2 className="display-sm text-white leading-tight mb-8">
+              LET'S MAKE THE <span className="text-primary">UNSEEN VISIBLE.</span>
             </h2>
             
-            <div className="bg-[#111520] border border-[rgba(255,255,255,0.05)] p-8 font-mono text-sm text-gray-400 mb-8">
-              <strong className="text-white block mb-4 text-base">Grade X Commercial Solutions Pty Ltd</strong>
-              <div className="space-y-2">
-                <div className="flex"><span className="w-24 shrink-0 text-gray-500">ABN</span> 45 684 073 345</div>
-                <div className="flex"><span className="w-24 shrink-0 text-gray-500">ADDR</span> 5 Elward Way, Balga WA 6061</div>
-                <div className="flex"><span className="w-24 shrink-0 text-gray-500">EMAIL</span> <a href="mailto:gradex.perth@gmail.com" className="text-[var(--color-accent-blue)] hover:underline">gradex.perth@gmail.com</a></div>
-                <div className="flex"><span className="w-24 shrink-0 text-gray-500">PHONE</span> <a href="tel:0430360162" className="text-[var(--color-accent-gold)] hover:underline">0430 360 162</a></div>
+            <div className="glass-panel p-8 font-mono text-sm text-gray-400 mb-8 border-l-4 border-l-primary">
+              <strong className="text-white block mb-4 text-base font-sans">Grade X Commercial Solutions Pty Ltd</strong>
+              <div className="space-y-3">
+                <div className="flex"><span className="w-24 shrink-0 text-gray-500 font-bold">ABN</span> 45 684 073 345</div>
+                <div className="flex"><span className="w-24 shrink-0 text-gray-500 font-bold">ADDR</span> 5 Elward Way, Balga WA 6061</div>
+                <div className="flex"><span className="w-24 shrink-0 text-gray-500 font-bold">EMAIL</span> <a href="mailto:gradex.perth@gmail.com" className="text-primary hover:underline">gradex.perth@gmail.com</a></div>
+                <div className="flex"><span className="w-24 shrink-0 text-gray-500 font-bold">PHONE</span> <a href="tel:0430360162" className="text-secondary hover:underline">0430 360 162</a></div>
               </div>
             </div>
             
             <div className="hidden lg:block">
-              <a href="tel:0430360162" className="tech-label text-xl hover:text-[var(--color-accent-gold)] transition-colors">
+              <p className="text-gray-400 mb-2">Emergency Service Required?</p>
+              <a href="tel:0430360162" className="inline-flex items-center gap-2 text-2xl font-bold text-secondary hover:text-white transition-colors">
+                <span className="w-3 h-3 rounded-full bg-secondary animate-pulse" />
                 CALL 0430 360 162
               </a>
             </div>
@@ -111,7 +113,7 @@ export const Contact = () => {
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="name" className="tech-label text-xs text-gray-500">NAME *</label>
+                  <label htmlFor="name" className="tech-label text-xs text-gray-400">NAME *</label>
                   <input 
                     type="text" 
                     id="name" 
@@ -120,11 +122,11 @@ export const Contact = () => {
                     value={formData.name}
                     onChange={handleChange}
                     disabled={status === 'loading'}
-                    className="bg-transparent border border-[rgba(255,255,255,0.1)] p-4 text-white focus:border-[var(--color-accent-blue)] focus:outline-none transition-colors"
+                    className="bg-background/50 border border-white/10 rounded-lg p-4 text-white focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-colors"
                   />
                 </div>
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="company" className="tech-label text-xs text-gray-500">COMPANY</label>
+                  <label htmlFor="company" className="tech-label text-xs text-gray-400">COMPANY</label>
                   <input 
                     type="text" 
                     id="company" 
@@ -132,14 +134,14 @@ export const Contact = () => {
                     value={formData.company}
                     onChange={handleChange}
                     disabled={status === 'loading'}
-                    className="bg-transparent border border-[rgba(255,255,255,0.1)] p-4 text-white focus:border-[var(--color-accent-blue)] focus:outline-none transition-colors"
+                    className="bg-background/50 border border-white/10 rounded-lg p-4 text-white focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-colors"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="phone" className="tech-label text-xs text-gray-500">PHONE *</label>
+                  <label htmlFor="phone" className="tech-label text-xs text-gray-400">PHONE *</label>
                   <input 
                     type="tel" 
                     id="phone" 
@@ -148,11 +150,11 @@ export const Contact = () => {
                     value={formData.phone}
                     onChange={handleChange}
                     disabled={status === 'loading'}
-                    className="bg-transparent border border-[rgba(255,255,255,0.1)] p-4 text-white focus:border-[var(--color-accent-blue)] focus:outline-none transition-colors"
+                    className="bg-background/50 border border-white/10 rounded-lg p-4 text-white focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-colors"
                   />
                 </div>
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="email" className="tech-label text-xs text-gray-500">EMAIL *</label>
+                  <label htmlFor="email" className="tech-label text-xs text-gray-400">EMAIL *</label>
                   <input 
                     type="email" 
                     id="email" 
@@ -161,13 +163,13 @@ export const Contact = () => {
                     value={formData.email}
                     onChange={handleChange}
                     disabled={status === 'loading'}
-                    className="bg-transparent border border-[rgba(255,255,255,0.1)] p-4 text-white focus:border-[var(--color-accent-blue)] focus:outline-none transition-colors"
+                    className="bg-background/50 border border-white/10 rounded-lg p-4 text-white focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-colors"
                   />
                 </div>
               </div>
 
               <div className="flex flex-col gap-2">
-                <label htmlFor="location" className="tech-label text-xs text-gray-500">SITE / LOCATION *</label>
+                <label htmlFor="location" className="tech-label text-xs text-gray-400">SITE / LOCATION *</label>
                 <input 
                   type="text" 
                   id="location" 
@@ -176,12 +178,12 @@ export const Contact = () => {
                   value={formData.location}
                   onChange={handleChange}
                   disabled={status === 'loading'}
-                  className="bg-transparent border border-[rgba(255,255,255,0.1)] p-4 text-white focus:border-[var(--color-accent-blue)] focus:outline-none transition-colors"
+                  className="bg-background/50 border border-white/10 rounded-lg p-4 text-white focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-colors"
                 />
               </div>
 
               <div className="flex flex-col gap-2">
-                <label htmlFor="service" className="tech-label text-xs text-gray-500">SERVICE REQUIRED *</label>
+                <label htmlFor="service" className="tech-label text-xs text-gray-400">SERVICE REQUIRED *</label>
                 <select 
                   id="service" 
                   name="service" 
@@ -189,11 +191,11 @@ export const Contact = () => {
                   value={formData.service}
                   onChange={handleChange}
                   disabled={status === 'loading'}
-                  className="bg-transparent border border-[rgba(255,255,255,0.1)] p-4 text-white focus:border-[var(--color-accent-blue)] focus:outline-none transition-colors appearance-none rounded-none"
+                  className="bg-background/50 border border-white/10 rounded-lg p-4 text-white focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-colors appearance-none cursor-pointer"
                 >
-                  <option value="" disabled className="bg-[#111520] text-gray-500">Select a service...</option>
+                  <option value="" disabled className="text-gray-500">Select a service...</option>
                   {SERVICES.map((srv) => (
-                    <option key={srv} value={srv} className="bg-[#111520] text-white">
+                    <option key={srv} value={srv} className="bg-surface text-white">
                       {srv}
                     </option>
                   ))}
@@ -201,7 +203,7 @@ export const Contact = () => {
               </div>
 
               <div className="flex flex-col gap-2">
-                <label htmlFor="message" className="tech-label text-xs text-gray-500">MESSAGE</label>
+                <label htmlFor="message" className="tech-label text-xs text-gray-400">MESSAGE</label>
                 <textarea 
                   id="message" 
                   name="message" 
@@ -209,14 +211,15 @@ export const Contact = () => {
                   value={formData.message}
                   onChange={handleChange}
                   disabled={status === 'loading'}
-                  className="bg-transparent border border-[rgba(255,255,255,0.1)] p-4 text-white focus:border-[var(--color-accent-blue)] focus:outline-none transition-colors resize-y"
+                  className="bg-background/50 border border-white/10 rounded-lg p-4 text-white focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-colors resize-y"
                 ></textarea>
               </div>
 
               {/* Status Messages */}
               {status === 'error' && (
-                <div className="p-4 border border-red-500/50 bg-red-900/20 text-red-400 text-sm font-mono" role="alert">
-                  {errorMessage}
+                <div className="p-4 rounded-lg border border-red-500/50 bg-red-500/10 text-red-400 text-sm font-medium flex items-start gap-3" role="alert">
+                  <span className="w-5 h-5 rounded-full bg-red-500/20 flex items-center justify-center shrink-0 mt-0.5">!</span>
+                  <p>{errorMessage}</p>
                 </div>
               )}
 
@@ -225,21 +228,23 @@ export const Contact = () => {
                 <button 
                   type="submit" 
                   disabled={status === 'loading'}
-                  className="btn-tactile bg-white text-black px-8 py-4 font-bold tracking-widest hover:bg-[var(--color-accent-blue)] hover:text-white flex items-center gap-4 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="gx-button w-full sm:w-auto px-8 py-4 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {status === 'loading' ? (
-                    <>
-                      <span className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin"></span>
+                    <span className="flex items-center gap-2">
+                      <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
                       PROCESSING...
-                    </>
+                    </span>
                   ) : (
-                    <>REQUEST A QUOTE →</>
+                    <span>REQUEST A QUOTE</span>
                   )}
                 </button>
                 
-                <div className="mt-6 lg:hidden">
-                  <a href="tel:0430360162" className="tech-label text-sm text-[var(--color-accent-gold)]">
-                    OR CALL 0430 360 162
+                <div className="mt-6 lg:hidden text-center">
+                  <p className="text-gray-400 text-sm mb-2">Emergency Service Required?</p>
+                  <a href="tel:0430360162" className="inline-flex items-center gap-2 text-xl font-bold text-secondary hover:text-white transition-colors">
+                    <span className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
+                    CALL 0430 360 162
                   </a>
                 </div>
               </div>
@@ -253,3 +258,4 @@ export const Contact = () => {
     </section>
   );
 };
+
