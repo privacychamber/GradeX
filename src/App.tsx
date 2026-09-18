@@ -6,10 +6,8 @@ import { Footer } from './components/Footer'
 
 // Lazy load the rest to defer JavaScript parsing and execution
 const UnseenProblem = lazy(() => import('./components/UnseenProblem').then(m => ({ default: m.UnseenProblem })))
-const ProofSystem = lazy(() => import('./components/ProofSystem').then(m => ({ default: m.ProofSystem })))
 const Technology = lazy(() => import('./components/Technology').then(m => ({ default: m.Technology })))
 const Process = lazy(() => import('./components/Process').then(m => ({ default: m.Process })))
-const SteamCleaning = lazy(() => import('./components/SteamCleaning').then(m => ({ default: m.SteamCleaning })))
 const DigitalEvidence = lazy(() => import('./components/DigitalEvidence').then(m => ({ default: m.DigitalEvidence })))
 const ServicesList = lazy(() => import('./components/ServicesList').then(m => ({ default: m.ServicesList })))
 const Compliance = lazy(() => import('./components/Compliance').then(m => ({ default: m.Compliance })))
@@ -42,7 +40,6 @@ function App() {
         {/* Core Differentiator */}
         <div id="technology">
           <Technology />
-          <SteamCleaning />
         </div>
         
         {/* Services & Process */}
@@ -54,7 +51,6 @@ function App() {
         {/* Proof & Reporting */}
         <div id="evidence">
           <DigitalEvidence />
-          <ProofSystem />
         </div>
         
         {/* Compliance & Trust */}
