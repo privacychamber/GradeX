@@ -1,8 +1,28 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { ArrowRight, ChevronRight, ChevronLeft } from 'lucide-react';
+import React, { useState, useRef } from 'react';
+import { motion, useMotionValue, useTransform } from 'framer-motion';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export const UnseenProblem = () => {
+  const [isHovered, setIsHovered] = useState(false);
+  const sliderRef = useRef<HTMLDivElement>(null);
+  const [sliderPosition, setSliderPosition] = useState(50); // percentage
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!sliderRef.current) return;
+    const rect = sliderRef.current.getBoundingClientRect();
+    const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+    const percent = (x / rect.width) * 100;
+    setSliderPosition(percent);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (!sliderRef.current) return;
+    const rect = sliderRef.current.getBoundingClientRect();
+    const x = Math.max(0, Math.min(e.touches[0].clientX - rect.left, rect.width));
+    const percent = (x / rect.width) * 100;
+    setSliderPosition(percent);
+  };
+
   return (
     <section className="relative w-full bg-background overflow-hidden">
       
@@ -18,71 +38,72 @@ export const UnseenProblem = () => {
         </p>
       </div>
 
-      {/* Visual Slider / Side-by-Side Area */}
-      <div className="w-full relative flex flex-col md:flex-row border-y border-white/10" style={{ perspective: "1000px" }}>
-        
-        {/* BEFORE Side */}
+      {/* Visual Slider Container with 3D Tilt */}
+      <div className="container px-6 pb-24">
         <motion.div 
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="w-full md:w-1/2 h-[50vh] min-h-[400px] md:h-[60vh] md:min-h-[600px] relative group cursor-crosshair border-b md:border-b-0 md:border-r border-white/10 overflow-hidden"
-          style={{ transformStyle: "preserve-3d" }}
+          ref={sliderRef}
+          onMouseMove={handleMouseMove}
+          onTouchMove={handleTouchMove}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          whileHover={{ scale: 1.02, rotateX: 2, rotateY: -2 }}
+          transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          className="relative w-full aspect-[4/3] md:aspect-[21/9] rounded-2xl overflow-hidden cursor-ew-resize shadow-2xl border border-white/10"
+          style={{ perspective: "1000px", transformStyle: "preserve-3d" }}
         >
-          {/* Mock background pattern for 'dirty' duct */}
-          <div className="absolute inset-0 bg-[#1c1208] opacity-90 group-hover:scale-105 transition-transform duration-700" />
-          <div className="absolute inset-0 bg-gradient-radial from-[#38200a]/60 to-transparent" />
-          <div className="absolute inset-0 bg-grid opacity-30 mix-blend-overlay" />
-          
-          <div className="relative z-10 w-full h-full flex flex-col justify-between p-8 md:p-12 lg:p-16 transform-gpu group-hover:-translate-y-2 transition-transform duration-500" style={{ transform: "translateZ(30px)" }}>
-            <h3 className="text-5xl md:text-6xl lg:text-[80px] font-black text-white/90 leading-none tracking-tight transform-gpu" style={{ transform: "translateZ(50px)" }}>
-              FROM<br/>
-              THIS
-            </h3>
-            
-            <div className="flex items-center gap-3 transform-gpu" style={{ transform: "translateZ(20px)" }}>
-              <span className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
-              <span className="text-sm font-bold tracking-widest text-secondary uppercase">Before: Extreme Fire Risk</span>
+          {/* AFTER Side (Background) */}
+          <div className="absolute inset-0 select-none">
+            <img 
+              src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+              alt="Clean Exhaust Duct" 
+              className="absolute inset-0 w-full h-full object-cover"
+              draggable="false"
+            />
+            {/* After Label */}
+            <div className="absolute top-6 right-6 md:top-12 md:right-12 z-20">
+               <div className="flex items-center gap-3 bg-black/50 backdrop-blur-md px-4 py-2 rounded-full border border-white/10">
+                  <span className="text-sm font-bold tracking-widest text-primary uppercase">After: Certified Clean</span>
+                  <span className="w-2 h-2 rounded-full bg-primary shadow-[0_0_10px_rgba(59,130,246,1)]" />
+               </div>
             </div>
           </div>
-        </motion.div>
 
-        {/* Divider UI Element (Circle in middle) */}
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-30 hidden md:flex w-16 h-16 rounded-full bg-surface border border-white/20 items-center justify-center shadow-2xl hover:scale-110 transition-transform cursor-ew-resize">
-           <div className="flex items-center text-white/50">
-             <ChevronLeft className="w-5 h-5" />
-             <ChevronRight className="w-5 h-5 -ml-2" />
-           </div>
-        </div>
-
-        {/* AFTER Side */}
-        <motion.div 
-          initial={{ opacity: 0, x: 20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="w-full md:w-1/2 h-[50vh] min-h-[400px] md:h-[60vh] md:min-h-[600px] relative group cursor-crosshair overflow-hidden"
-          style={{ transformStyle: "preserve-3d" }}
-        >
-          {/* Mock background pattern for 'clean' duct */}
-          <div className="absolute inset-0 bg-slate-900 opacity-90 group-hover:scale-105 transition-transform duration-700" />
-          <div className="absolute inset-0 bg-gradient-radial from-primary/30 to-transparent mix-blend-screen" />
-          <div className="absolute inset-0 bg-grid opacity-10 mix-blend-overlay" />
-          
-          <div className="relative z-10 w-full h-full flex flex-col justify-between p-8 md:p-12 lg:p-16 items-start md:items-end text-left md:text-right transform-gpu group-hover:-translate-y-2 transition-transform duration-500" style={{ transform: "translateZ(30px)" }}>
-            <h3 className="text-5xl md:text-6xl lg:text-[80px] font-black text-white leading-none tracking-tight transform-gpu" style={{ transform: "translateZ(50px)" }}>
-              TO<br/>
-              THIS
-            </h3>
-            
-            <div className="flex items-center gap-3 transform-gpu" style={{ transform: "translateZ(20px)" }}>
-              <span className="text-sm font-bold tracking-widest text-primary uppercase">After: Certified Clean</span>
-              <span className="w-2 h-2 rounded-full bg-primary shadow-[0_0_10px_rgba(59,130,246,1)]" />
+          {/* BEFORE Side (Clipped foreground) */}
+          <div 
+            className="absolute inset-0 select-none border-r-2 border-white"
+            style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
+          >
+            <img 
+              src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+              alt="Dirty Exhaust Duct" 
+              className="absolute inset-0 w-full h-full object-cover grayscale-[50%] contrast-125"
+              draggable="false"
+            />
+            {/* Before Label */}
+            <div className="absolute top-6 left-6 md:top-12 md:left-12 z-20">
+               <div className="flex items-center gap-3 bg-black/50 backdrop-blur-md px-4 py-2 rounded-full border border-white/10">
+                  <span className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
+                  <span className="text-sm font-bold tracking-widest text-secondary uppercase">Before: Extreme Fire Risk</span>
+               </div>
             </div>
           </div>
-        </motion.div>
 
+          {/* Slider Handle */}
+          <div 
+            className="absolute top-0 bottom-0 w-1 bg-white cursor-ew-resize z-30 transform -translate-x-1/2"
+            style={{ left: `${sliderPosition}%` }}
+          >
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white text-black flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
+              <ChevronLeft className="w-5 h-5" />
+              <ChevronRight className="w-5 h-5 -ml-2" />
+            </div>
+          </div>
+
+          {/* Glow effect on hover */}
+          <div 
+            className={`absolute inset-0 pointer-events-none transition-opacity duration-500 bg-gradient-radial from-primary/20 to-transparent mix-blend-screen ${isHovered ? 'opacity-100' : 'opacity-0'}`}
+          />
+        </motion.div>
       </div>
 
     </section>

@@ -91,11 +91,16 @@ export const Technology = () => {
           </div>
 
           {/* Sticky Image Container */}
-          <div className="hidden lg:block h-full relative">
-            <div className="sticky top-32 h-[600px] w-full rounded-2xl overflow-hidden border border-white/10 bg-surface/50 shadow-2xl flex items-center justify-center p-8">
+          <div className="hidden lg:block h-full relative" style={{ perspective: "1000px" }}>
+            <motion.div 
+              whileHover={{ rotateX: 5, rotateY: -5, scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              className="sticky top-32 h-[600px] w-full rounded-2xl overflow-hidden border border-white/10 bg-surface/50 shadow-2xl flex items-center justify-center p-8 cursor-pointer"
+              style={{ transformStyle: "preserve-3d" }}
+            >
                <div className="absolute inset-0 bg-gradient-radial from-primary/10 to-transparent mix-blend-screen" />
-               <img src="/assets/images/robot2.jpg" alt="Grade X Robotic Cleaning Technology" className="w-full h-full object-cover rounded-xl shadow-2xl" />
-            </div>
+               <img src="/assets/images/robot2.jpg" alt="Grade X Robotic Cleaning Technology" className="w-full h-full object-cover rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] transform-gpu" style={{ transform: "translateZ(30px)" }} />
+            </motion.div>
           </div>
 
         </div>
