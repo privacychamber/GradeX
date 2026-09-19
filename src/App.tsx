@@ -3,6 +3,7 @@ import React, { Suspense, lazy } from 'react'
 import { Header } from './components/Header'
 import { Hero } from './components/Hero'
 import { Footer } from './components/Footer'
+import { CustomCursor } from './components/CustomCursor'
 
 // Lazy load the rest to defer JavaScript parsing and execution
 const UnseenProblem = lazy(() => import('./components/UnseenProblem').then(m => ({ default: m.UnseenProblem })))
@@ -24,7 +25,8 @@ const SectionLoader = () => (
 
 function App() {
   return (
-    <main className="bg-background min-h-screen text-white font-sans overflow-x-hidden selection:bg-primary selection:text-white">
+    <main className="bg-background min-h-screen text-white font-sans overflow-x-hidden selection:bg-primary selection:text-white cursor-none">
+      <CustomCursor />
       <Header />
       
       {/* Hero is eager loaded to ensure fast LCP */}

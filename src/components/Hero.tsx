@@ -1,6 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Play, ShieldCheck, Zap, AlertTriangle } from 'lucide-react';
+import { MagneticWrapper } from './MagneticButton';
+import { AnimatedCounter } from './AnimatedCounter';
 
 export const Hero = () => {
   return (
@@ -54,15 +56,19 @@ export const Hero = () => {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="flex flex-col sm:flex-row gap-4 items-center"
           >
-            <a href="#contact" className="gx-button px-8 py-4 w-full sm:w-auto flex justify-center text-sm font-bold tracking-widest">
-              REQUEST A QUOTE
-            </a>
-            <a href="#technology" className="px-8 py-4 w-full sm:w-auto flex items-center justify-center gap-3 text-white hover:text-primary transition-colors font-bold text-sm tracking-widest group">
-              <div className="w-10 h-10 rounded-full border border-white/20 group-hover:border-primary/50 flex items-center justify-center bg-white/5 transition-colors">
-                <Play className="w-4 h-4 ml-1" />
-              </div>
-              WATCH THE ROBOT
-            </a>
+            <MagneticWrapper>
+              <a href="#contact" className="gx-button px-8 py-4 w-full sm:w-auto flex justify-center text-sm font-bold tracking-widest">
+                REQUEST A QUOTE
+              </a>
+            </MagneticWrapper>
+            <MagneticWrapper>
+              <a href="#technology" className="px-8 py-4 w-full sm:w-auto flex items-center justify-center gap-3 text-white hover:text-primary transition-colors font-bold text-sm tracking-widest group">
+                <div className="w-10 h-10 rounded-full border border-white/20 group-hover:border-primary/50 flex items-center justify-center bg-white/5 transition-colors">
+                  <Play className="w-4 h-4 ml-1" />
+                </div>
+                WATCH THE ROBOT
+              </a>
+            </MagneticWrapper>
           </motion.div>
         </div>
 
@@ -117,7 +123,7 @@ export const Hero = () => {
                   <Zap className="w-4 h-4 text-primary" />
                   <span className="text-xs font-bold tracking-widest text-gray-500 uppercase">Technology</span>
                 </div>
-                <span className="text-sm font-bold text-gray-300">WA'S ONLY ROBOTIC SYSTEM</span>
+                <span className="text-sm font-bold text-gray-300">WA'S <AnimatedCounter value={1} prefix="ONLY " /> ROBOTIC SYSTEM</span>
               </div>
               
               <div className="flex flex-col items-center md:items-start px-4">
@@ -125,7 +131,7 @@ export const Hero = () => {
                   <ShieldCheck className="w-4 h-4 text-primary" />
                   <span className="text-xs font-bold tracking-widest text-gray-500 uppercase">Compliance</span>
                 </div>
-                <span className="text-sm font-bold text-gray-300">100% CERTIFIED & INSURED</span>
+                <span className="text-sm font-bold text-gray-300"><AnimatedCounter value={100} suffix="%" /> CERTIFIED & INSURED</span>
               </div>
               
               <div className="flex flex-col items-center md:items-start px-4">
@@ -133,7 +139,7 @@ export const Hero = () => {
                   <Play className="w-4 h-4 text-primary" />
                   <span className="text-xs font-bold tracking-widest text-gray-500 uppercase">Evidence</span>
                 </div>
-                <span className="text-sm font-bold text-gray-300">LIVE VIDEO VERIFICATION</span>
+                <span className="text-sm font-bold text-gray-300"><AnimatedCounter value={100} suffix="%" /> VIDEO VERIFICATION</span>
               </div>
               
               <div className="flex flex-col items-center md:items-start px-4">
@@ -141,7 +147,7 @@ export const Hero = () => {
                   <AlertTriangle className="w-4 h-4 text-secondary" />
                   <span className="text-xs font-bold tracking-widest text-gray-500 uppercase">Support</span>
                 </div>
-                <span className="text-sm font-bold text-gray-300">EMERGENCY RESPONSE</span>
+                <span className="text-sm font-bold text-gray-300"><AnimatedCounter value={24} suffix="/7" /> EMERGENCY RESPONSE</span>
               </div>
 
             </div>

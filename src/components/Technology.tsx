@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Bot, Search, Droplets, Wind } from 'lucide-react';
+import { StaggeredText } from './StaggeredText';
 
 export const Technology = () => {
   return (
@@ -12,9 +13,10 @@ export const Technology = () => {
              <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full" />
              <h2 className="display-sm text-gradient relative z-10 drop-shadow-2xl">A DIFFERENT WAY INSIDE.</h2>
           </div>
-          <p className="body text-gray-400 mt-6 max-w-xl text-lg">
-            Our proprietary robotic platform is the only one of its kind operating in Western Australia, providing verified results where manual cleaning fails.
-          </p>
+          <StaggeredText 
+            text="Our proprietary robotic platform is the only one of its kind operating in Western Australia, providing verified results where manual cleaning fails."
+            className="body text-gray-400 mt-6 max-w-xl text-lg" 
+          />
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 relative">

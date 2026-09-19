@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Phone, AlertCircle, Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { MagneticWrapper } from './MagneticButton';
 
 export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -65,12 +66,14 @@ export const Header = () => {
                 0430 360 162
               </a>
             </div>
-            <a 
-              href="#contact"
-              className="px-6 py-2.5 bg-primary hover:bg-blue-500 text-white font-bold rounded-full transition-colors text-sm"
-            >
-              REQUEST QUOTE
-            </a>
+            <MagneticWrapper>
+              <a 
+                href="#contact"
+                className="px-6 py-2.5 bg-primary hover:bg-blue-500 text-white font-bold rounded-full transition-colors text-sm block"
+              >
+                REQUEST QUOTE
+              </a>
+            </MagneticWrapper>
           </div>
 
           {/* Mobile Menu Toggle */}
