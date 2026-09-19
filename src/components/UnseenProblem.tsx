@@ -65,7 +65,7 @@ export const UnseenProblem = () => {
             <div className="absolute top-6 right-6 md:top-12 md:right-12 z-20">
                <div className="flex items-center gap-3 bg-black/50 backdrop-blur-md px-4 py-2 rounded-full border border-white/10">
                   <span className="text-sm font-bold tracking-widest text-primary uppercase">After: Certified Clean</span>
-                  <span className="w-2 h-2 rounded-full bg-primary shadow-[0_0_10px_rgba(59,130,246,1)]" />
+                  <span className="w-2 h-2 rounded-full bg-primary shadow-[0_0_10px_rgba(212,175,55,0.8)]" />
                </div>
             </div>
           </div>
@@ -84,8 +84,8 @@ export const UnseenProblem = () => {
             {/* Before Label */}
             <div className="absolute top-6 left-6 md:top-12 md:left-12 z-20">
                <div className="flex items-center gap-3 bg-black/50 backdrop-blur-md px-4 py-2 rounded-full border border-white/10">
-                  <span className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
-                  <span className="text-sm font-bold tracking-widest text-secondary uppercase">Before: Extreme Fire Risk</span>
+                  <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+                  <span className="text-sm font-bold tracking-widest text-red-500 uppercase">Before: Extreme Fire Risk</span>
                </div>
             </div>
           </div>

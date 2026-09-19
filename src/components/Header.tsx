@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Phone, AlertCircle, Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MagneticWrapper } from './MagneticButton';
+import { Button } from './Button';
 
 export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -57,7 +58,7 @@ export const Header = () => {
           {/* Contact / Emergency */}
           <div className="hidden md:flex items-center gap-6">
             <div className="flex flex-col items-end">
-              <div className="flex items-center gap-1 text-secondary text-xs font-bold tracking-widest">
+              <div className="flex items-center gap-1 text-primary text-xs font-bold tracking-widest">
                 <AlertCircle className="w-3 h-3" />
                 24/7 EMERGENCY RESPONSE
               </div>
@@ -67,12 +68,13 @@ export const Header = () => {
               </a>
             </div>
             <MagneticWrapper>
-              <a 
+              <Button 
+                as="a"
                 href="#contact"
-                className="px-6 py-2.5 bg-primary hover:bg-blue-500 text-white font-bold rounded-full transition-colors text-sm block"
+                className="!px-6 !py-2.5 text-xs block"
               >
                 REQUEST QUOTE
-              </a>
+              </Button>
             </MagneticWrapper>
           </div>
 
@@ -114,17 +116,18 @@ export const Header = () => {
                   <Phone className="w-6 h-6 text-primary" />
                   0430 360 162
                 </a>
-                <div className="flex items-center gap-2 text-secondary font-bold tracking-widest text-sm">
+                <div className="flex items-center gap-2 text-primary font-bold tracking-widest text-sm">
                   <AlertCircle className="w-4 h-4" />
                   24/7 EMERGENCY RESPONSE
                 </div>
-                <a 
-                  href="#contact"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="mt-4 text-center px-6 py-4 bg-primary text-white font-bold rounded-full w-full"
-                >
-                  REQUEST A QUOTE
-                </a>
+                  <Button
+                    as="a" 
+                    href="#contact"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="mt-4 w-full"
+                  >
+                    REQUEST A QUOTE
+                  </Button>
               </div>
             </div>
           </motion.div>

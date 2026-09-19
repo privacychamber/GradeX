@@ -138,9 +138,9 @@ export const ServicesList = () => {
                   className="grid grid-cols-1 md:grid-cols-2 gap-4 h-full"
                 >
                   {currentCategory.services.map((service, idx) => (
-                    <div key={idx} className="interactive-card">
-                      <div className="interactive-card-inner h-full flex flex-col">
-                        <div className="interactive-card-content flex-1">
+                    <div key={idx} className="interactive-card flex-1">
+                      <div className="interactive-card-inner flex flex-col h-full">
+                        <div className="interactive-card-content flex flex-col h-full">
                           <div className="interactive-card-title text-xl font-bold text-warm-white mb-3 leading-tight">
                             {service.title}
                           </div>
