@@ -148,6 +148,76 @@
   .anim-text {
     opacity: 1 !important;
     transform: none !important;
-    clip-path: none !important;
   }
+}
+
+/* Interactive 3D Card (Uiverse style adapted to Navy/Gold/Warm White) */
+.interactive-card {
+  perspective: 1000px;
+  width: 100%;
+}
+
+.interactive-card-inner {
+  padding-top: 50px;
+  border: 2px solid var(--color-primary-surface);
+  border-radius: 1rem;
+  transform-style: preserve-3d;
+  background: linear-gradient(135deg, transparent 18.75%, rgba(200, 200, 200, 0.1) 0 31.25%, transparent 0),
+      repeating-linear-gradient(45deg, rgba(200, 200, 200, 0.1) -6.25% 6.25%, transparent 0 18.75%);
+  background-size: 60px 60px;
+  background-position: 0 0, 0 0;
+  background-color: var(--color-primary-base);
+  box-shadow: 0 30px 30px -10px rgba(0, 0, 0, 0.2);
+  transition: all 0.5s ease-in-out;
+}
+
+.interactive-card-inner:hover {
+  background-position: -100px 100px, -100px 100px;
+  transform: rotate3d(0.5, 1, 0, 15deg) scale(1.02);
+}
+
+.interactive-card-content {
+  background: rgba(11, 19, 43, 0.95); /* Deep Navy */
+  border-radius: 0.5rem 2rem 0.5rem 0.5rem;
+  transition: all 0.5s ease-in-out;
+  padding: 40px 25px 25px 25px;
+  transform-style: preserve-3d;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(212, 175, 55, 0.2); /* Gold border */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.interactive-card-inner:hover .interactive-card-content {
+  transform: translate3d(0px, 0px, 40px);
+  border-color: rgba(212, 175, 55, 0.8);
+}
+
+.interactive-card-title {
+  display: inline-block;
+  transition: all 0.5s ease-in-out;
+  transform: translate3d(0px, 0px, 20px);
+}
+
+.interactive-card-inner:hover .interactive-card-title {
+  transform: translate3d(0px, 0px, 50px);
+}
+
+.interactive-card-desc {
+  transition: all 0.5s ease-in-out;
+  transform: translate3d(0px, 0px, 15px);
+}
+
+.interactive-card-inner:hover .interactive-card-desc {
+  transform: translate3d(0px, 0px, 40px);
+}
+
+.interactive-card-btn {
+  transition: all 0.5s ease-in-out;
+  transform: translate3d(0px, 0px, 10px);
+}
+
+.interactive-card-inner:hover .interactive-card-btn {
+  transform: translate3d(0px, 0px, 50px);
 }

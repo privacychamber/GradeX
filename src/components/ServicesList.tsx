@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowUpRight, CheckCircle2 } from 'lucide-react';
-import { SpotlightCard } from './SpotlightCard';
+
 
 const CATEGORIES = [
   {
@@ -138,23 +138,23 @@ export const ServicesList = () => {
                   className="grid grid-cols-1 md:grid-cols-2 gap-4 h-full"
                 >
                   {currentCategory.services.map((service, idx) => (
-                    <SpotlightCard
-                      key={idx}
-                      className="p-8 flex flex-col justify-between group cursor-pointer border border-navy/5 bg-white hover:border-primary/50 transition-colors shadow-sm hover:shadow-2xl hover:shadow-primary/20"
-                    >
-                      <div className="relative z-10 transform-gpu" style={{ transform: "translateZ(30px)" }}>
-                        <div className="w-10 h-10 rounded-full bg-navy/5 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
-                          <CheckCircle2 className="w-5 h-5 text-dark-grey group-hover:text-primary transition-colors" />
+                    <div key={idx} className="interactive-card">
+                      <div className="interactive-card-inner h-full flex flex-col">
+                        <div className="interactive-card-content flex-1">
+                          <div className="interactive-card-title text-xl font-bold text-warm-white mb-3 leading-tight">
+                            {service.title}
+                          </div>
+                          <div className="interactive-card-desc text-gray-300 text-sm leading-relaxed mb-6">
+                            {service.desc}
+                          </div>
+                          <div className="mt-auto flex justify-end">
+                            <span className="interactive-card-btn text-xs font-mono tracking-widest text-primary bg-primary/10 px-3 py-1 rounded-full border border-primary/30">
+                              EXPLORE →
+                            </span>
+                          </div>
                         </div>
-                        <h4 className="text-xl font-bold text-navy mb-3 leading-tight">{service.title}</h4>
-                        <p className="text-dark-grey text-sm leading-relaxed">{service.desc}</p>
                       </div>
-                      <div className="relative z-10 mt-8 flex justify-end transform-gpu" style={{ transform: "translateZ(20px)" }}>
-                        <span className="text-xs font-mono tracking-widest text-transparent group-hover:text-primary transition-colors">
-                          EXPLORE →
-                        </span>
-                      </div>
-                    </SpotlightCard>
+                    </div>
                   ))}
                 </motion.div>
               )}
