@@ -94,7 +94,7 @@ export const ServicesList = () => {
                     onClick={() => setActiveCategory(cat.id)}
                     className={`relative w-full text-left px-6 py-5 rounded-2xl transition-all duration-300 border flex justify-between items-center group overflow-hidden ${
                       isActive 
-                        ? 'bg-surface border-primary/30 shadow-[0_0_30px_rgba(59,130,246,0.15)]' 
+                        ? 'bg-surface border-primary/30 shadow-[0_0_30px_rgba(16,185,129,0.15)]' 
                         : 'bg-surface/30 border-white/5 hover:bg-surface/60 hover:border-white/10'
                     }`}
                   >

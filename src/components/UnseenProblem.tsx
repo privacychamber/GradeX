@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { FloatingParticles } from './FloatingParticles';
 
 export const UnseenProblem = () => {
   const [isHovered, setIsHovered] = useState(false);
@@ -25,6 +26,7 @@ export const UnseenProblem = () => {
 
   return (
     <section className="relative w-full bg-background overflow-hidden">
+      <FloatingParticles />
       
       {/* Header Section */}
       <div className="container px-6 pt-24 pb-12 relative z-20 text-center">

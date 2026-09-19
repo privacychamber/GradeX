@@ -7,12 +7,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: '#030712',
-        surface: '#111827',
-        surfaceHover: '#1f2937',
-        primary: '#3b82f6',
-        primaryGlow: '#60a5fa',
-        secondary: '#f59e0b',
+        background: '#020617', // Slate 950
+        surface: '#0f172a', // Slate 900
+        surfaceHover: '#1e293b', // Slate 800
+        primary: '#10b981', // Emerald 500 (Neon Green)
+        primaryGlow: '#34d399', // Emerald 400
+        secondary: '#059669', // Emerald 600
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
@@ -30,8 +30,8 @@ export default {
           '100%': { transform: 'translate(0px, 0px) scale(1)' },
         },
         glow: {
-          '0%': { opacity: 0.5, boxShadow: '0 0 20px rgba(59, 130, 246, 0.5)' },
-          '100%': { opacity: 1, boxShadow: '0 0 40px rgba(59, 130, 246, 0.8)' },
+          '0%': { opacity: 0.5, boxShadow: '0 0 20px rgba(16, 185, 129, 0.5)' },
+          '100%': { opacity: 1, boxShadow: '0 0 40px rgba(16, 185, 129, 0.8)' },
         }
       }
     },
