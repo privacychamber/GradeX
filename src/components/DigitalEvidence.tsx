@@ -6,7 +6,7 @@ export const DigitalEvidence = () => {
   return (
     <section id="evidence" className="relative w-full py-32 bg-warm-white overflow-hidden border-t border-navy/10">
       
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-secondary/10 rounded-full mix-blend-screen filter blur-[120px] translate-x-1/2 -translate-y-1/2 z-0" />
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/10 rounded-full mix-blend-screen filter blur-[120px] translate-x-1/2 -translate-y-1/2 z-0" />
 
       <div className="container px-6 md:px-12 lg:px-24 relative z-10">
         
@@ -19,14 +19,14 @@ export const DigitalEvidence = () => {
             viewport={{ once: true, margin: "-10%" }}
             transition={{ duration: 0.8 }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-secondary/30 bg-secondary/10 mb-8">
-               <span className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
-               <p className="tech-label !text-secondary !mb-0 tracking-widest">DIGITAL EVIDENCE & REPORTING</p>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/10 mb-8">
+               <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+               <p className="tech-label !text-primary !mb-0 tracking-widest">DIGITAL EVIDENCE & REPORTING</p>
             </div>
             
             <h2 className="display-sm leading-tight text-navy mb-6">
               DON'T JUST CLEAN IT.<br/>
-              <span className="text-secondary">PROVE IT.</span>
+              <span className="text-primary">PROVE IT.</span>
             </h2>
             
             <p className="body text-dark-grey text-lg mb-8">
@@ -36,7 +36,7 @@ export const DigitalEvidence = () => {
             <ul className="flex flex-col gap-6">
               <li className="flex gap-4 items-start">
                 <div className="mt-1 w-10 h-10 rounded-lg bg-muted-grey flex items-center justify-center shrink-0 border border-navy/10">
-                  <Ruler className="w-5 h-5 text-secondary" />
+                  <Ruler className="w-5 h-5 text-primary" />
                 </div>
                 <div>
                   <h4 className="text-navy font-bold text-lg mb-1">Digital Grease Thickness Gauge</h4>
@@ -45,7 +45,7 @@ export const DigitalEvidence = () => {
               </li>
               <li className="flex gap-4 items-start">
                 <div className="mt-1 w-10 h-10 rounded-lg bg-muted-grey flex items-center justify-center shrink-0 border border-navy/10">
-                  <Video className="w-5 h-5 text-secondary" />
+                  <Video className="w-5 h-5 text-primary" />
                 </div>
                 <div>
                   <h4 className="text-navy font-bold text-lg mb-1">Live Video Feeds</h4>
@@ -54,7 +54,7 @@ export const DigitalEvidence = () => {
               </li>
               <li className="flex gap-4 items-start">
                 <div className="mt-1 w-10 h-10 rounded-lg bg-muted-grey flex items-center justify-center shrink-0 border border-navy/10">
-                  <Camera className="w-5 h-5 text-secondary" />
+                  <Camera className="w-5 h-5 text-primary" />
                 </div>
                 <div>
                   <h4 className="text-navy font-bold text-lg mb-1">Photographic Evidence</h4>

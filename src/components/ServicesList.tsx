@@ -116,10 +116,10 @@ export const ServicesList = () => {
               })}
             </div>
             
-            <div className="mt-12 p-8 bg-muted-grey border-l-4 border-l-secondary rounded-2xl">
+            <div className="mt-12 p-8 bg-muted-grey border-l-4 border-l-primary rounded-2xl">
                <h3 className="text-navy font-bold mb-2">Need a custom scope?</h3>
                <p className="text-sm text-dark-grey mb-6">We build tailored cleaning and maintenance packages for multi-site operators.</p>
-               <a href="#contact" className="text-secondary font-bold text-sm tracking-widest hover:text-navy transition-colors flex items-center gap-2">
+               <a href="#contact" className="text-primary font-bold text-sm tracking-widest hover:text-navy transition-colors flex items-center gap-2">
                  REQUEST A QUOTE <ArrowUpRight className="w-4 h-4" />
                </a>
             </div>

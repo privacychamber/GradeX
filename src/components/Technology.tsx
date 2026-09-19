@@ -53,13 +53,13 @@ export const Technology = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="group relative overflow-hidden rounded-3xl bg-muted-grey/80 backdrop-blur-md border border-navy/10 hover:border-secondary/50 transition-colors p-8 min-h-[400px] flex flex-col justify-between"
+            className="group relative overflow-hidden rounded-3xl bg-muted-grey/80 backdrop-blur-md border border-navy/10 hover:border-primary/50 transition-colors p-8 min-h-[400px] flex flex-col justify-between"
           >
-             <div className="absolute inset-0 bg-gradient-to-b from-secondary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+             <div className="absolute inset-0 bg-gradient-to-b from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
              
              <div className="relative z-10">
-                <div className="p-3 bg-secondary/20 rounded-xl w-max mb-6 border border-secondary/30 group-hover:shadow-[0_0_20px_rgba(59,130,246,0.4)] transition-shadow">
-                   <Search className="w-6 h-6 text-secondary" />
+                <div className="p-3 bg-primary/20 rounded-xl w-max mb-6 border border-primary/30 group-hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] transition-shadow">
+                   <Search className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="h2 mb-4 text-navy">Full Visibility</h3>
                 <p className="body text-dark-grey">
@@ -74,13 +74,13 @@ export const Technology = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="group relative overflow-hidden rounded-3xl bg-muted-grey/80 backdrop-blur-md border border-navy/10 hover:border-blue-400/50 transition-colors p-8 min-h-[400px] flex flex-col justify-between"
+            className="group relative overflow-hidden rounded-3xl bg-muted-grey/80 backdrop-blur-md border border-navy/10 hover:border-primary/50 transition-colors p-8 min-h-[400px] flex flex-col justify-between"
           >
-             <div className="absolute inset-0 bg-gradient-to-t from-blue-400/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+             <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
              
              <div className="relative z-10 mt-auto">
-                <div className="p-3 bg-blue-400/20 rounded-xl w-max mb-6 border border-blue-400/30 group-hover:shadow-[0_0_20px_rgba(96,165,250,0.4)] transition-shadow">
-                   <Droplets className="w-6 h-6 text-blue-500" />
+                <div className="p-3 bg-primary/20 rounded-xl w-max mb-6 border border-primary/30 group-hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] transition-shadow">
+                   <Droplets className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="h2 mb-4 text-navy">Targeted Eradication</h3>
                 <p className="body text-dark-grey">
