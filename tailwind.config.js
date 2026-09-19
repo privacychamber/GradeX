@@ -7,12 +7,21 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: '#020617', // Slate 950
-        surface: '#0f172a', // Slate 900
-        surfaceHover: '#1e293b', // Slate 800
-        primary: '#10b981', // Emerald 500 (Neon Green)
-        primaryGlow: '#34d399', // Emerald 400
-        secondary: '#059669', // Emerald 600
+        background: '#0B132B', // Deep Navy
+        surface: '#1C2541', // Lighter Navy
+        surfaceHover: '#2A3B5C',
+        primary: '#D4AF37', // Gold
+        primaryGlow: '#F59E0B', // Amber/Gold glow
+        secondary: '#3B82F6', // Cool Blue
+        
+        // Semantic explicit colors
+        navy: '#0B132B',
+        'navy-light': '#1C2541',
+        'warm-white': '#FDFCF8',
+        'muted-grey': '#F3F4F6',
+        'dark-grey': '#4B5563',
+        gold: '#D4AF37',
+        'cool-blue': '#3B82F6',
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
@@ -30,8 +39,8 @@ export default {
           '100%': { transform: 'translate(0px, 0px) scale(1)' },
         },
         glow: {
-          '0%': { opacity: 0.5, boxShadow: '0 0 20px rgba(16, 185, 129, 0.5)' },
-          '100%': { opacity: 1, boxShadow: '0 0 40px rgba(16, 185, 129, 0.8)' },
+          '0%': { opacity: 0.5, boxShadow: '0 0 20px rgba(212, 175, 55, 0.5)' },
+          '100%': { opacity: 1, boxShadow: '0 0 40px rgba(212, 175, 55, 0.8)' },
         }
       }
     },

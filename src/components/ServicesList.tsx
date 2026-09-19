@@ -56,8 +56,8 @@ export const ServicesList = () => {
   const currentCategory = CATEGORIES.find(c => c.id === activeCategory);
 
   return (
-    <section id="services" className="relative w-full bg-background py-32 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-surface/50 to-background" />
+    <section id="services" className="relative w-full bg-warm-white py-32 overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-b from-warm-white via-muted-grey/30 to-warm-white" />
       <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full mix-blend-screen filter blur-[150px] z-0 pointer-events-none" />
 
       <div className="container px-6 md:px-12 lg:px-24 relative z-10">
@@ -72,10 +72,10 @@ export const ServicesList = () => {
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/20 bg-primary/10 mb-6">
              <p className="tech-label !text-primary !mb-0 tracking-widest">COMPLETE SERVICES</p>
           </div>
-          <h2 className="display-sm leading-tight text-gradient">
+          <h2 className="display-sm leading-tight text-navy">
             BEYOND THE EXHAUST.
           </h2>
-          <p className="body text-gray-400 mt-6 max-w-xl text-lg mx-auto md:mx-0">
+          <p className="body text-dark-grey mt-6 max-w-xl text-lg mx-auto md:mx-0">
             Grade X applies the same rigorous, compliance-driven methodology to every aspect of your commercial environment. Explore our full suite of services.
           </p>
         </motion.div>
@@ -94,8 +94,8 @@ export const ServicesList = () => {
                     onClick={() => setActiveCategory(cat.id)}
                     className={`relative w-full text-left px-6 py-5 rounded-2xl transition-all duration-300 border flex justify-between items-center group overflow-hidden ${
                       isActive 
-                        ? 'bg-surface border-primary/30 shadow-[0_0_30px_rgba(16,185,129,0.15)]' 
-                        : 'bg-surface/30 border-white/5 hover:bg-surface/60 hover:border-white/10'
+                        ? 'bg-white border-primary/30 shadow-[0_0_30px_rgba(212,175,55,0.15)]' 
+                        : 'bg-muted-grey border-navy/5 hover:bg-white hover:border-navy/10'
                     }`}
                   >
                     {isActive && (
@@ -105,10 +105,10 @@ export const ServicesList = () => {
                         transition={{ type: "spring", stiffness: 300, damping: 30 }}
                       />
                     )}
-                    <span className={`relative z-10 text-sm md:text-base font-bold tracking-[0.1em] transition-colors ${isActive ? 'text-white' : 'text-gray-400 group-hover:text-gray-200'}`}>
+                    <span className={`relative z-10 text-sm md:text-base font-bold tracking-[0.1em] transition-colors ${isActive ? 'text-navy' : 'text-dark-grey group-hover:text-navy'}`}>
                       {cat.title}
                     </span>
-                    <div className={`relative z-10 w-8 h-8 rounded-full flex items-center justify-center transition-all ${isActive ? 'bg-primary text-white' : 'bg-white/5 text-transparent group-hover:bg-white/10 group-hover:text-gray-400'}`}>
+                    <div className={`relative z-10 w-8 h-8 rounded-full flex items-center justify-center transition-all ${isActive ? 'bg-primary text-warm-white' : 'bg-navy/5 text-transparent group-hover:bg-navy/10 group-hover:text-dark-grey'}`}>
                        <ArrowUpRight className="w-4 h-4" />
                     </div>
                   </button>
@@ -116,10 +116,10 @@ export const ServicesList = () => {
               })}
             </div>
             
-            <div className="mt-12 p-8 glass-panel border-l-4 border-l-secondary rounded-2xl">
-               <h3 className="text-white font-bold mb-2">Need a custom scope?</h3>
-               <p className="text-sm text-gray-400 mb-6">We build tailored cleaning and maintenance packages for multi-site operators.</p>
-               <a href="#contact" className="text-secondary font-bold text-sm tracking-widest hover:text-white transition-colors flex items-center gap-2">
+            <div className="mt-12 p-8 bg-muted-grey border-l-4 border-l-secondary rounded-2xl">
+               <h3 className="text-navy font-bold mb-2">Need a custom scope?</h3>
+               <p className="text-sm text-dark-grey mb-6">We build tailored cleaning and maintenance packages for multi-site operators.</p>
+               <a href="#contact" className="text-secondary font-bold text-sm tracking-widest hover:text-navy transition-colors flex items-center gap-2">
                  REQUEST A QUOTE <ArrowUpRight className="w-4 h-4" />
                </a>
             </div>
@@ -140,14 +140,14 @@ export const ServicesList = () => {
                   {currentCategory.services.map((service, idx) => (
                     <SpotlightCard
                       key={idx}
-                      className="p-8 flex flex-col justify-between group cursor-pointer border border-white/5 hover:border-primary/50 transition-colors shadow-lg hover:shadow-2xl hover:shadow-primary/20"
+                      className="p-8 flex flex-col justify-between group cursor-pointer border border-navy/5 bg-white hover:border-primary/50 transition-colors shadow-sm hover:shadow-2xl hover:shadow-primary/20"
                     >
                       <div className="relative z-10 transform-gpu" style={{ transform: "translateZ(30px)" }}>
-                        <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
-                          <CheckCircle2 className="w-5 h-5 text-gray-400 group-hover:text-primary transition-colors" />
+                        <div className="w-10 h-10 rounded-full bg-navy/5 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
+                          <CheckCircle2 className="w-5 h-5 text-dark-grey group-hover:text-primary transition-colors" />
                         </div>
-                        <h4 className="text-xl font-bold text-white mb-3 leading-tight">{service.title}</h4>
-                        <p className="text-gray-400 text-sm leading-relaxed">{service.desc}</p>
+                        <h4 className="text-xl font-bold text-navy mb-3 leading-tight">{service.title}</h4>
+                        <p className="text-dark-grey text-sm leading-relaxed">{service.desc}</p>
                       </div>
                       <div className="relative z-10 mt-8 flex justify-end transform-gpu" style={{ transform: "translateZ(20px)" }}>
                         <span className="text-xs font-mono tracking-widest text-transparent group-hover:text-primary transition-colors">

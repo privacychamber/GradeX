@@ -133,7 +133,7 @@ export const Hero = () => {
             alt="Grade X Robotic Cleaning Technology" 
             className="w-full max-w-[700px] h-auto object-contain relative z-10 scale-110 lg:scale-125 lg:translate-x-12 mix-blend-screen"
             style={{ 
-              filter: "drop-shadow(0 30px 60px rgba(16,185,129,0.2))",
+              filter: "drop-shadow(0 30px 60px rgba(59,130,246,0.25))",
               perspective: "1000px",
               transformStyle: "preserve-3d"
             }}

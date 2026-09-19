@@ -4,7 +4,7 @@ import { FileText, Camera, Video, Ruler } from 'lucide-react';
 
 export const DigitalEvidence = () => {
   return (
-    <section id="evidence" className="relative w-full py-32 bg-background overflow-hidden border-t border-white/10">
+    <section id="evidence" className="relative w-full py-32 bg-warm-white overflow-hidden border-t border-navy/10">
       
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-secondary/10 rounded-full mix-blend-screen filter blur-[120px] translate-x-1/2 -translate-y-1/2 z-0" />
 
@@ -24,41 +24,41 @@ export const DigitalEvidence = () => {
                <p className="tech-label !text-secondary !mb-0 tracking-widest">DIGITAL EVIDENCE & REPORTING</p>
             </div>
             
-            <h2 className="display-sm leading-tight text-white mb-6">
+            <h2 className="display-sm leading-tight text-navy mb-6">
               DON'T JUST CLEAN IT.<br/>
               <span className="text-secondary">PROVE IT.</span>
             </h2>
             
-            <p className="body text-gray-300 text-lg mb-8">
+            <p className="body text-dark-grey text-lg mb-8">
               True compliance requires verification. We provide objective, undeniable proof that your systems have been returned to a safe, bare-metal state, protecting you from liability and ensuring your insurance remains valid.
             </p>
 
             <ul className="flex flex-col gap-6">
               <li className="flex gap-4 items-start">
-                <div className="mt-1 w-10 h-10 rounded-lg bg-surface flex items-center justify-center shrink-0 border border-white/10">
+                <div className="mt-1 w-10 h-10 rounded-lg bg-muted-grey flex items-center justify-center shrink-0 border border-navy/10">
                   <Ruler className="w-5 h-5 text-secondary" />
                 </div>
                 <div>
-                  <h4 className="text-white font-bold text-lg mb-1">Digital Grease Thickness Gauge</h4>
-                  <p className="text-gray-400">Electronic Grasmeter probe provides instant, real-time micron readings before and after service. We don't guess; we measure.</p>
+                  <h4 className="text-navy font-bold text-lg mb-1">Digital Grease Thickness Gauge</h4>
+                  <p className="text-dark-grey">Electronic Grasmeter probe provides instant, real-time micron readings before and after service. We don't guess; we measure.</p>
                 </div>
               </li>
               <li className="flex gap-4 items-start">
-                <div className="mt-1 w-10 h-10 rounded-lg bg-surface flex items-center justify-center shrink-0 border border-white/10">
+                <div className="mt-1 w-10 h-10 rounded-lg bg-muted-grey flex items-center justify-center shrink-0 border border-navy/10">
                   <Video className="w-5 h-5 text-secondary" />
                 </div>
                 <div>
-                  <h4 className="text-white font-bold text-lg mb-1">Live Video Feeds</h4>
-                  <p className="text-gray-400">Our robotic platforms stream live video during the clean itself, ensuring no section of the duct is missed.</p>
+                  <h4 className="text-navy font-bold text-lg mb-1">Live Video Feeds</h4>
+                  <p className="text-dark-grey">Our robotic platforms stream live video during the clean itself, ensuring no section of the duct is missed.</p>
                 </div>
               </li>
               <li className="flex gap-4 items-start">
-                <div className="mt-1 w-10 h-10 rounded-lg bg-surface flex items-center justify-center shrink-0 border border-white/10">
+                <div className="mt-1 w-10 h-10 rounded-lg bg-muted-grey flex items-center justify-center shrink-0 border border-navy/10">
                   <Camera className="w-5 h-5 text-secondary" />
                 </div>
                 <div>
-                  <h4 className="text-white font-bold text-lg mb-1">Photographic Evidence</h4>
-                  <p className="text-gray-400">High-definition before and after photography supplied with every completed job.</p>
+                  <h4 className="text-navy font-bold text-lg mb-1">Photographic Evidence</h4>
+                  <p className="text-dark-grey">High-definition before and after photography supplied with every completed job.</p>
                 </div>
               </li>
             </ul>
