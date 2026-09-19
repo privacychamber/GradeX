@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Button } from './Button';
 
 const SERVICES = [
   'Kitchen Exhaust Cleaning',
@@ -225,10 +226,10 @@ export const Contact = () => {
 
               {/* Submit CTA */}
               <div className="mt-4">
-                <button 
+                <Button 
                   type="submit" 
                   disabled={status === 'loading'}
-                  className="gx-button w-full sm:w-auto px-8 py-4 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full sm:w-auto px-8 py-4 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {status === 'loading' ? (
                     <span className="flex items-center gap-2">
@@ -238,7 +239,7 @@ export const Contact = () => {
                   ) : (
                     <span>REQUEST A QUOTE</span>
                   )}
-                </button>
+                </Button>
                 
                 <div className="mt-6 lg:hidden text-center">
                   <p className="text-gray-400 text-sm mb-2">Emergency Service Required?</p>

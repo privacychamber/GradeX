@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Play, ShieldCheck, Zap, AlertTriangle } from 'lucide-react';
+import { Button } from './Button';
 import { MagneticWrapper } from './MagneticButton';
 import { AnimatedCounter } from './AnimatedCounter';
 import { FloatingParticles } from './FloatingParticles';
@@ -61,9 +62,9 @@ export const Hero = () => {
             className="flex flex-col sm:flex-row gap-4 items-center mb-12"
           >
             <MagneticWrapper>
-              <a href="#contact" className="gx-button px-8 py-4 w-full sm:w-auto flex justify-center text-sm font-bold tracking-widest text-background">
+              <Button as="a" href="#contact" className="w-full sm:w-auto">
                 Explore Solutions <ArrowRight className="w-4 h-4 ml-2" />
-              </a>
+              </Button>
             </MagneticWrapper>
             <MagneticWrapper>
               <a href="#technology" className="px-8 py-4 w-full sm:w-auto flex items-center justify-center gap-3 text-white hover:text-primary transition-colors font-bold text-sm tracking-widest group bg-white/5 rounded-full border border-white/10 hover:border-primary/50">
