@@ -33,34 +33,34 @@ function App() {
       {/* The rest are wrapped in Suspense boundaries */}
       <Suspense fallback={<SectionLoader />}>
         {/* The Problem / Why Grade X */}
-        <div id="home">
+        <div id="home" className="scroll-mt-24">
           <UnseenProblem />
         </div>
         
         {/* Core Differentiator */}
-        <div id="technology">
+        <div id="technology" className="scroll-mt-24">
           <Technology />
         </div>
         
         {/* Services & Process */}
-        <div id="services">
+        <div id="services" className="scroll-mt-24">
           <ServicesList />
           <Process />
         </div>
         
         {/* Proof & Reporting */}
-        <div id="evidence">
+        <div id="evidence" className="scroll-mt-24">
           <DigitalEvidence />
         </div>
         
         {/* Compliance & Trust */}
-        <div id="compliance">
+        <div id="compliance" className="scroll-mt-24">
           <Compliance />
           <SupportingContent />
         </div>
         
         {/* Contact & Map */}
-        <div id="contact">
+        <div id="contact" className="scroll-mt-24">
           <MapSection />
           <Contact />
         </div>
