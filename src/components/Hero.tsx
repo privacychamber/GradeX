@@ -42,7 +42,7 @@ export const Hero = () => {
             className="text-5xl md:text-6xl lg:text-7xl xl:text-[80px] font-black leading-[0.95] text-white tracking-tight mb-8"
           >
             Clean World.<br/>
-            <span className="text-gradient-primary">Better Future.</span>
+            <span className="text-cyber-gradient">Better Future.</span>
           </motion.h1>
           
           <motion.p 

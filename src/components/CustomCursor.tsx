@@ -45,20 +45,20 @@ export const CustomCursor = () => {
       x: mousePosition.x - 16,
       y: mousePosition.y - 16,
       scale: 1,
-      backgroundColor: 'rgba(59, 130, 246, 0.5)',
-      border: '1px solid rgba(255,255,255,0.5)',
+      backgroundColor: 'rgba(6, 182, 212, 0.4)', // Neon Cyan
+      border: '1px solid rgba(6, 182, 212, 0.8)',
     },
     hover: {
       x: mousePosition.x - 32,
       y: mousePosition.y - 32,
       scale: 2,
-      backgroundColor: 'rgba(255, 255, 255, 0.1)',
-      border: '1px solid rgba(255,255,255,0.8)',
+      backgroundColor: 'rgba(147, 51, 234, 0.2)', // Electric Purple
+      border: '1px solid rgba(236, 72, 153, 0.8)', // Vibrant Pink
       mixBlendMode: 'difference' as const,
     },
     click: {
       scale: 0.8,
-      backgroundColor: 'rgba(59, 130, 246, 1)',
+      backgroundColor: 'rgba(236, 72, 153, 1)', // Vibrant Pink
     }
   };
 

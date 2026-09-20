@@ -56,9 +56,10 @@ export const ServicesList = () => {
   const currentCategory = CATEGORIES.find(c => c.id === activeCategory);
 
   return (
-    <section id="services" className="relative w-full bg-warm-white py-32 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-warm-white via-muted-grey/30 to-warm-white" />
-      <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full mix-blend-screen filter blur-[150px] z-0 pointer-events-none" />
+    <section id="services" className="relative w-full bg-background py-32 overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-surface/30 to-background" />
+      <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-electric-purple/10 rounded-full mix-blend-screen filter blur-[150px] z-0 pointer-events-none animate-blob" />
+      <div className="absolute bottom-1/4 left-0 w-[400px] h-[400px] bg-neon-cyan/10 rounded-full mix-blend-screen filter blur-[120px] z-0 pointer-events-none animate-blob" style={{ animationDelay: '2s' }} />
 
       <div className="container px-6 md:px-12 lg:px-24 relative z-10">
         
@@ -69,13 +70,13 @@ export const ServicesList = () => {
           viewport={{ once: true }}
           className="mb-16 border-b border-white/10 pb-12 text-center md:text-left"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/20 bg-primary/10 mb-6">
-             <p className="tech-label !text-primary !mb-0 tracking-widest">COMPLETE SERVICES</p>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-neon-cyan/20 bg-neon-cyan/10 mb-6">
+             <p className="tech-label !text-neon-cyan !mb-0 tracking-widest">COMPLETE SERVICES</p>
           </div>
-          <h2 className="display-sm leading-tight text-navy">
-            BEYOND THE EXHAUST.
+          <h2 className="display-sm leading-tight text-white">
+            BEYOND THE <span className="text-cyber-gradient">EXHAUST.</span>
           </h2>
-          <p className="body text-dark-grey mt-6 max-w-xl text-lg mx-auto md:mx-0">
+          <p className="body text-gray-400 mt-6 max-w-xl text-lg mx-auto md:mx-0">
             Grade X applies the same rigorous, compliance-driven methodology to every aspect of your commercial environment. Explore our full suite of services.
           </p>
         </motion.div>
@@ -94,21 +95,21 @@ export const ServicesList = () => {
                     onClick={() => setActiveCategory(cat.id)}
                     className={`relative w-full text-left px-6 py-5 rounded-2xl transition-all duration-300 border flex justify-between items-center group overflow-hidden ${
                       isActive 
-                        ? 'bg-white border-primary/30 shadow-[0_0_30px_rgba(212,175,55,0.15)]' 
-                        : 'bg-muted-grey border-navy/5 hover:bg-white hover:border-navy/10'
+                        ? 'bg-surface border-neon-cyan/30 shadow-[0_0_30px_rgba(6,182,212,0.15)]' 
+                        : 'bg-surface/30 border-white/5 hover:bg-surface hover:border-white/10'
                     }`}
                   >
                     {isActive && (
                       <motion.div 
                         layoutId="activeTab" 
-                        className="absolute inset-0 bg-gradient-to-r from-primary/10 to-transparent" 
+                        className="absolute inset-0 bg-gradient-to-r from-neon-cyan/10 to-transparent" 
                         transition={{ type: "spring", stiffness: 300, damping: 30 }}
                       />
                     )}
-                    <span className={`relative z-10 text-sm md:text-base font-bold tracking-[0.1em] transition-colors ${isActive ? 'text-navy' : 'text-dark-grey group-hover:text-navy'}`}>
+                    <span className={`relative z-10 text-sm md:text-base font-bold tracking-[0.1em] transition-colors ${isActive ? 'text-white' : 'text-gray-500 group-hover:text-gray-300'}`}>
                       {cat.title}
                     </span>
-                    <div className={`relative z-10 w-8 h-8 rounded-full flex items-center justify-center transition-all ${isActive ? 'bg-primary text-warm-white' : 'bg-navy/5 text-transparent group-hover:bg-navy/10 group-hover:text-dark-grey'}`}>
+                    <div className={`relative z-10 w-8 h-8 rounded-full flex items-center justify-center transition-all ${isActive ? 'bg-neon-cyan text-white' : 'bg-white/5 text-transparent group-hover:bg-white/10 group-hover:text-gray-400'}`}>
                        <ArrowUpRight className="w-4 h-4" />
                     </div>
                   </button>
@@ -116,10 +117,10 @@ export const ServicesList = () => {
               })}
             </div>
             
-            <div className="mt-12 p-8 bg-muted-grey border-l-4 border-l-primary rounded-2xl">
-               <h3 className="text-navy font-bold mb-2">Need a custom scope?</h3>
-               <p className="text-sm text-dark-grey mb-6">We build tailored cleaning and maintenance packages for multi-site operators.</p>
-               <a href="#contact" className="text-primary font-bold text-sm tracking-widest hover:text-navy transition-colors flex items-center gap-2">
+            <div className="mt-12 p-8 bg-surface/30 backdrop-blur-md border border-white/5 border-l-4 border-l-neon-cyan rounded-2xl">
+               <h3 className="text-white font-bold mb-2">Need a custom scope?</h3>
+               <p className="text-sm text-gray-400 mb-6">We build tailored cleaning and maintenance packages for multi-site operators.</p>
+               <a href="#contact" className="text-neon-cyan font-bold text-sm tracking-widest hover:text-white transition-colors flex items-center gap-2">
                  REQUEST A QUOTE <ArrowUpRight className="w-4 h-4" />
                </a>
             </div>
@@ -138,23 +139,29 @@ export const ServicesList = () => {
                   className="grid grid-cols-1 md:grid-cols-2 gap-4 h-full"
                 >
                   {currentCategory.services.map((service, idx) => (
-                    <div key={idx} className="interactive-card flex-1">
-                      <div className="interactive-card-inner flex flex-col h-full">
-                        <div className="interactive-card-content flex flex-col h-full">
-                          <div className="interactive-card-title text-xl font-bold text-warm-white mb-3 leading-tight">
+                    <motion.div 
+                      key={idx} 
+                      className="interactive-card flex-1"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: idx * 0.1, duration: 0.4 }}
+                    >
+                      <div className="interactive-card-inner flex flex-col h-full bg-surface border-white/5 hover:bg-surfaceHover">
+                        <div className="interactive-card-content flex flex-col h-full bg-background/90 backdrop-blur-xl border border-white/5 hover:border-neon-cyan/50">
+                          <div className="interactive-card-title text-xl font-bold text-white mb-3 leading-tight">
                             {service.title}
                           </div>
-                          <div className="interactive-card-desc text-gray-300 text-sm leading-relaxed mb-6">
+                          <div className="interactive-card-desc text-gray-400 text-sm leading-relaxed mb-6">
                             {service.desc}
                           </div>
                           <div className="mt-auto flex justify-end">
-                            <span className="interactive-card-btn text-xs font-mono tracking-widest text-primary bg-primary/10 px-3 py-1 rounded-full border border-primary/30">
+                            <span className="interactive-card-btn text-xs font-mono tracking-widest text-neon-cyan bg-neon-cyan/10 px-3 py-1 rounded-full border border-neon-cyan/30">
                               EXPLORE →
                             </span>
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </motion.div>
                   ))}
                 </motion.div>
               )}
